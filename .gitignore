@@ -1,0 +1,7 @@
+.idea
+.DS_Store
+*.swp
+.tags
+.tags_sorted_by_file
+.gitmodules
+sftp-config.json

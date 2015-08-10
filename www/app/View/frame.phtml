@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"><!-- 防止百度移动搜索转码 -->
+    <meta name="renderer" content="webkit"><!-- 让部分国产浏览器默认采用高速模式渲染页面 -->
+    <title><?php echo isset($aMeta['title']) ? $aMeta['title'] : '' ?></title>
+    <meta name="keywords" content="<?php echo isset($aMeta['keywords']) ? $aMeta['keywords'] : '' ?>">
+    <meta name="description" content="<?php echo isset($aMeta['description']) ? $aMeta['description'] : '' ?>">
+
+    <link rel="shortcut icon" href="http://www.iliangcang.com/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $sStaticRoot;?>/www/css/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo $sStaticRoot;?>/www/css/liangcang.css" />
+    <script type="text/javascript" language="JavaScript" src="<?php echo $sStaticRoot;?>/www/js/html5.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo $sStaticRoot;?>/www/js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo $sStaticRoot;?>/www/js/jquery.countdown.min.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo $sStaticRoot;?>/www/js/utils.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo $sStaticRoot;?>/www/js/smzy_jwplayer/jwplayer.js"></script>
+    <script type="text/javascript" language="JavaScript">
+        var base_script = "i";
+        var static_host = "<?php echo $sStaticRoot;?>/www";
+        var image_host = "http://imgs-qn.iliangcang.com";
+        var is_login = '0';
+        var login_name = '';
+        var nick_name = '';
+        var MQ_Params = null;
+    </script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo $sStaticRoot;?>/www/js/main.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo $sStaticRoot;?>/www/js/car.js"></script>
+    <script type="text/javascript" language="JavaScript" src="<?php echo $sStaticRoot;?>/www/js/user.js"></script>
+    <script type="text/javascript">jwplayer.key="AYs8IB3q38yMYk2PAT4xVh2UHJ2IJtzTWrAGFA==";</script>
+
+</head>
+<body>
+<div id="header">
+    <div class="header-top">
+        <div class="wrap clearfix">
+            <div class="logo fl"><a href="/i/home/"></a></div>
+            <ul class="nav fr" id="nav">
+                <li class="login-reg-btn"><a class="loginBtn shade"  href="/i/login/">登录</a><a class="registerBtn shade" href="/i/ureg">注册</a></li>
+
+                <li class="line"></li>
+                <li><a class="cart-wrapper" href="javascript:void(0)">购物车</a>
+                    <!--购物车下拉列表开始-->
+                    <div class="hide cart fdDiv">
+                        <div class="shop" id="nullCar"><a href="javascript:void(0)">你的购物车暂时没有商品...</a></div>
+                        <div class="cart_list hide" id="shoppingContainerCon">
+                        </div>
+                        <a class="add-shop" href="/i/shop/">快去抢购良仓商品吧！</a> </div>
+                    <!--购物车下拉列表结束-->
+                </li>
+                <li class="line"></li>
+                <li class="posr"><a href="/i/message/" target="_blank">消息</a>
+                    <!--信息下拉列表开始-->
+                    <div class="hide user-m msg fdDiv"> <a href="/i/usermain/feed/"><span>动态<small>0</small></span></a> <a href="/i/message/"><span>评论<small>0</small></span></a> <a href="/i/message/msg/"><span>私信<small>0</small></span></a> <a href="/i/usermain/fans/?id="><span>粉丝<small>0</small></span></a> <a href="/i/message/notice_favour/"><span>喜欢<small>0</small></span></a> <a class="last" href="/i/message/notice/"><span>通知<small>0</small></span></a> </div>
+                    <!--信息下拉列表结束-->
+                </li>
+                <li class="line"></li>
+                <li class="add"><a class="shade" href="/i/goodsadd/">添加良品</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--二级导航开始-->
+    <div class="subMenu clearfix">
+        <ul class="fl">
+            <li class="homepage"><a href="/i/home/" class="active">首页</a></li>
+            <li class="subLi" sub_id="2"><a href="/i/class/" >商店
+                    <div class="submHide share clearfix" id="shop">
+
+                    </div>
+                </a>
+            </li>
+            <li class="subLi" sub_id="1">
+                <a href="/i/topic/" >杂志
+                    <div class="submHide magazine" id="magazined">
+
+                    </div>
+                </a>
+            </li>
+            <li class="subLi" sub_id="2"><a href="/i/class/" >分享
+                    <div class="submHide share clearfix" id="shared">
+
+                    </div>
+                </a>
+            </li>
+            <li class="superman"><a href="/i/daren/" >达人</a></li>
+            <p class="clr"></p>
+        </ul>
+        <div class="search fr">
+            <div class="search-input-wrap"> <div class="search-input" style="left: 280px;">
+                    <input type="text" id="glb_keyword" placeholder="search..." onkeyup="enterSearchLister(event);"  >
+                </div> </div>
+            <s></s>
+            <a target="_self" href="javascript:void(0)" class="search-icon" style="opacity: 1;"></a> </div>
+
+    </div>
+    <div class="header-subnav">
+        <div id="header-subnav-wrapper">
+            <div class="hide" id="shopdatas">
+                <div class="storeLeft fl">
+                    <dl id="navOurCatP_5" navCat_id="5">
+                        <dt><a href="/i/shop/list/?cat_id=0005" class="ctxt">礼物</a></dt>
+                        <dd><a href="/i/shop/list/?cat_id=00050006">送他</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00050007">送她</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00050008">送儿童</a></dd>
+                    </dl>
+                    <dl id="navOurCatP_1" navCat_id="1">
+                        <dt><a href="/i/shop/list/?cat_id=0001" class="ctxt">服饰</a></dt>
+                        <dd><a href="/i/shop/list/?cat_id=00010009">男士</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00010010">女士</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00010027">儿童</a></dd>
+                    </dl>
+                    <dl id="navOurCatP_2" navCat_id="2">
+                        <dt><a href="/i/shop/list/?cat_id=0002" class="ctxt">家居</a></dt>
+                        <dd><a href="/i/shop/list/?cat_id=00020015">儿童用品</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00020012">家具</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00020013">家居配饰</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00020014">厨卫用品</a></dd>
+                    </dl>
+                    <dl id="navOurCatP_3" navCat_id="3">
+                        <dt><a href="/i/shop/list/?cat_id=0003" class="ctxt">艺术</a></dt>
+                        <dd><a href="/i/shop/list/?cat_id=00030016">绘画</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00030017">摄影</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00030018">雕塑</a></dd>
+                    </dl>
+                    <dl id="navOurCatP_4" navCat_id="4">
+                        <dt><a href="/i/shop/list/?cat_id=0004" class="ctxt">其它</a></dt>
+                        <dd><a href="/i/shop/list/?cat_id=00040019">工具</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00040020">玩具</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00040021">出版</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00040022">数码</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00040023">户外用品</a></dd>
+                        <dd><a href="/i/shop/list/?cat_id=00040024">美容护肤</a></dd>
+                    </dl>
+
+
+                    <p class="clr"></p>
+                    <div><a target="_self" href="/i/brand/">查看所有品牌</a><span>&gt;</span><a target="_self" href="/i/shop/list?orderby=add_time">最新到货</a><span>&gt;</span></div>
+                </div>
+                <div class="storeRight fr">
+                    <a href="http://www.iliangcang.com/i/goods/?id=247665" target="_blank">
+                        <dl>
+                            <dt> <img alt="新视线： 2015年7月刊" title="新视线： 2015年7月刊" src="http://image.iliangcang.com/ware/upload/orig/2/315/315574.jpg"></dt>
+                            <dd>新视线：&nbsp; 2015年7月刊</dd>
+                        </dl>
+                    </a>
+                </div>
+                <div class="clr"></div>
+            </div>
+            <div class="hide" id="topicdata">
+                <a href="/i/topic/?cat_id=12" >专题</a>
+                <a href="/i/topic/?cat_id=7" >专访</a>
+                <a href="/i/topic/?cat_id=16" >设计</a>
+                <a href="/i/topic/?cat_id=19" >建筑</a>
+                <a href="/i/topic/?cat_id=9" >生活</a>
+                <a href="/i/topic/?cat_id=15" >时装</a>
+                <a href="/i/topic/?cat_id=11" >文化</a>
+                <a href="/i/topic/?cat_id=18" >科技</a>
+            </div>
+            <div class="hide" id="sharedata">
+                <label><a href="/i/class/?id=1">男士</a></label>	     		     		<label><a href="/i/class/?id=20">家居</a></label>	     		     		<label><a href="/i/class/?id=3">数码</a></label>	     		     		<label><a href="/i/class/?id=4">工具</a></label>	     		     		<label><a href="/i/class/?id=5">玩具</a></label>	     		     		<label><a href="/i/class/?id=7">美容</a></label>	     		     		<label><a href="/i/class/?id=10">孩子</a></label>	     		     		<label><a href="/i/class/?id=9">宠物</a></label>	     		     		<label><a href="/i/class/?id=13">饮食</a></label>	     		     		<label><a href="/i/class/?id=8">运动</a></label>	     		     		<label><a href="/i/class/?id=15">文化</a></label>	     		     		<label><a href="/i/class/?id=2">女士</a></label>	     	        </div>
+
+            <p class="lineb"></p>
+        </div>
+    </div>
+    <!--二级导航结束-->
+</div>
+
+<script>
+    //分类数据
+    function navOurCatList(pid){
+        var htmlData = '';
+        jQuery.getJSON("/"+base_script+"/shop/?act=catList&parent_id="+pid,function(data){
+            if(data.length>0){
+                for(n in data){
+                    htmlData+= '<dd><a href="/'+base_script+'/shop/list/?cat_id='+data[n].cat_code+'">'+data[n].cat_name+'</a></dd>';
+                }
+                jQuery('#navOurCatP_'+pid).append(htmlData);
+            }
+        });
+    }
+    jQuery(document).ready(function(){
+        jQuery("#storedats").html(jQuery("#shopdatas").html());
+        jQuery("#magazined").html(jQuery("#topicdata").html());
+        jQuery("#shared").html(jQuery("#sharedata").html());
+
+    });
+
+</script>
+<?php include $_script; ?>
+<script type="text/javascript" src="<?php echo $sStaticRoot;?>/js/common.js"></script>
+<script type="text/javascript"><?php echo @$__showDebugInfo__ ?></script>
+<script type="text/javascript" src="<?php echo $sStaticRoot;?>/www/js/theslidershow.js"></script>
+<script type="text/javascript" src="<?php echo $sStaticRoot;?>/www/js/jquery-jcarousel.js"></script>
+
+
+
+<div class='divLayer' style='width:100%;height:100%;display:none;'></div>
+<div class='contractOuter' id='sixinMsgNote' style='display:none;width:700px;font-size:14px;'>
+    <div class='closeBtn' id='closeBtn' onclick="jQuery('#sixinMsgNote').hide();jQuery('.divLayer').hide();"></div>
+    <p class='contractheader' style="display:none">温馨提示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <div class='contractCon' id='contractCon' style="line-height:30px;height:100px;">
+        <div style="text-align:center;margin-bottom:15px;">
+            感谢私信良仓！<br>
+        </div>
+        为了更好地为用户服务，私信客服系统全面升级中，请联系客服邮箱：customerservice@iliangcang.com
+    </div>
+</div>
+<div id="service">
+    <a href="/i/shop/"><p class="hand"></p></a>
+    <div class="slogen">
+        <dl class="fore1">
+            <dt></dt>
+            <dd>
+                <p class="chinesetop">全球精品</p>
+                <p class="english">Global Selections</p>
+            </dd>
+            <p class="clr"></p>
+        </dl>
+        <dl class="fore2">
+            <dt></dt>
+            <dd>
+                <p class="chinesetop">正品保证</p>
+                <p class="english">Authenticity Guaranteed</p>
+            </dd>
+            <p class="clr"></p>
+        </dl>
+        <dl class="fore3">
+            <dt></dt>
+            <dd>
+                <p class="chinesetop">全场包邮</p>
+                <p class="english">Free Delivery</p>
+            </dd>
+            <p class="clr"></p>
+        </dl>
+        <dl class="fore4">
+            <dt></dt>
+            <dd>
+                <p class="chinesetop phonehm"></p>
+                <p class="english">工作日 09:00-18:00</p>
+            </dd>
+            <p class="clr"></p>
+        </dl>
+        <p class="clr"></p>
+    </div>
+</div>
+
+<div id="footer" >
+    <div class="wrap">
+        <div class="footLeft fl">
+            <a style="display:block;height:44px;width:196px;" href="/i/our/appdown" target="_blank"><div class="download">
+                    <p class="iPhone"><span class="numLeFont">iPhone Android</span></p>
+                    <p class="client-down">客户端下载</p>
+                    <div class="download-code">
+                        <dl class="iPhone">
+                            <dt></dt>
+                            <dd>下载iPhone版</dd>
+                        </dl>
+                        <dl class="android">
+                            <dt></dt>
+                            <dd>下载Android版</dd>
+                        </dl>
+                        <p class="clr"></p>
+                    </div>
+                </div></a>
+            <div class="friendly">
+                <p class="toplink"> <a href="/i/our/" target="_blank" class="first">关于良仓</a><a href="/i/our/service/" target="_blank" rel="nofollow">服务协议</a><a href="/i/our/law/" target="_blank" rel="nofollow">隐私保护政策</a><a href="/i/our/help/" target="_blank" rel="nofollow">使用指南</a><a href="/i/our/contact/" target="_blank" rel="nofollow">联系我们</a><a href="http://www.lagou.com/gongsi/2236.html" target="_blank" rel="nofollow">加入我们</a><a href="/i/our/flinks/" target="_blank" rel="nofollow">友情链接</a><a href='javascript:;' onclick="showSendMsgWin('良仓',1640);" class='contactUs' class="last">私信良仓</a></p>
+                <p><span class="numLeFont">&copy;</span>&nbsp;2013-2015 北京良仓文化传播有限公司版权所有&nbsp;京<span class="numLeFont">ICP</span>备<span class="numLeFont">13010677</span>号<span class="numLeFont">-1</span>&nbsp;京公网安备<span class="numLeFont">11010502025627</span></p>
+            </div>
+        </div>
+        <div class="footRight text-r fr">
+            <p class="clr"></p>
+            <div class="commun"><ul><li><a class="douban" href="http://site.douban.com/208766/" target="_blank"></a></li><li><a class="sina" href="http://weibo.com/iliangcang" target="_blank"></a></li><li><a class="wechat weixin" href="javascript:void(0)">
+                            <div class="wechat-code"><s></s></div>
+                        </a></li><p class="clr"></p></ul></div>
+        </div>
+        <p class="clr"></p>
+    </div>
+</div>
+<script type="text/javascript">
+    var isShowShare = isExitsFunction("topicSend");
+    (function() {
+        var bRight = '60',
+            $backToTopTxt = "",
+            topHtmlData = '<div class="backToTopL1" style="bottom:168px;"><a  onclick="showSendMsgWin(\'良仓\',1640);" class="top"></a><span></span></div><div class="backToTopV2"><div class="item shares"><div class="shareCon"><a href="javascript:;" type="tqq" class="icon tqq"></a><a href="javascript:;" class="icon qq" type="qq"></a><a href="javascript:;" class="icon sina" type="sina"></a><a href="javascript:;" class="icon douban" type="douban"></a></div><div class="arrow"></div> <div class="blok"></div></div><a href="#" class="top"></a></div>';
+
+        if(isShowShare==false){
+            topHtmlData = '<div class="backToTopL1"><a  onclick="showSendMsgWin(\'良仓\',1640);" class="top"></a><span></span></div><div class="backToTopV2"><a href="#" class="top"></a></div>';
+        }
+
+        $backToTopEle = jQuery(topHtmlData).appendTo(jQuery("body"));
+
+        $backToTopEle.find('.top').attr("title", $backToTopTxt).click(function() {
+            jQuery("html, body").animate({ scrollTop: 0 }, 240);
+        });
+
+        //按钮渐变效果
+        $backToTopEle.find('.top,.shares .blok').bind({
+            mouseover:function(){jQuery(this).animate({ opacity: 0.2,filter:'alpha(opacity=20)' }, 200);}
+            ,mouseout:function(){jQuery(this).animate({ opacity: 1,filter:'alpha(opacity=100)'}, 200); }
+        });
+
+        jQuery(".backToTopL1").bind({
+            mouseover:function(){jQuery('.backToTopL1 a').animate({ opacity: 0.2,filter:'alpha(opacity=20)' }, 200);jQuery('.backToTopL1 span').animate({ opacity: 1,filter:'alpha(opacity=100)'}, 200)}
+            ,mouseout:function(){jQuery('.backToTopL1 a').animate({ opacity: 1,filter:'alpha(opacity=100)'}, 200);jQuery('.backToTopL1 span').animate({ opacity: 0,filter:'alpha(opacity=100)'}, 200)}
+        });
+
+        if(isShowShare){
+            $backToTopEle.find('.shares').bind({
+                mouseover:function(){jQuery(this).find('.shareCon,.arrow').show(); }
+                ,mouseout:function(){jQuery(this).find('.shareCon,.arrow').hide(); }
+            }).find('.icon').unbind().bind('click',topicSend);
+        }
+
+        var $backToTopFun = function() {
+            var st = jQuery(document).scrollTop(), winh = jQuery(window).height();
+            var $backToTopV2  = jQuery('.backToTopV2');
+            if(st > 150){
+                $backToTopV2.fadeIn(1000);
+            }else{
+                $backToTopV2.fadeOut(300);
+            }
+            //IE6下的定位
+            if (!window.XMLHttpRequest) {
+                $backToTopEle.css("top", st + winh - 166);
+            }
+        };
+
+
+
+        jQuery(window).bind("scroll", $backToTopFun);
+        jQuery(window).bind("resize", $backToTopFun);
+        jQuery(function() { $backToTopFun(); });
+
+        //举报信息
+        jQuery(".reportTxt").css("right",parseInt(bRight-3)+"px");
+
+        // 登陆界面右下角图标固定
+        jQuery('.bgInfo').css('right','30px');
+    })();
+
+
+    function isExitsFunction(funcName) {
+        try {
+            if (typeof(eval(funcName)) == "function") {
+                return true;
+            }
+        } catch(e) {}
+        return false;
+    }
+
+</script>
+
+</body>
+</html>

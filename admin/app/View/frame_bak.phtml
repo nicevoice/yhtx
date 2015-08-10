@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-cn"><head>
+        <meta charset="utf-8">
+        <title><?php echo isset($aMeta['title']) ? $aMeta['title'] : '' ?></title>
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+        <meta name="keywords" content="<?php echo isset($aMeta['keywords']) ? $aMeta['keywords'] : '' ?>">
+        <meta name="description" content="<?php echo isset($aMeta['description']) ? $aMeta['description'] : '' ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo $sStaticRoot ?>/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="<?php echo $sStaticRoot ?>/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo $sStaticRoot ?>/css/common.css">
+        <script type="text/javascript" src="<?php echo $sStaticRoot ?>/js/jquery-1.11.1.min.js"></script>
+        <!--[if lt IE 9]>
+                <script src="<?php echo $sStaticRoot ?>/js/html5shiv.js"></script>
+        <![endif]-->
+        <script type="text/javascript">
+            var global = {
+                static_url: '<?php echo $sStaticRoot ?>',
+                domain: '<?php echo str_replace(ENV_CLOUDNAME . '.' . ENV_SCENE . '.', '', ENV_DOMAIN) ?>'
+            };
+            document.domain = global.domain;
+        </script>
+    </head>
+    <body>
+        <?php if (!empty($aCurrUser)) { ?>
+            <div class="navbar" role="navigation">
+                <div class="navbar-header">
+                    <a href="/"><span class="navbar-brand"><img style="height:20px;margin-top:5px;" src="<?php echo $sStaticRoot ?>/img/logo.png"></span></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <!-- 
+                        <ul class="nav navbar-nav">
+                                <li role="presentation" class="active"><a href="#">Home</a></li>
+                                <li role="presentation"><a href="#">Profile</a></li>
+                                <li role="presentation"><a href="#">Messages</a></li>
+                        </ul>
+                    -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown hidden-xs">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-sitemap"></i> <?php echo $__aCityList__[$iCurrCityID] ?>
+                                <i class="icon-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu city-menu">
+                                <?php foreach ($__aCurrUserCityList__ as $k => $v) {
+ ?>
+                                        <li><a href="/city/change/id/<?php echo $k ?>"><?php echo $v ?></a></li>
+        <?php
+    } ?>
+                            </ul>
+                        </li>
+                        <!-- 
+                        <li class="dropdown hidden-xs">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-th-large"></i> <?php echo $aCurrProject['name'] ?>
+                                        <i class="icon-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu project-menu">
+                        <?php foreach ($__aProjectList__ as $k => $v) {
+                            if ($k != $aCurrProject['id']) { ?>
+                                                <li><a href="<?php echo $v['sUrl'] ?>"><?php echo $v['sProjectName'] ?></a></li>
+        <?php }
+    } ?>
+                                </ul>
+                        </li>
+                        -->
+                        <li class="dropdown hidden-xs">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="icon-user"></span> <?php echo $aCurrUser['sRealName'] ?>
+                                <i class="icon-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu user-menu">
+                                <li><a href="/user/chgpwd">修改密码</a></li>
+                                <li><a href="/logout">登出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar-nav">
+                <ul>
+                    <?php foreach ($__aMenuTree__ as $v) { ?>
+                        <li><a href="javascript:void(0)" data-target="#navmenu<?php echo $v['iMenuID'] ?>" class="nav-header <?php echo $v['iCurr'] ? '' : 'collapsed' ?>" data-toggle="collapse" >
+                                <i class="<?php echo $v['sIcon'] ?>"></i> <?php echo $v['sMenuName'] ?><i class="icon-collapse"></i></a>
+                        </li>
+                                <?php if (!empty($v['aChild'])) { ?>
+                            <li>
+                                <ul id="navmenu<?php echo $v['iMenuID'] ?>" class="nav nav-list collapse <?php echo $v['iCurr'] ? 'in' : '' ?>">
+                            <?php foreach ($v['aChild'] as $c) { ?>
+                                    
+                                    <?php if (!empty($c['aChild'])) { ?>
+                                            <li>
+                                               <a href="javascript:void(0)" data-target="#navmenu_child<?php echo $c['iMenuID'] ?>" class="nav-header nav_child <?php echo $c['iCurr'] ? '' : 'collapsed' ?>" data-toggle="collapse" >
+                                                <i class="<?php echo $c['sIcon'] ?>"></i> <?php echo $c['sMenuName'] ?><i class="icon-collapse"></i></a>
+                                            </li> 
+                                            <li>
+                                                <ul id="navmenu_child<?php echo $c['iMenuID'] ?>" class="nav nav-list nav-list_child collapse <?php echo $c['iCurr'] ? 'in' : '' ?>" >
+                                                    <?php foreach ($c['aChild'] as $leaf) { ?>
+                                                     <li <?php echo $leaf['iCurr'] ? 'class="active"' : '' ?>><a class="leafchild" href="<?php echo $leaf['sUrl'] ?>"><span class="icon-caret-right"></span>  <?php echo $leaf['sMenuName'] ?></a></li>
+                                                    <?php } ?>
+                                                </ul>
+                                            </li>
+
+                                     <?php }else{ ?>
+                                    
+                                        <li <?php echo $c['iCurr'] ? 'class="active"' : '' ?>><a href="<?php echo $c['sUrl'] ?>"><span class="icon-caret-right"></span> <?php echo $c['sMenuName'] ?></a></li>
+                                       <?php } ?>
+                              <?php } ?>
+                                </ul>
+                            </li>
+                <?php }
+            } ?> 
+                            
+                </ul>
+            </div>
+            <div class="content" style="padding:0px"><?php include $_script; ?></div>
+<?php } else { ?>
+    <?php include $_script; ?>
+<?php } ?>
+        <div class="actGotop" id="backtop" style="display: block;">
+            <a href="javascript:;" title="返回顶部"></a>
+        </div>
+        <script type="text/javascript" src="<?php echo $sStaticRoot ?>/js/alert.js"></script>
+        <script type="text/javascript" src="<?php echo $sStaticRoot ?>/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<?php echo $sStaticRoot ?>/js/validate.js"></script>
+        <script type="text/javascript" src="<?php echo $sStaticRoot ?>/js/phpjs.min.js"></script>
+        <script type="text/javascript" src="<?php echo $sStaticRoot ?>/js/common.js"></script>
+        <script type="text/javascript"><?php echo @$__showDebugInfo__ ?></script>
+    </body>
+</html>

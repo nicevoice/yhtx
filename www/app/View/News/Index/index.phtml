@@ -1,0 +1,366 @@
+<style>
+    .sousuo_now {
+        margin: 10px 0px 10px 0px;
+    }
+
+    .list-caozuo {
+        margin-bottom: 10px;
+    }
+</style>
+<div class="pheader clearfix">资讯列表</div>
+<div class="pbody clearfix">
+    <form class="form-inline search-form" role="form" method="post" id="myform" action="<?= $sListUrl ?>">
+        <div class="row sousuo_now">
+            <div class="form-group .col-xs-2">
+                分类：
+                <select class="form-control input-sm" name="iCategoryID">
+                    <option value="0">请选择</option>
+                    <?php foreach ($aCategory as $k => $v) { ?>
+                        <option
+                            value="<?php echo $k ?>" <?php echo isset($aParam['iCategoryID']) && $k == $aParam['iCategoryID'] ? 'selected' : '' ?>><?php echo $v ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="form-group .col-xs-2">
+                发布开始时间：
+                <input name="iSTime" autocomplete="off" class="laydatetime form-control" validate="" type="text"
+                       value="<?php echo (isset($aParam['iSTime']) && $aParam['iSTime']) ? date('Y-m-d H:i:s',
+                           $aParam['iSTime']) : '' ?>" class="form-control">
+            </div>
+            <div class="form-group .col-xs-2">
+                发布结束时间：
+                <input name="iETime"  autocomplete="off" class="laydatetime form-control" validate="" type="text"
+                       value="<?php echo (isset($aParam['iETime']) && $aParam['iETime']) ? date('Y-m-d H:i:s',
+                           $aParam['iETime']) : '' ?>" class="form-control">
+            </div>
+            <div class="form-group .col-xs-2">
+                状态：
+                <select class="form-control input-sm" name="iPublishStatus">
+                    <option value="-1">请选择</option>
+                    <option
+                        value="1" <?php echo isset($aParam['iPublishStatus']) && 1 == $aParam['iPublishStatus'] ? 'selected' : '' ?>>
+                        已发布
+                    </option>
+                    <option
+                        value="0" <?php echo isset($aParam['iPublishStatus']) && 0 == $aParam['iPublishStatus'] ? 'selected' : '' ?>>
+                        未发布
+                    </option>
+                </select>
+            </div>
+            <div class="form-group .col-xs-2">
+                标题：
+                <input type="text" value="<?php echo isset($aParam['sTitle']) ? $aParam['sTitle'] : '' ?>"
+                       class="form-control input-sm" name="sTitle">
+            </div>
+        </div>
+        <div class="row sousuo_now">
+            <div class="form-group .col-xs-2">
+                <input type="hidden" id="iAuthorID" name="iAuthorID"
+                       value="<?php echo isset($aParam['iAuthorID']) ? $aParam['iAuthorID'] : '' ?>">
+                作者：
+                <input id="sAuthor" type="text"
+                       value="<?php echo isset($aParam['sAuthor']) ? $aParam['sAuthor'] : '' ?>"
+                       class="form-control input-sm" autocomplete="off" name="sAuthor">
+            </div>
+            <div class="form-group .col-xs-2">
+                <input type="hidden" id="iLoupanID" name="iLoupanID"
+                       value="<?php echo isset($aParam['iLoupanID']) ? $aParam['iLoupanID'] : '' ?>">
+                楼盘：
+                <input type="text" autocomplete="off"
+                       value="<?php echo isset($aParam['sLoupanName']) ? $aParam['sLoupanName'] : '' ?>"
+                       class="form-control input-sm" name="sLoupanName" id="sLoupanName">
+            </div>
+            <div class="form-group .col-xs-2">
+                <input type="hidden" id="iTagID" name="iTagID"
+                       value="<?php echo isset($aParam['iTagID']) ? $aParam['iTagID'] : '' ?>">
+                标签：
+                <input type="text" value="<?php echo isset($aParam['sTagName']) ? $aParam['sTagName'] : '' ?>"
+                       class="form-control input-sm" autocomplete="off" name="sTagName" id="sTagName">
+            </div>
+            <div class="form-group .col-xs-2">
+                ID：
+                <input type="text" value="<?php echo isset($aParam['iNewsID']) ? $aParam['iNewsID'] : '' ?>"
+                       class="form-control input-sm" autocomplete="off" name="iNewsID" id="iNewsID">
+            </div>
+            <div class="form-group .col-xs-2">
+                <input type="hidden" id="fOrder" name="sOrder"
+                       value="<?php echo isset($aParam['sOrder']) ? $aParam['sOrder'] : '' ?>">
+                <input type="submit" id="formbtn" class="btn btn-default btn-sm" value="搜索">
+            </div>
+        </div>
+    </form>
+    <hr>
+    <div class="btn-toolbar list-toolbar list-caozuo">
+        <button class="btn btn-primary" id="news_add">
+            <i class="icon-plus"></i> 增加资讯
+        </button>
+        <button class="btn btn-primary" id="news_batch_publish">
+            <i class="icon-play"></i> 批量发布
+        </button>
+        <button class="btn btn-primary" id="news_batch_off">
+            <i class="icon-stop"></i> 批量下架
+        </button>
+        <button class="btn btn-primary" id="news_batch_delete">
+            <i class="icon-remove"></i> 批量删除
+        </button>
+        <div style="float:right">
+            <label> 排序方式：</label>
+            <select class="input-sm" id="sOrder">
+                <option value="iPublishTime DESC">按发布时间倒序</option>
+                <option
+                    value="iPublishTime ASC" <?php echo isset($aParam['sOrder']) && 'iPublishTime ASC' == $aParam['sOrder'] ? 'selected' : '' ?>>
+                    按发布时间正序
+                </option>
+                <option
+                    value="iUpdateTime ASC" <?php echo isset($aParam['sOrder']) && 'iUpdateTime ASC' == $aParam['sOrder'] ? 'selected' : '' ?>>
+                    按编辑时间正序
+                </option>
+                <option
+                    value="iUpdateTime DESC" <?php echo isset($aParam['sOrder']) && 'iUpdateTime DESC' == $aParam['sOrder'] ? 'selected' : '' ?>>
+                    按编辑时间倒序
+                </option>
+            </select>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="text-center">
+                <input type="checkbox" id="news_all_check" name="news_all_check" value="">
+            </th>
+            <th class="col-sm-1 text-center">ID</th>
+            <th>标题</th>
+            <th class="text-center">分类</th>
+            <th class="text-center">作者</th>
+            <th class="text-center">发布状态</th>
+            <th class="text-center">发布时间</th>
+            <th class="text-center">最后编辑时间</th>
+            <th class="text-center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($aList['aList'] as $v) { ?>
+            <tr id="tr_<?php echo $v['iNewsID'] ?>">
+                <td class="text-center">
+                    <input type="checkbox" name="news_check_id" id="news_check_id_<?php echo $v['iNewsID'] ?>"
+                           value="<?php echo $v['iNewsID'] ?>">
+                </td>
+                <td class="col-sm-1 text-center"><?php echo $v['iNewsID'] ?></td>
+                <?php
+                if (isset($aCityCode[$v['iCityID']])) {
+                    $sNewCityCode = $aCityCode[$v['iCityID']];
+                } else {
+                    $sNewCityCode = $aCurrCity['sFullPinyin'];
+                }
+                ?>
+                <td><?php if ($v['iPublishStatus']) {?><a target="_blank" href="<?php echo 'http://'.Yaf_G::getConf('news', 'domain').'/'.$sNewCityCode.'/news/detail/'.$v['iNewsID']; ?>"><?php echo $v['sTitle'] ?></a><?php } else { echo $v['sTitle'] ; }?>
+                </td>
+                <td class="text-center"><?php echo @$aCategory[$v['iCategoryID']] ?></td>
+                <td class="text-center"><?php echo $v['sAuthor'] ?></td>
+                <td class="text-center"
+                    id="status_<?php echo $v['iNewsID'] ?>"><?php echo $v['iPublishStatus'] ? '已发布' : '未发布' ?></td>
+                <td class="text-center"><?php echo date('Y-m-d H:i', $v['iPublishTime']) ?></td>
+                <td class="text-center"><?php echo date('Y-m-d H:i', $v['iUpdateTime']) ?></td>
+                <td class="text-center">
+                    <a class="news_publish news_check_id_<?php echo $v['iNewsID'] ?>"
+                       href="<?php echo $v['iPublishStatus'] ? $sOffUrl : $sPublishUrl ?>?id=<?php echo $v['iNewsID'] ?>"
+                       data-type="<?php echo $v['iPublishStatus'] ?>"
+                       title="<?php echo $v['iPublishStatus'] ? '下架' : '上架' ?>">
+                        <img class="cric-icon"
+                             src="<?php echo $sStaticRoot . '/img/icon/' . ($v['iPublishStatus'] ? 'iconfont-zanting.png' : 'iconfont-tuiguangzhong.png') ?>">
+                    </a>
+                    <a href="<?= $sEditUrl ?>?id=<?php echo $v['iNewsID'] ?>" title="编辑"><i
+                            class="icon-pencil icon-large"></i></a>
+                    <a class="news_delete" href="<?= $sDelUrl ?>?id=<?php echo $v['iNewsID'] ?>" role="button"
+                       data-toggle="modal" title="删除"><i class="icon-trash icon-large"></i></a>
+                    <a class="cp-btn" data-url="<?php echo $v['iPublishStatus'] ? 'http://'.Yaf_G::getConf('news', 'domain').Util_Page::getUrl('/{city}/news/detail/{iNewsID}', ['city' => $aCurrentCity['sFullPinyin'], 'iNewsID' => $v['iNewsID']]) : '';?>" href="javascript:void(0)"
+                       title="复制地址"><i
+                            class="icon-copy icon-large"></i></a>
+                </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <?php echo $aList['aPager'] ?>
+</div>
+<script type="text/javascript" charset="utf-8" src="<?php echo $sStaticRoot ?>/laydate/laydate.js"></script>
+<script>
+    var sCityCode = "";
+    $('#formbtn').click(function () {
+        $('#fOrder').val($('#sOrder').val());
+    });
+    $('#sOrder').change(function () {
+        $('#fOrder').val($('#sOrder').val());
+        $('#myform').submit();
+    });
+
+    $('.news_delete').click(function () {
+        if (confirm("您确认要删除该资讯吗？")) {
+            $.get(this.href, function (ret) {
+                alert(ret.data);
+                if (ret.status) {
+                    location.reload();
+                }
+            }, 'json');
+        }
+        return false;
+    });
+
+    $('.news_publish').click(function () {
+        var type = $(this).data('type') == 1 ? '下架' : '上架';
+        var end_type_status = $(this).data('type') == 1 ? 0 : 1;
+        var end_publish_status = $(this).data('type') == 1 ? '未发布' : '已发布';
+        var end_title_status = $(this).data('type') == 1 ? '上架' : '下架';
+        var sOffUrl = "<?php echo $sOffUrl ?>";
+        var sPublishUrl = "<?php echo $sPublishUrl ?>";
+        var end_url = $(this).data('type') == 1 ? sPublishUrl : sOffUrl;
+        var tSrc = "<?php echo $sStaticRoot . '/img/icon/'  ?>";
+        var imgSrc = $(this).data('type') == 1 ? tSrc + "iconfont-tuiguangzhong.png" : tSrc + "iconfont-zanting.png";
+        if (confirm("您确认要" + type + "该资讯吗？")) {
+            $.get(this.href, function (ret) {
+                if (ret.data.fail.length > 0) {
+                    for (var i = 0; i < ret.data.fail.length; i++) {
+                        $("#tr_" + ret.data.fail[i]).addClass('danger');
+                    }
+                }
+                if (ret.data.secc.length > 0) {
+                    for (var i = 0; i < ret.data.secc.length; i++) {
+                        $("#tr_" + ret.data.secc[i]).addClass('success');
+                        $(".news_check_id_" + ret.data.secc[i]).data("type", end_type_status);
+                        $(".news_check_id_" + ret.data.secc[i]).attr({
+                            title: end_title_status,
+                            href: end_url + "?id=" + ret.data.secc[i]
+                        });
+                        $("#status_" + ret.data.secc[i]).html(end_publish_status);
+                        $(".news_check_id_" + ret.data.secc[i]).find("img").attr("src", imgSrc);
+                    }
+                }
+                if (ret.data.fail.length == 0) {
+                    alert(type + "成功");
+                    return true;
+                } else {
+                    alert(type + "失败");
+                    return false;
+                }
+            }, 'json');
+        }
+        return false;
+    });
+
+    $('#news_batch_publish').bind('click', {condition: 0, msg: "没有选中已下架的资讯", url: "<?=$sPublishUrl?>"}, piliang);
+    $('#news_batch_off').bind('click', {condition: 1, msg: "没有选中已发布的资讯", url: "<?=$sOffUrl?>"}, piliang);
+    $('#news_batch_delete').bind('click', {condition: 2, msg: "没有选中的资讯", url: "<?=$sDelUrl?>"}, piliang);
+    function piliang(event) {
+        var condition = event.data.condition;
+        var msg = event.data.msg;
+        var url = event.data.url;
+        var type;
+        if (condition == 0)
+            type = "上架";
+        else if (condition == 1)
+            type = "下架";
+        else
+            type = "删除";
+        if (confirm("您确认要" + type + "该资讯吗？")) {
+            var ids = '';
+            $("input[name='news_check_id']").each(function () {
+                //condition:0:发布,1:下架,2:删除
+                if (condition == 0 || condition == 1) {
+                    if ($(this).prop("checked") && $("." + this.id).data('type') == condition) {
+                        ids += $(this).val() + ",";
+                    }
+                }
+                else {
+                    if ($(this).prop("checked")) {
+                        ids += $(this).val() + ",";
+                    }
+                }
+            })
+            if (ids == '') {
+                alert(msg);
+                return false;
+            }
+            ids = ids.substring(0, ids.length - 1);
+            $.get(url + "?id=" + ids, function (ret) {
+                if (condition == 2)//删除
+                {
+                    alert(ret.data);
+                    if (ret.status) {
+                        location.reload();
+                    }
+                    return false;
+                }
+                var end_type_status = condition == 1 ? 0 : 1;
+                var end_publish_status = condition == 1 ? '未发布' : '已发布';
+                var end_title_status = condition == 1 ? '上架' : '下架';
+                var sOffUrl = "<?php echo $sOffUrl ?>";
+                var sPublishUrl = "<?php echo $sPublishUrl ?>";
+                var end_url = condition == 1 ? sPublishUrl : sOffUrl;
+                var tSrc = "<?php echo $sStaticRoot . '/img/icon/'  ?>";
+                var imgSrc = condition == 1 ? tSrc + "iconfont-tuiguangzhong.png" : tSrc + "iconfont-zanting.png";
+                if (ret.data.fail.length > 0) {
+                    for (var i = 0; i < ret.data.fail.length; i++) {
+                        $("#tr_" + ret.data.fail[i]).addClass('danger');
+                    }
+                }
+                if (ret.data.secc.length > 0) {
+                    for (var i = 0; i < ret.data.secc.length; i++) {
+                        $("#tr_" + ret.data.secc[i]).addClass('success');
+                        $(".news_check_id_" + ret.data.secc[i]).data("type", end_type_status);
+                        $(".news_check_id_" + ret.data.secc[i]).attr({
+                            title: end_title_status,
+                            href: end_url + "?id=" + ret.data.secc[i]
+                        });
+                        $("#status_" + ret.data.secc[i]).html(end_publish_status);
+                        $(".news_check_id_" + ret.data.secc[i]).find("img").attr("src", imgSrc);
+                    }
+                }
+                if (ret.data.fail.length == 0) {
+                    alert(type + "成功");
+                    return true;
+                } else {
+                    alert(type + "失败");
+                    return false;
+                }
+            }, 'json');
+        }
+    }
+
+    $('#news_add').click(function () {
+        location.href = '<?=$sAddUrl?>';
+    });
+
+
+    $("#news_all_check").click(function () {
+        var is_checked = $(this).prop("checked");
+        $("input[name='news_check_id']").each(function () {
+            $(this).prop("checked", is_checked);
+        });
+    })
+
+    var iTypeID = <?php echo $iTypeID ?>;
+    var iCityID = <?php echo $iCityID ?>;
+    //复制到地址到剪切板
+    $(".cp-btn").click(function () {
+        var url = $(this).data('url');
+        if (url == '') {
+            alert('该文章未发布');
+            return false;
+        }
+        if (window.clipboardData) {
+            window.clipboardData.setData("Text", url);
+            alert("复制成功");
+        }
+        else {
+            alert('您的浏览器不支持复制功能，请手动复制该链接：' + url);
+            return false;
+        }
+
+    })
+</script>
+<link rel="stylesheet" href="<?php echo $sStaticRoot ?>/jquery-ui/1.11.1/jquery-ui.min.css" type="text/css"/>
+<script type="text/javascript" charset="utf-8"
+        src="<?php echo $sStaticRoot ?>/jquery-ui/1.11.1/jquery-ui.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo $sStaticRoot ?>/js/unit.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo $sStaticRoot ?>/js/author.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo $sStaticRoot ?>/js/tag.js"></script>

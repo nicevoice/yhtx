@@ -1,0 +1,53 @@
+<div class="dialog" style="width:500px">
+	<div class="panel panel-default">
+		<p class="panel-heading text-center">登录</p>
+		<div class="panel-body">
+			<form class="form-horizontal" method="post" action="/signin" role="form" id="myform">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">帐号：</label>
+					<div class="col-sm-8">
+					    <input id="username" name="username" type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">密码：</label>
+					<div class="col-sm-8">
+					    <input id="password" name="password" type="password" class="form-control">
+					</div>
+				</div>
+				<div class="form-group text-center">
+				    <label class="col-sm-4 control-label">
+    				    <input name="remember" type="checkbox"> 记住密码
+    				</label>
+    				<div class="col-sm-7">
+    					<input type="button" id="signin" class="btn btn-primary pull-right" value="登录">
+				    </div>
+				</div>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+$('#signin').click(function(){
+	if ($('#username').val().trim().length < 3) {
+		alert('请输入用户名！');
+		$('#username').focus();
+		return false;
+	}
+	if ($('#password').val().trim().length < 3) {
+		alert('请输入用户密码！');
+		$('#password').focus();
+		return false;
+	}
+	var form = $("#myform");
+	$.post(form.attr('action'), form.serialize(), function(ret){
+        if (ret.status) {
+            location.href = ret.data.sUrl;
+        } else {
+            alert(ret.data);
+        }
+    }, 'json');
+	return false;
+})
+</script>
