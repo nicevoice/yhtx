@@ -14,7 +14,7 @@ class Controller_Index_Index extends Controller_Base
 
     public function welcomeAction()
     {
-
+echo 111;die;
     }
 
     public function loginAction ()
