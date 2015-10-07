@@ -71,37 +71,6 @@
         </div>
     </div>
 
-    <!--
-    <div class="hWeekendRec" style="display:none;">
-        <div class="item l">
-           <div class="tle">特色商店</div>
-        <ul class="lList">
-          <li class="first"><a href="/i/brand/intro/?is_intro=1&id=2" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1371.jpg" /></a></li>
-          <li><a href="/i/brand/own/?id=48" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1354.jpg" /></a></li>
-          <li><a href="/i/brand/own/?id=3" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1399.jpg" /></a></li>
-        </ul>
-      </div>
-      <div class="item r">
-        <div class="tle">最热达人</div>
-        <ul class="lList64">
-          <li class="first"><a href="/i/usermain/my/?id=12596" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1153.png" /></a></li>
-          <li><a href="/i/usermain/my/?id=8051" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1344.jpg" /></a></li>
-          <li><a href="/i/usermain/my/?id=5735" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1355.jpg" /></a></li>
-          <li><a href="/i/usermain/my/?id=108" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1156.png" /></a></li>
-          <li><a href="/i/usermain/my/?id=151" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1157.png" /></a></li>
-
-           <li class="first"><a href="/i/usermain/my/?id=1502" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1158.png" /></a></li>
-           <li ><a href="/i/usermain/my/?id=56" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1159.png" /></a></li>
-          <li><a href="/i/usermain/my/?id=5625" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1160.png" /></a></li>
-          <li><a href="/i/usermain/my/?id=68" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1161.png" /></a></li>
-          <li><a href="/i/usermain/my/?id=187" target="_blank"><img src="http://images.sowhatshop.net/ware/orig/2/1/1162.png" /></a></li>
-
-        </ul>
-      </div>
-      <div class="clearNull"></div>
-    </div>
-    -->
-
     <div class="hGCtle">人气良品</div>
 
 
@@ -466,15 +435,15 @@
             jQuery('#preCircle2,#nextCircle2').css('opacity',0);
         });
         jQuery('#leftArea,#preCircle2').mouseover(function(){
-            jQuery('#preCircle2').css('background-image','url(/images/default/circle_right_arrow1.png)');
+            jQuery('#preCircle2').css('background-image','url('+static_host+'/images/default/circle_right_arrow1.png)');
         }).mouseout(function(){
-            jQuery('#preCircle2').css('background-image','url(/images/default/normal_right.png)');
+            jQuery('#preCircle2').css('background-image','url('+static_host+'/images/default/normal_right.png)');
         });
 
         jQuery('#rightArea,#nextCircle2').mouseover(function(){
-            jQuery('#nextCircle2').css('background-image','url(/images/default/circle_left_arrow1.png)');
+            jQuery('#nextCircle2').css('background-image','url('+static_host+'/images/default/circle_left_arrow1.png)');
         }).mouseout(function(){
-            jQuery('#nextCircle2').css('background-image','url(/images/default/normal_left.png)');
+            jQuery('#nextCircle2').css('background-image','url('+static_host+'/images/default/normal_left.png)');
         });
     });
 

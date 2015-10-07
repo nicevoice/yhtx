@@ -6,6 +6,7 @@ class Controller_Index_Index extends Controller_Base
 
     public function indexAction ()
     {
+        echo decbin(pow(10,100));die;
         //$aMenus = Model_Menu::getMenus();
         //$this->assign('aData',$aMenus);
         $this->_frame = 'frame.phtml';

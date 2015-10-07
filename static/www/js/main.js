@@ -1858,17 +1858,18 @@ jQuery(document).ready(function(){
 		jQuery(".subMenu li").each(function(){
 			if(jQuery(this).find("a").hasClass("active")){
 				subLi=jQuery(this).index();
-			}	
+			}
 			jQuery(this).bind('mouseover',function(){
 				jQuery(".subMenu li").children('a').removeClass("active");
 				jQuery(this).children('a').addClass("active");
 				var sub_id=jQuery(this).attr("sub_id");
+				console.log(sub_id);
 				if(sub_id){
 				var n =0;
 				if(sub_id==1 || sub_id==2){
 					n =jQuery(".submHide").eq(sub_id).height()+73;	
 				}else{
-					n =jQuery(".submHide").eq(sub_id).height()+42;
+					n =jQuery(".submHide").eq(sub_id).height()+73*1;
 				}
 	            jQuery(".submHide").hide();
 				

@@ -65,8 +65,8 @@
     <div class="subMenu clearfix">
         <ul class="fl">
             <li class="homepage"><a href="/i/home/" class="active">首页</a></li>
-            <li class="subLi" sub_id="2"><a href="/i/class/" >商店
-                    <div class="submHide share clearfix" id="shop">
+            <li class="subLi" sub_id="0"><a href="/i/class/" >商店
+                    <div class="submHide store" id="storedats">
 
                     </div>
                 </a>
@@ -98,55 +98,26 @@
     <div class="header-subnav">
         <div id="header-subnav-wrapper">
             <div class="hide" id="shopdatas">
-                <div class="storeLeft fl">
-                    <dl id="navOurCatP_5" navCat_id="5">
-                        <dt><a href="/i/shop/list/?cat_id=0005" class="ctxt">礼物</a></dt>
-                        <dd><a href="/i/shop/list/?cat_id=00050006">送他</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00050007">送她</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00050008">送儿童</a></dd>
-                    </dl>
-                    <dl id="navOurCatP_1" navCat_id="1">
-                        <dt><a href="/i/shop/list/?cat_id=0001" class="ctxt">服饰</a></dt>
-                        <dd><a href="/i/shop/list/?cat_id=00010009">男士</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00010010">女士</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00010027">儿童</a></dd>
-                    </dl>
-                    <dl id="navOurCatP_2" navCat_id="2">
-                        <dt><a href="/i/shop/list/?cat_id=0002" class="ctxt">家居</a></dt>
-                        <dd><a href="/i/shop/list/?cat_id=00020015">儿童用品</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00020012">家具</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00020013">家居配饰</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00020014">厨卫用品</a></dd>
-                    </dl>
-                    <dl id="navOurCatP_3" navCat_id="3">
-                        <dt><a href="/i/shop/list/?cat_id=0003" class="ctxt">艺术</a></dt>
-                        <dd><a href="/i/shop/list/?cat_id=00030016">绘画</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00030017">摄影</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00030018">雕塑</a></dd>
-                    </dl>
-                    <dl id="navOurCatP_4" navCat_id="4">
-                        <dt><a href="/i/shop/list/?cat_id=0004" class="ctxt">其它</a></dt>
-                        <dd><a href="/i/shop/list/?cat_id=00040019">工具</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00040020">玩具</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00040021">出版</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00040022">数码</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00040023">户外用品</a></dd>
-                        <dd><a href="/i/shop/list/?cat_id=00040024">美容护肤</a></dd>
-                    </dl>
-
-
-                    <p class="clr"></p>
-                    <div><a target="_self" href="/i/brand/">查看所有品牌</a><span>&gt;</span><a target="_self" href="/i/shop/list?orderby=add_time">最新到货</a><span>&gt;</span></div>
+                <div>
+                    <a href="/i/topic/?cat_id=12" >专题</a>
+                    <a href="/i/topic/?cat_id=7" >专访</a>
+                    <a href="/i/topic/?cat_id=16" >设计</a>
+                    <a href="/i/topic/?cat_id=19" >建筑</a>
+                    <a href="/i/topic/?cat_id=9" >生活</a>
+                    <a href="/i/topic/?cat_id=15" >时装</a>
+                    <a href="/i/topic/?cat_id=11" >文化</a>
+                    <a href="/i/topic/?cat_id=18" >科技</a>
                 </div>
-                <div class="storeRight fr">
-                    <a href="http://www.iliangcang.com/i/goods/?id=247665" target="_blank">
-                        <dl>
-                            <dt> <img alt="新视线： 2015年7月刊" title="新视线： 2015年7月刊" src="http://image.iliangcang.com/ware/upload/orig/2/315/315574.jpg"></dt>
-                            <dd>新视线：&nbsp; 2015年7月刊</dd>
-                        </dl>
-                    </a>
+                <div>
+                    <a href="/i/topic/?cat_id=12" >专题</a>
+                    <a href="/i/topic/?cat_id=7" >专访</a>
+                    <a href="/i/topic/?cat_id=16" >设计</a>
+                    <a href="/i/topic/?cat_id=19" >建筑</a>
+                    <a href="/i/topic/?cat_id=9" >生活</a>
+                    <a href="/i/topic/?cat_id=15" >时装</a>
+                    <a href="/i/topic/?cat_id=11" >文化</a>
+                    <a href="/i/topic/?cat_id=18" >科技</a>
                 </div>
-                <div class="clr"></div>
             </div>
             <div class="hide" id="topicdata">
                 <a href="/i/topic/?cat_id=12" >专题</a>
@@ -170,6 +141,7 @@
 <script>
     //分类数据
     function navOurCatList(pid){
+        alert(1111);
         var htmlData = '';
         jQuery.getJSON("/"+base_script+"/shop/?act=catList&parent_id="+pid,function(data){
             if(data.length>0){

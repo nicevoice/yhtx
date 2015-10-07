@@ -149,19 +149,8 @@ abbr {cursor: help;border-bottom: 1px dotted #777;}
 .subMenu ul li.superman,.subMenu ul li.superman a{width:121px;}
 .submHide{display:none;position:absolute;left:0;top:49px;width:1000px;letter-spacing:1px;background:#fff;z-index:999;}
 /*商店下拉菜单*/
-.storeLeft{width:732px;}
-.storeLeft dl{float:left;width:122px;}
-.storeLeft dt{width:122px;height:90px;line-height:90px;font-size:13px;text-align:left;font-weight:600;}
-.storeLeft dd{width:122px;line-height:14px;margin-bottom:19px;}
-.storeLeft a,.storeLeft a:link,.storeLeft a:visited,.storeLeft a:hover{color:#666;}
-.storeLeft dt a,.storeLeft dt a:link,.storeLeft dt a:visited,.storeLeft dt a:hover{color:#4d4d4d;}
-.storeRight{float:right;width:232px;margin-top:42px;}
-.storeRight dt,.storeRight dt img{width:232px;height:232px;}
-.storeRight dd{padding-top:15px;line-height:24px;color:#4d4d4d;font-size:14px;letter-spacing:2px;}
-.storeLeft >div{padding-top:37px;width:100%;}
-.store a.active{display:none;}
-.storeLeft >div a{margin-right:6px;color:#666;font-size:14px;}
-.storeLeft >div span{margin-right:60px;color:#666;}
+.store{width:1000px;padding:31px 0 40px;text-align:left;}
+.store a{display:inline-block;line-height:32px;margin-right:60px;color:#666;font-size:12px;font-weight:normal;}
 .magazine{width:1000px;padding:31px 0 40px;text-align:left;}
 .magazine a{display:inline-block;line-height:32px;margin-right:60px;color:#666;font-size:12px;font-weight:normal;}
 .share{width:1000px;padding:31px 0 40px;}
