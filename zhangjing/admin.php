@@ -1,4 +1,4 @@
 <?php
-echo 111;die;
+echo 222;die;
 header('location:index.php?m=admin');
 ?>

@@ -1,4 +1,7 @@
 <?php
+
+echo $_SERVER['REQUEST_URI'];die;
+
 $sIndexPath = dirname(__FILE__);//等于5.3中的__dir__
 $sHost = $_SERVER['HTTP_HOST'];
 $aHost = explode('.', $sHost);

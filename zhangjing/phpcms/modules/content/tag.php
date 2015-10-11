@@ -26,7 +26,6 @@ class tag {
 	 * 按照模型搜索
 	 */
 	public function lists() {
-		
 		$tag = safe_replace(addslashes($_GET['tag']));
 		$keyword_data_db = pc_base::load_model('keyword_data_model');
 		//获取标签id
