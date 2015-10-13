@@ -1,0 +1,18 @@
+.my-page >div{
+    width: 100%;
+    text-align: center;
+}
+.my-page >div a{
+    padding: 0.5em 1em;
+    border: 1px solid #ddd;
+    margin-right:5px;
+    line-height:1.1;
+}
+.my-page >div span{
+    padding: 0.5em 1em;
+    border: 1px solid #ddd;
+    margin-right:5px;
+    line-height:1.1;
+    background-color: #0e90d2;
+    color:#FFF
+}

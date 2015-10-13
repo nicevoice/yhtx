@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>TP3.2.3模型自动验证规则生成脚本</title>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <style>
+p {font-size: 12px;font-weight: normal;color: #999;}
+input[type=radio] {
+    margin-right: 5px;
+}
+</style>
+</head>
+<body>
+<br /><br />
+<div class="row">
+    <div class="col-sm-5">
+<div class="row">
+    <div class="col-sm-12">
+        <label for="ziduan" class="col-sm-4 text-right">验证字段名称：</label>
+        <div class="col-sm-8">
+        <input type="text" id="fa" />
+        </div>
+    </div>
+<br />
+<br />
+    <div class="col-sm-12">
+        <label for="ziduan" class="col-sm-4 text-right">验证规则：</label>
+        <div class="col-sm-8">
+        <label class="fb" style="display:none"><input type="radio" name="fb" id="fb0"/><input type="text" id="fbval"/></label>
+        <div class="row fb1">
+            <div class="col-sm-12">
+                    <label><input type="radio" name="fb" id="fb1" value="require"/>require 字段必须</label>
+        <label><input type="radio" name="fb" id="fb2" value="email"/>email 邮箱</label>
+        <label><input type="radio" name="fb" id="fb3" value="url"/>url URL地址</label>
+        <label><input type="radio" name="fb" id="fb4" value="currency"/>currency 货币</label>
+        <label><input type="radio" name="fb" id="fb5" value="number"/>number 数字</label>
+        </div>
+        </div>
+        </div>
+    </div>
+<br />
+<br />
+    <div class="col-sm-12">
+        <label for="ziduan" class="col-sm-4 text-right">提示信息：</label>
+        <div class="col-sm-8">
+        <input type="text" id="fc" />
+        </div>
+    </div>
+<br />
+<br />
+    <div class="col-sm-12">
+        <label for="ziduan" class="col-sm-4 text-right">验证条件：</label>
+        <div class="col-sm-8">
+        <label><input type="radio" name="fd" id="fd1" value="0"/>存在字段就验证</label>
+        <label><input type="radio" name="fd" id="fd2" value="1"/>必须验证</label>
+        <label><input type="radio" name="fd" id="fd3" value="2"/>值不为空的时候验证</label>
+        </div>
+    </div>
+<br />
+<br />
+    <div class="col-sm-12">
+        <label for="ziduan" class="col-sm-4 text-right">验证时间：</label>
+        <div class="col-sm-8">
+        <label><input type="radio" name="fe" id="fe1" value="1"/>新增验证</label>
+        <label><input type="radio" name="fe" id="fe2" value="2"/>编辑验证</label>
+        <label><input type="radio" name="fe" id="fe3" value="3"/>全部验证</label>
+        </div>
+    </div>
+
+<br />
+<br />
+<br />
+<br />
+    <div class="col-sm-12">
+    <div class="col-sm-4 text-right">生成规则：</div>
+    <div class="col-sm-8">
+    <textarea name="result" id="result" cols="30" rows="10" style="width:100%"></textarea>
+    <input type="button" value="生成规则" class="btn btn-danger" id="submit"/>
+    </div>
+    </div>
+</div>
+</div>
+
+<div class="col-sm-7">
+    <div class="col-sm-12">
+        <label for="ziduan" class="col-sm-2 text-right">附加规则：</label>
+        <div class="col-sm-10">
+        <label>
+        <input type="radio" name="ff" id="ff1" value="regex" checked="checked"/>regex
+        <p>正则验证，定义的验证规则是一个正则表达式（默认）</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff2" value="function"/>function
+        <p>函数验证，定义的验证规则是一个函数名</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff3" value="callback"/>callback
+        <p>方法验证，定义的验证规则是当前模型类的一个方法</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff4" value="confirm"/>confirm
+        <p>验证表单中的两个字段是否相同，定义的验证规则是一个字段名</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff5" value="equal"/>equal
+        <p>验证是否等于某个值，该值由前面的验证规则定义</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff6" value="notequal"/>notequal
+        <p>验证是否不等于某个值，该值由前面的验证规则定义</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff7" value="in"/>in
+        <p>验证是否在某个范围内，定义的验证规则可以是一个数组或者逗号分割的字符串</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff8" value="notin"/>notin
+        <p>验证是否不在某个范围内，定义的验证规则可以是一个数组或者逗号分割的字符串</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff9" value="length"/>length
+        <p>验证长度，定义的验证规则可以是一个数字（表示固定长度）或者数字范围（例如3,12 表示长度从3到12的范围）</p>
+        </label><br />
+
+
+        <label>
+        <input type="radio" name="ff" id="ff10" value="between"/>between
+        <p>验证范围，定义的验证规则表示范围，可以使用字符串或者数组，例如1,31或者array(1,31)</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff11" value="notbetween"/>notbetween
+        <p>验证不在某个范围，定义的验证规则表示范围，可以使用字符串或者数组</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff12" value="expire"/>expire
+        <p>验证是否在有效期，定义的验证规则表示时间范围，可以到时间，例如可以使用 2012-1-15,2013-1-15 表示当前提交有效期在2012-1-15到2013-1-15之间，也可以使用时间戳定义</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff13" value="ip_allow"/>ip_allow
+        <p>验证IP是否允许，定义的验证规则表示允许的IP地址列表，用逗号分隔，例如201.12.2.5,201.12.2.6</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff14" value="ip_deny"/>ip_deny
+        <p>验证IP是否禁止，定义的验证规则表示禁止的ip地址列表，用逗号分隔，例如201.12.2.5,201.12.2.6</p>
+        </label><br />
+
+        <label>
+        <input type="radio" name="ff" id="ff15" value="unique"/>unique
+        <p>验证是否唯一，系统会根据字段目前的值查询数据库来判断是否存在相同的值，当表单数据中包含主键字段时unique不可用于判断主键字段本身</p>
+        </label><br />
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+    fa="";fb="";fc="";fd="";fe="";ff="";
+    ff="regex";
+    $("#submit").click(function(){
+        _str = "array(验证字段,验证规则,错误提示,验证条件,附加规则,验证时间),";
+
+
+        fa = $("#fa").val();
+        fc = $("#fc").val();
+        _rule = "regex,unique";
+        if(_rule.indexOf(ff) == -1) fb = $("#fbval").val();
+        _str = _str.replace("验证字段","'"+fa+"'");
+        _str = _str.replace("验证规则","'"+fb+"'");
+        _str = _str.replace("错误提示","'"+fc+"'");
+        if(fb == "require" || fb == "email" || fb == "url" || fb == "currency" || fb == "number"){
+            _str = _str.replace(",验证条件,附加规则,验证时间","");
+        }else{
+            _str = _str.replace("验证条件",fd);
+            _str = _str.replace("验证时间",fe);
+            if(ff == "regex"){
+                _str = _str.replace("附加规则","");
+            }else{
+                _str = _str.replace("附加规则","'"+ff+"'");
+            }
+        }
+        $("#result").val(_str);
+
+    });
+
+    $("input[name='fd']").click(function(){
+        fd = $(this).val();
+    });
+
+    $("input[name='fb']").click(function(){
+        if($(this).attr("id") == "fb0"){
+            fb = $("#fbval").val();
+        }else{
+            fb = $(this).val();
+        }
+    });
+
+    $("input[name='fe']").click(function(){
+        fe = $(this).val();
+    });
+
+    $("input[name='ff']").click(function(){
+        if($(this).val() == "regex"){
+            $(".fb1").show();
+            $(".fb").hide();
+        }
+
+        if($(this).val() == "unique"){
+            $(".fb").hide();
+            $(".fb1").hide();
+            fb = "";
+        }
+
+        if($(this).val() !== "regex" && $(this).val() !=="unique") {
+            $(".fb").show();
+            $(".fb1").hide();
+            $("#fb0").prop("checked","checked");
+            $("#fbval").focus();
+        }
+        $("#fbval").val("");
+        if($(this).val() == "in" || $(this).val() == "notin") $("#fbval").val("array(1,2)");
+        if($(this).val() == "between" || $(this).val() == "notbetween") $("#fbval").val("1,2 || array(1,2)");
+        if($(this).val() == "expire") $("#fbval").val("2012-1-15,2013-1-15");
+        if($(this).val() == "ip_allow" || $(this).val() == "ip_deny") $("#fbval").val("201.12.2.5,201.12.2.6");
+        ff = $(this).val();
+    });
+
+});
+</script>
+</body>
+</html>

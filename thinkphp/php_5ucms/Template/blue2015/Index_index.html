@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{My:indextitle}</title>
+<meta name="keywords" content="{field:keywords}"/>
+<meta name="description" content="{field:description}"/>
+<meta name="robots" content="index,follow" />
+<link rel="stylesheet" href="css/pintuer.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<style type="text/css">
+body,td,th {
+	font-family: "Microsoft YaHei", simsun, "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+</style>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/pintuer.js"></script>
+<script type="text/javascript" src="js/default.js"></script> 
+<!--[if lt IE 8]>  
+<script type="text/javascript" src="js/respond.js"></script>
+<![endif]-->  
+
+</head>
+
+<body>
+ 
+
+<div class="layout toper fixed" style="z-index:99;"> 
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-head">
+                <a href="/"><img src="images/logo.png" class="img-responsive" /></a>
+            </div>
+            <div id="naver" class="navbar-body nav-navicon">
+                <ul class="nav nav-inline nav-menu navbar-right naver nav-split nav-big"> 
+{My:menu}
+                    
+                </ul>
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+<div class="clearfix"></div>
+<div class="layout">
+    <div class="banner" data-pointer="1" data-interval="6" data-item="1" data-style="border-blue">
+        <ul class="carousel">
+{My:banner}
+        </ul>
+    </div>
+</div>
+
+<br />
+
+<div class="container">
+	<h3 class="bg-main padding icon-caret-right text-white radius-big"> 服务项目</h3>
+    <br />
+    <div class="grid-big line-middle">
+<!--m:{ $row=4 $cid=2 $order=[order] desc,[id] desc }-->  
+        <div class="space x3">
+            <div class="media media-y clearfix">
+            	<a href="[m:aurl]"><img src="[m:indexpic $width=278 $height=140]" onerror=this.src='images/nophoto.gif' class="img-responsive border radius-big img-border" alt="[m:title]"></a>
+            	<div class="media-body">[m:titlex]</div>
+            </div>
+        </div>
+<!--m-->          
+ 
+        
+    </div>
+</div>
+<br>
+<div class="container">
+	<div class="grid-big line-middle">
+    	<div class="space xm4">
+        	<h3 class="bg-yellow padding icon-caret-right text-white radius-big"><span class="more"><a class="text-white" href="{curl:3}">更多</a></span> 最新资讯 </h3>
+            <br />
+            <ul class="list-text">  
+<!--m:{ $row=8 $order=[order] desc,[id] desc }--> 
+                <li><span class="date">[m:createtime $format=yy/mm/dd]</span><a href="[m:aurl]" title="[m:title]">[m:titlex]</a></li> 
+{if:[m:i]%4==0}<hr>{end if}
+<!--m-->
+
+         
+            </ul>
+        </div>
+        <div class="space xm5">
+        	<h3 class="bg-blue padding icon-caret-right text-white radius-big"><span class="more"><a class="text-white" href="{aurl:1}">更多</a></span> 公司介绍</h3>
+            
+            <div class="media media-x">
+              <a class="float-left" href="{aurl:1}"><img src="images/2014103012194082479.jpg" class="radius" alt="..."></a>
+              <div class="media-body height text-indent">{my:intr}</div>
+            </div>
+            
+        </div>
+        <div class="space xm3">
+        	<h3 class="bg-green padding icon-caret-right text-white radius-big"> 通知公告</h3>
+            <br />
+            <div class="icontact">{My:gg}</div>
+        </div>
+    </div>
+</div>
+<br /><br />
+<div class="layout footer">
+	<div class="container">
+    
+          <div class="table-responsive padding hidden-l ">
+{My:indexfootmenu}
+          </div>
+  
+        <br />
+        <div class="clearfix text-small">
+        	{My:copyright}
+        </div>
+        <br />
+		<div class="bdsharebuttonbox" style="float:none; text-align:center;"><a class="bds_more"  data-cmd="more" style="float:none;"></a><a title="分享到QQ空间" class="bds_qzone"  data-cmd="qzone" style="float:none;"></a><a title="分享到新浪微博" class="bds_tsina"  data-cmd="tsina" style="float:none;"></a><a title="分享到腾讯微博" class="bds_tqq"  data-cmd="tqq" style="float:none;"></a><a title="分享到人人网" class="bds_renren"  data-cmd="renren" style="float:none;"></a><a title="分享到微信" class="bds_weixin"  data-cmd="weixin" style="float:none;"></a></div>   
+
+    </div>
+</div>
+<div class="hidden">0</div>
+<div class="layout fixed-bottom bg-black bg-inverse hidden-s  hidden-m hidden-b">
+	<div class="container text-center padding-top padding-bottom">
+{My:footmenu2}
+    </div>
+</div>
+{My:js}
+{{:hook('PageFooter')}} <!-- 文档末尾钩子 -->
+</body>
+</html>

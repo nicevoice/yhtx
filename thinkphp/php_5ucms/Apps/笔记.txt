@@ -1,0 +1,11 @@
+ADMIN  后台模块
+PHP_5UCMS 前台模块
+
+Common公共设置文件
+--common--functions.asp 公共函数库
+--Conf--config.asp 公共配置 例如 数据库连接
+
+Model 数据库处理目录 
+里面一个表对应一个文件
+
+Runtime 临时文件

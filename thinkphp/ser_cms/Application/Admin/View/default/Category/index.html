@@ -1,0 +1,106 @@
+<extend name="Public/common" />
+<block name="style">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+</block>
+<block name="body">
+    <div class="am-g admin-category">
+        <div class="am-u-lg-10 am-u-lg-offset-1">
+            <div style="float: left">
+                <a class="am-btn am-btn-danger" href="{:U('Admin/Category/add')}">添加分类</a>
+            </div>
+            <div style="float: right">
+                <form action="" method="get" class="am-form-inline" role="form">
+                    <div class="am-form-group">
+                        <input name="key_word" value="{:I('key_word')}" type="text" class="am-form-field" placeholder="标题">
+                    </div>
+                    <button type="submit" class="am-btn am-btn-primary">查询</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="am-g">
+        <div class="am-u-lg-10 am-u-lg-offset-1">
+            <table class="am-table am-table-bordered am-table-striped am-table-hover">
+                <thead>
+                <tr>
+                    <th>标题</th>
+                    <th>文章数量</th>
+                    <th>总体阅读数量</th>
+                    <th>发布权限</th>
+                    <th>导航位</th>
+                    <th>首页板块位</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <volist name="_categoryList" id="vcate">
+                        <tr>
+                            <td>{$vcate['title']}</td>
+                            <td>{$vcate['article_count']}</td>
+                            <td>{$vcate['read_count']}</td>
+                            <if condition=" $vcate['can_write'] eq 1 ">
+                                <td>允许前台发布</td>
+                                <else/>
+                                <td class="am-warning">仅后台发布</td>
+                            </if>
+                            <if condition=" empty($vcate['is_nav']) ">
+                                <td>无</td>
+                                <else/>
+                                <td class="am-primary">导航{$vcate['is_nav']}</td>
+                            </if>
+                            <if condition=" empty($vcate['pannel_id']) ">
+                                <td>无</td>
+                                <else/>
+                                <if condition=" $vcate['pannel_id'] GT 0 ">
+                                    <td class="am-success">板块{$vcate['pannel_id']}</td>
+                                    <else/>
+                                    <td class="am-danger">系统板块</td>
+                                </if>
+                            </if>
+                            <td>
+                                <a class="am-btn am-btn-xs am-btn-primary">编辑</a>
+                                &nbsp;
+                                <a data-id="{$vcate['category_id']}" class="am-btn am-btn-xs am-btn-danger btn-delete">删除</a>
+                            </td>
+                        </tr>
+                    </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="am-g">
+        <div class="am-u-lg-10 my-page">
+            {$_html}
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(function(){
+            var loading;
+            $('.btn-delete').click(function(){
+                var b = $(this);
+                layer.confirm('确定要删除吗？', {
+                    btn: ['是的','稍等一下'], //按钮
+                    shade: 0.6 //遮罩
+                }, function(){
+                    loading = layer.load();
+                    var post_url = "{:U('Admin/Category/deleteCategory')}";
+                    var article_id = b.attr('data-id');
+                    $.post(post_url,{article_id:article_id},function(res){
+                        layer.close(loading);
+                        if(res == '1'){
+                            layer.msg('删除完成',{icon: 1});
+                            setTimeout("window.location.href=''",1500);
+                        }else{
+                            layer.msg('删除失败');
+                        }
+                    });
+                }, function(){
+
+                });
+            });
+        });
+    </script>
+</block>

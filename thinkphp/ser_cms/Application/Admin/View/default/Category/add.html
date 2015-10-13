@@ -1,0 +1,97 @@
+<extend name="Public/common" />
+<block name="style">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+</block>
+<block name="body">
+    <div class="am-g admin-category">
+        <div class="am-u-lg-10 am-u-lg-offset-1">
+            <div style="float: left">
+                <a class="am-btn am-btn-danger" href="javascript:history.go(-1);">返回</a>
+            </div>
+            <div style="float: right">
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="am-g">
+        <div class="am-u-lg-6 am-u-lg-offset-1">
+            <form id="category-form" class="am-form am-form-horizontal" action="{:U('Admin/Category/doAdd')}" method="post">
+                <div class="am-form-group">
+                    <label for="title" class="am-u-sm-2 am-form-label">分类名称</label>
+                    <div class="am-u-sm-10">
+                        <input type="text" name="title" id="title" placeholder="输入分类名称">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="category_key" class="am-u-sm-2 am-form-label">分类标识</label>
+                    <div class="am-u-sm-10">
+                        <input type="text" name="category_key" id="category_key" placeholder="请使用字母或数字">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="des" class="am-u-sm-2 am-form-label">描述</label>
+                    <div class="am-u-sm-10">
+                        <textarea class="" name="des" rows="5" id="des" placeholder="255个字以内"></textarea>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="can_write" class="am-u-sm-2 am-form-label">前台可编辑</label>
+                    <div class="am-u-sm-10" style="padding-top: 10px">
+                        <input type="checkbox" checked id="can_write" name="can_write">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="can_read" class="am-u-sm-2 am-form-label">前台查询</label>
+                    <div class="am-u-sm-10" style="padding-top: 10px">
+                        <input type="checkbox" checked id="can_read" name="can_read">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="is_nav" class="am-u-sm-2 am-form-label">导航位</label>
+                    <div class="am-u-sm-10">
+                        <input type="number" name="is_nav" id="is_nav" value="0" placeholder="请输入数字">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="pannel_id" class="am-u-sm-2 am-form-label">首页版块位</label>
+                    <div class="am-u-sm-10">
+                        <input type="number" name="pannel_id" id="pannel_id" value="0" placeholder="请输入数字">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <div class="am-u-sm-10 am-u-sm-offset-2">
+                        <button type="submit" class="am-btn am-btn-success">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        var url;
+        var loading;
+        $(function() {
+            var ajax_form_options = {
+//                target:        '#comment-form',   // target element(s) to be updated with server response
+                beforeSubmit:  beforeSubmit,  // pre-submit callback
+                success:       showResponse  // post-submit callback
+            };
+            $('#category-form').ajaxForm(ajax_form_options);
+            function beforeSubmit(){
+                loading = layer.load();
+            }
+            function showResponse(responseText,statusText){
+                layer.close(loading);
+                if(responseText.status == 1){
+                    layer.msg(responseText.info,{icon: 1});
+                    url = responseText.url;
+                    setTimeout("window.location.href=url",1500);
+                }else{
+                    layer.msg(responseText.info);
+                }
+            }
+        });
+    </script>
+</block>

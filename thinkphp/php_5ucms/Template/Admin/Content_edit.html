@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>内容管理</title>
+<script language="JavaScript" type="text/javascript" src="images/ajax.js"></script>
+<script src="{$installdir}inc/js/laydate/laydate.js"></script>
+<link href="images/Style.Css" rel="stylesheet" type="text/css" /> 
+<link rel="stylesheet" href="{$installdir}inc/uploadify/uploadify.css">
+<script type='text/javascript' src='http://ajax.useso.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=3.4.2'></script>
+<script src='{$installdir}inc/uploadify/jquery.uploadify.min.js'></script>
+ 
+ 
+</head>
+<body>
+
+	<form name='frm' method='post' action='{:U('edit?id='.$qinfo['id'])}'>
+<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1'>
+	<tr class=css_menu>
+		<td colspan=6><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+				<tr>
+					<td class=css_main><a href={:U('index')}>内容管理</a></td>
+				</tr>
+			</table></td>
+	</tr>
+
+		<tr>
+			<td width="94" class="css_col12_content"><div align="right"> <font color=red>栏目：</font> </div></td>
+			<td colspan="5" class="css_col22"><select  class='css_select' name="cid" type="text" id="ocid" >
+<option value=0 Selected>请选择栏目</option>
+<volist name="ctable" id="v">
+					<option <?php 
+                    if(strpos(','.$managechannel.',',','.$v['id'].',')!==false  || $managechannel==0 ){ 
+                    	echo 'value ="' . $v['id'].'"' ; 
+                    } else { 
+                    	echo 'style="background-color: #666666;" value="-2"'; 
+                    } 
+                    
+                    if($v['id'] == $qinfo['cid']){ 
+                    	echo 'selected="selected"';
+                    } 
+                    
+                    echo '>' ;
+                    
+                    if($v["deeppath"] == 0){ 
+                    	echo $v["name"]; } 
+                    else {  
+                    	for($i = 1; $i <= $v["deeppath"]; $i++)
+                        { echo '　'; }
+                        echo '├ '.$v["name"]; 
+                    } 
+     ?></option>
+</volist>
+</select>
+<script>$$('ocid').onchange=function(){modeext(this.value,0);};</script> 每篇内容 您都需要先选择一个栏目哦！如果没有 请到 栏目 菜单中 先添加栏目分类！<a href="http://www.5ucms.org/5ucms-jiaocheng/1152.html" target="_blank">为什么有的栏目是灰/黑色背景 不能发布文章？</a> </td>
+		</tr>
+		<tr>
+			<td class=css_col11_content><div align="right"> <font color=red>标题：</font> </div></td>
+			<td colspan="5" class=css_col21><input name="title" type="text" class="css_input" id="otitle" onblur="Chktitle();" value="{$qinfo.title}" size="70" />
+            
+            
+				<?php if($qinfo["commend"] == 1){ echo '<input name="commend" type="checkbox" value="1" checked="checked"/>'; } else { echo '<input name="commend" type="checkbox" value="1" />'; } ?>  推荐
+                
+                
+				<?php if($qinfo["iscomment"] == 1){ echo '<input name="iscomment" type="checkbox" value="1" checked="checked"/>'; } else { echo '<input name="iscomment" type="checkbox" value="1" />'; } ?> 评论
+				<?php if($qinfo["display"] == 1){ echo '<input name="display" type="checkbox" value="1" checked="checked"/>'; } else { echo '<input name="display" type="checkbox" value="1" />'; } ?> 显示(不勾选则为隐藏)			</td>
+		</tr>
+		<tr>
+			<td class=css_col12_content><div align="right"> 属性： </div></td>
+			<td colspan="5" class=css_col22><table border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td><input name="author" type="text" class='css_input' id="oauthor" value="{$qinfo.author}" size="6">
+							<select name="select" onchange="frm.oauthor.value=this.value;">
+								<option>清空</option>
+                                <?php 
+                                $arr = explode(',',C('author'));
+                                foreach($arr as $k=>$v){
+                                	echo '<option value="'.$v.'">'.$v.'</option>' ;
+                                }
+                                ?> 
+							</select>						</td>
+						<td width="10">&nbsp;</td>
+						<td>来源：</td>
+						<td><input name="source" type="text" class='css_input' id="oSource" value="{$qinfo.Source}" size="6" />
+							<select name="select2" onchange="frm.oSource.value=this.value;">
+								<option>清空</option>
+                                <?php 
+                                $arr = explode(',',C('source'));
+                                foreach($arr as $k=>$v){
+                                	echo '<option value="'.$v.'">'.$v.'</option>' ;
+                                }
+                                ?> 
+							</select>						</td>
+						<td width="10"></td>
+						<td>浏览：</td>
+						<td><input class='css_input' name="views" type="text" id="oviews" value="{$qinfo.views}" size=2 />						</td>
+						<td width="10">&nbsp;</td>
+						<td>权重：</td>
+						<td><input class='css_input' name="order" type="text" id="oorder" value="{$qinfo.order}" size=2 />						</td>
+						<td width="10">&nbsp;</td><td>
+                <?php 
+                	$sty = explode(",",$qinfo['style']);
+                	$color = $sty[1];
+                    $style = $sty[0]; 
+                ?>        
+                        
+                        
+                        
+                <select class='css_select' name="style" type="text" id="oStyle">
+                
+					<option value="">样式</option>
+					<option value="strong" <?php if($style=='strong') { echo 'selected="selected"'; } ?> >粗体</option>
+					<option value="em"  <?php if($style=='em') { echo 'selected="selected"'; } ?>>斜体</option>
+                    
+				</select></td><td width="10">&nbsp;</td>
+						<td>
+                <select class='css_select' name="color" type="text" id="oColor">
+					<option value="">颜色</option>
+					<option value="#FF0000" style="background-color:#FF0000;" <?php if($color=='#FF0000') { echo 'selected="selected"'; } ?> >红色</option>
+					<option value="#0000FF" style="background-color:#0000FF;" <?php if($color=='#0000FF') { echo 'selected="selected"'; } ?> >深蓝</option>
+					<option value="#00FFFF" style="background-color:#00FFFF;" <?php if($color=='#00FFFF') { echo 'selected="selected"'; } ?> >淡蓝</option>
+					<option value="#FF9900" style="background-color:#FF9900;" <?php if($color=='#FF9900') { echo 'selected="selected"'; } ?> >橘黄</option>
+					<option value="#339966" style="background-color:#339966;" <?php if($color=='#339966') { echo 'selected="selected"'; } ?> >绿色</option>
+				</select></td>
+					</tr>
+				</table></td>
+		</tr>
+		
+		<tr>
+			<td class=css_col11_content><div align="right"> 文件名： </div></td>
+			<td colspan="5" class=css_col21><input name="diyname" type="text" class="css_input" id="odiyname" onblur="ChkDiyname('0');" value="{$qinfo.diyname}" size="32" /> <a href="javascript:pinyin();" style="color:green" title="关键字设置了才能分析">自动分析</a>
+				<input name="Autopinyin" type="checkbox" id="oAutopinyin" value="Yes"  />
+				将标题转换成拼音 (如果填写了文件名则不转换成拼音) </td>
+		</tr>
+		<tr>
+		  <td class=css_col12_content><div align="right"> 发布时间： </div></td>
+		  <td colspan="5" class=css_col22><input name="createtime" type="text" class='css_input' id="ocreatetime" value="<?php echo date('Y-m-d H:i:s',$qinfo['createtime']); ?>" size="32" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"/> 如修改，请注意时间格式一定要和已有格式一致</td>
+		</tr>        
+		<tr>
+			<td class=css_col12_content><div align="right"> 关键字： </div></td>
+			<td colspan="5" class=css_col22><input name="keywords" type="text" class='css_input' id="okeywords" value="{$qinfo.keywords}" size="32" /> <a href="javascript:keywords();" style="color:green" title="对标题进行分析">自动分析</a>  (多个关键字请用英文状态下的逗号分隔)  </td>
+		</tr>
+		<tr id='trjumpurl'>
+			<td class=css_col11_content><div align="right"> 跳转地址： </div></td>
+			<td colspan="4" class=css_col21><input name="jumpurl" type="text" class="css_input" id="oJumpurl" value="{$qinfo.jumpurl}" size="54" > (左侧填写则会变成跳转页哦 建议以http://开头)</td>
+			<td width="160" rowspan="3" class=css_col21><div id="indexpicimg" align="center">  <img src="images/nopic.gif" height=95 width=150 />  </div></td>
+		</tr>
+		<tr>
+			<td class=css_col11_content><div align="right"> 形象图： </div></td>
+			<td colspan="4" class=css_col21><input class='css_input' name="indexpic" type="text" id="oindexpic" value="{$qinfo.indexpic}" size=32 >
+				<select name="indexpiclist" id="indexpiclist" onchange="frm.oindexpic.value=this.value; if(this.value.length>0){indexpicimg.innerHTML='<img src=' + this.value + ' height=95 width=150 />';}else{indexpicimg.innerHTML='<img src=Images/nopic.gif height=95 width=150 />';}">
+					<option value="">不指定文章形象图</option>
+					
+				</select>	<a href="javascript:Insert(frm.oindexpic.value);" style="color:red">插入所选图片</a>			</td>
+		</tr>
+		<tr>
+			<td class=css_col11_content><div align="right"> 上传文件： </div></td>
+			<td class=css_col21>         
+            
+            <div id="imgs"></div>
+        <input id="file_upload" name="file_upload[]" type="file" multiple="true" value="" /> 
+
+    <script> 
+		var oneimg = ''; 
+		$('#file_upload').uploadify({ 
+	        	'swf'      : '{$installdir}inc/uploadify/uploadify.swf',
+	        	'uploader' : '{:U("upload")}',   //上传的方法
+	        	'buttonText' : '文件上传 支持批量',
+	        	'onUploadSuccess' : function(file, data, response) {
+	        	 //把所有上传的图片都放入DIV中
+				 if(data.indexOf('error:')>=0){
+					 alert(data.replace("error:","")); //提示错误
+				 }else{ 
+				    picurl = "{$installdir}uploadfile/"+data;
+				 	if(data.indexOf('.jpg')>=0 || data.indexOf('.png')>=0 || data.indexOf('.gif')>=0 || data.indexOf('.bmp')>=0 || data.indexOf('.jpeg')>=0){
+					 //如果是图片 
+					 oneimg = "<img width='150' height='95' src='"+picurl+"'>"; 
+					 //填入右侧形象图
+					 $('#indexpicimg').html(oneimg);
+					 //填入形象图文本框
+					 $('#oindexpic').val(picurl);
+					 //填入形象图下拉
+					 $('#indexpiclist').append("<option value='"+picurl+"'>"+picurl+"</option>");
+					 $('#indexpiclist').get(0).selectedIndex=1; 
+					 //填入内容中 
+					 KE.insertHtml('<img alt="" src = "'+picurl+'"/>');
+					}else{
+					//如果是其他文件，只填入内容中
+					  KE.insertHtml('<a target="_blank" href="'+picurl+'"/>'+picurl+'</a>');
+					}
+				 }
+        	}
+    	});
+    </script>
+            
+            
+          </td>
+			<td class=css_col21><a href="http://www.5ucms.org/help/?1000" target="_blank"><--如何上传？</a></td>
+			<td width="88" class=css_col21 style="display:none;"><input onclick="alert('此功能用于锁定此文章为关键性文章以防被误删,但本文允许修改！（需要锁定,请保持打钩状态.误操作请保持无钩状态.若不确定,请咨询客服)')" name="sid" type="checkbox" value="1"  />
+					禁止删除</td>
+			<td width="88" class=css_col21><div align="center"> 
+                    <?php if($remotepic == 1){ echo '<input name="remotepic" type="checkbox" value="1" checked="checked"/>'; } else { echo '<input name="remotepic" type="checkbox" value="1" />'; } ?>
+					远程抓图 </div></td>
+		</tr>
+   
+		<tr>
+			<td class=css_col11_content><div align="right"> 描述： <br><font color="#ccc">不填则会<br />
+自动截取<br>
+正文前250字符	</font></div></td>
+			<td colspan="5" class=css_col21><div id="trdescription"><textarea name="description" style="width:99.2%;" rows="3" class='css_textarea' id="odescription" type="text">{$qinfo.description}</textarea><br />
+</div></td>
+		</tr> 
+        
+		<tr>
+			<td class=css_col11_content><div align="right"> 扩展属性：<br /></div></td>
+			<td colspan="5" class=css_col21 id="_modeindex" style="padding:0px 0px 5px 5px;"></td><script>modeext($$('ocid').value,0);</script> 
+		</tr>
+        
+		<tr >
+			<td class=css_col11_content><div align="right">正文： </div></td>
+			<td colspan="5" class=css_col21>
+<script charset="utf-8" src="{$installdir}inc/editor/kindeditor/kindeditor.js"></script>
+<script charset="utf-8" src="{$installdir}inc/editor/kindeditor/lang/zh_CN.js"></script>
+<script charset="utf-8" src="{$installdir}inc/editor/kindeditor/plugins/code/prettify.js"></script>
+	<script>
+var KE;
+KindEditor.ready(function(K) {
+	K.basePath = '{$installdir}inc/editor/kindeditor/';
+	KE = K.create('#ocontent',{
+		allowImageupload: false,
+		filterMode : false,
+		allowFilemanager: false,
+		allowFlashupload: false,
+		allowMediaupload:false,
+		allowFileupload:false,
+		afterBlur: function(){this.sync();},
+		cssPath: ['{$installdir}inc/editor/kindeditor/plugins/code/prettify.css'],
+		items : ['source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/','formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak','anchor', 'link', 'unlink', '|', 'about'],
+		afterChange : function() {
+						K('.word_count1').html(this.count());
+						K('.word_count2').html(this.count('text'));
+							}});
+});
+
+
+
+	</script>
+<div  id="trcontent"  >
+			<textarea id="ocontent" name="content" style="width:99%;height:400px;visibility:hidden;display:block;">{$qinfo.content}</textarea></div></td>
+		</tr>
+		<tr class=css_page_list>
+			<td colspan=6><input type="submit" name="button" value="提交内容" />	</td>
+		</tr>
+	
+</table>
+</form>
+ 
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{field:title}_{sys:webname}</title>
+<meta name="keywords" content="{field:keywords}"/>
+<meta name="description" content="{field:description}"/>
+<link rel="stylesheet" href="css/pintuer.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<style type="text/css">
+body,td,th {
+	font-family: "Microsoft YaHei", simsun, "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+</style>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/pintuer.js"></script>
+<script type="text/javascript" src="js/default.js"></script>
+<!--[if lt IE 8]>  
+<script type="text/javascript" src="js/respond.js"></script>
+<![endif]-->  
+
+</head>
+
+<body>
+<div class="layout toper">
+
+<div class="container">
+	  <div class="line">
+
+    <div class="xl12 xs2 xm2 xb1">
+      <button class="button icon-navicon float-right" data-target="#header-demo2"></button>
+      <img src="images/logo.png" />
+    </div>
+
+    <div class=" xl12 xs10 xm10 xb11 padding-top nav-navicon line-middle" id="header-demo2"> 
+    
+      <div class="xs8 xm8 xb5 xb1-move"> 
+            <ul class="nav nav-menu nav-inline nav-center nav-split">  
+{My:menu2}
+            </ul>
+      </div>
+      <div class="xs4 xm4 xb3">
+{My:search}
+      </div>
+      <div class="hidden-s hidden-m xb2 xb1-move">
+        <div class="xl6 xb12 text-red">{My:tel}</div>
+        <div class="xl6 xb12 text-small">{My:toplink}</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</div>
+<div class="layout">
+    <div class="banner">
+        <ul class="carousel">
+{My:banner}
+        </ul>
+    </div>
+</div>
+<br /><br />
+
+<div class="container">
+    <div class="xs4 xm3 hidden-l lefter">
+        
+        <ul class="nav nav-sub border-main submenu">
+            <li class="nav-head icon-caret-right radius-big"> 本类推荐</li>
+            
+<!--m:{ $row=8 $cid={f:cid} $mode=commend $order=[order] desc,[id] desc }--> 
+                <li><a href="[m:aurl]" title="[m:title]">[m:titlex]</a></li>
+<!--m-->
+            
+        </ul>
+        <br />
+        
+        
+        <ul class="nav nav-sub border-main submenu nav-navicon" id="subnav">
+            <li class="nav-head icon-caret-right radius-big"> 最新资讯</li>
+            
+<!--m:{ $row=8 $order=[order] desc,[id] desc }--> 
+                <li><a href="[m:aurl]" title="[m:title]">[m:titlex]</a></li>
+<!--m-->
+            
+        </ul>
+        <br />
+        
+    </div>
+    <div class="xs8 xm9">
+        <h2 class="padding-bottom text-main"><span class="float-right hidden-l">{tag:sitepath}</span><span class="icon-caret-right"></span> {field:title}</h2>
+        <img src="images/split.jpg" class="img-responsive" />
+        <br /><br />
+        {tag:inside}
+      <br />
+   
+        
+  </div>
+</div>
+<br /><br />
+<div class="layout footer">
+	<div class="container">
+    
+        <div class="clearfix footnav hidden-l">
+            <ul class="nav nav-inline nav-split">
+{My:footmenu} 
+            </ul>
+        </div>
+        <br />
+        <div class="clearfix text-small">
+        	{My:copyright}
+        </div>
+        <br />
+		<div class="bdsharebuttonbox" style="float:none; text-align:center;"><a class="bds_more"  data-cmd="more" style="float:none;"></a><a title="分享到QQ空间" class="bds_qzone"  data-cmd="qzone" style="float:none;"></a><a title="分享到新浪微博" class="bds_tsina"  data-cmd="tsina" style="float:none;"></a><a title="分享到腾讯微博" class="bds_tqq"  data-cmd="tqq" style="float:none;"></a><a title="分享到人人网" class="bds_renren"  data-cmd="renren" style="float:none;"></a><a title="分享到微信" class="bds_weixin"  data-cmd="weixin" style="float:none;"></a></div>   
+
+    </div>
+</div>
+<div class="hidden">0</div>
+<div class="layout fixed-bottom bg-black bg-inverse hidden-s  hidden-m hidden-b">
+	<div class="container text-center padding-top padding-bottom">
+{My:footmenu2}
+    </div>
+</div>
+{My:js} 
+</body>
+</html>

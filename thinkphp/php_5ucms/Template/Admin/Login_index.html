@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<HEAD>
+<TITLE>5ucms php - 后台管理登陆</TITLE>
+<META http-equiv=content-Type content="text/html; charset=utf-8">
+<!--[if lt IE 7]>
+        <script type="text/javascript" src="unitpngfix.js"></script>
+<![endif]-->
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+ 
+<STYLE type=text/css>
+body {  margin:0; padding:0; width:100%; FONT-SIZE: 12px; LINE-HEIGHT: 130%; color:#999999; background-color:#FFFFFF;}
+.font1 {
+	FONT-SIZE: 12px; LINE-HEIGHT: 130%; FONT-FAMILY: "宋体"
+}
+img{ border:0;}
+A {
+	FONT-SIZE: 12px; FONT-FAMILY: "宋体"
+}
+A:link {
+	FONT-SIZE: 12px; COLOR: #999999; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A:hover {
+	FONT-SIZE: 12px; COLOR: #999999; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+A:visited {
+	FONT-SIZE: 12px; COLOR: #999999; FONT-FAMILY: "宋体"; TEXT-DECORATION: none
+}
+.input {
+	FONT-SIZE: 12px; COLOR: #000; BORDER:0px; FONT-FAMILY: "宋体"; BACKGROUND-COLOR: #fff; width:160px; height:15px;
+}
+.J_Submit{width:250px;height:33px;border:0;display:inline-block;overflow:hidden;vertical-align:middle;line-height:31px;font-size:14px;font-weight:bold;color:#FFF;background:url(img/c.png) no-repeat 0 0;cursor:pointer;zoom:1;}
+.J_Submit:hover{background-position:0 -33px;}
+</STYLE>
+</HEAD>
+<BODY>
+ 
+
+<FORM name="frm" method="post" action="{:U('login')}"  style="margin:0 auto; width:1003px;">
+
+
+
+<table id="__01" width="1003" border="0" cellpadding="0" cellspacing="0" >
+	<tr>
+		<td width="63" rowspan="8">&nbsp;</td>
+		<td colspan="2">&nbsp;</td>
+		<td width="86">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2"><a title="巨网互联" target="_blank" href="http://www.b8bx.com/"><img src="img/login_05.gif" width="213" height="77" alt="巨网互联"></a></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="481" height="385" style="background-image:url(img/login_08.gif); background-repeat:no-repeat;"><script type="text/javascript">BaidU_CLB_fillSlot("628480");</script></td>
+		<td width="373" style="background-image:url(img/login.jpg); background-repeat:no-repeat;"><div style="width:373px; float:left;height:385px;">
+               <table width="100%" height="275" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="95" colspan="3"></td>
+  </tr>
+  <tr>
+    <td width="128" height="38"></td>
+    <td colspan="2"><input  name="username" value="" type="text" class="input" id="username" accesskey="n" tabindex="1"/></td>
+  </tr>
+  <tr>
+    <td height="38"></td>
+    <td height="38" colspan="2" style="padding-top:5px;"><input  name="password" type="password" value="" class="input" id="password"  accesskey="p" tabindex="2" /></td>
+  </tr>
+  <tr>
+    <td height="38"></td>
+    <td width="88" height="38" valign="middle" style="padding-top:5px;"><input  name="sn" type="text" value="" class="input" id="sn"  accesskey="v" tabindex="3" style="width:70px;"/></td>
+    <td width="157" style="padding-top:5px;"><img src="{:U('verifyimg')}" style="cursor:hand; height:30px; width:120px;" onclick="src='{:U('verifyimg')}'"  alt="看不清？点击刷新" /></td>
+  </tr>
+ 
+  <tr>
+    <td height="53" colspan="3"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="32%" height="34">&nbsp;</td>
+        <td width="24%"><BUTTON class=J_Submit tabIndex=5 type=submit>登　录</BUTTON>
+        </td>
+        <td width="21%">&nbsp;</td>
+        <td width="23%">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+               <div style="margin-top:15px; margin-left:154px;"></div>
+      </div></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<img src="img/login_14.gif" width="854" height="22" alt=""></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2" ><table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="5%">&nbsp;</td>
+            <td width="95%">巨网互联旗下：<a href="http://www.b8bx.com/">巨网互联</a> <a href="http://www.qiusongsong.com/">站长导航</a> <a href="http://www.5ucms.com/">5ucms</a></td>
+          </tr>
+        </table></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<img src="img/login_14.gif" width="854" height="22" alt=""></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="5%">&nbsp;</td>
+            <td width="95%" height="60">Copyright Right @ 2015 无忧网络科技 www.5ucms.com All Right Reserved. </td>
+          </tr>
+        </table></td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+</FORM>
+ 
+</BODY></HTML>

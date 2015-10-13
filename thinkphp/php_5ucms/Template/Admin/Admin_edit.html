@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>管理员管理</title> 
+<link href="images/Style.Css" rel="stylesheet" type="text/css" /> 
+</head>
+<body>
+
+<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1'>
+	<tr class=css_menu>
+		<td colspan=2><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+				<tr>
+					<td class=css_main><a href={:U('index')}>管理员管理</a></td>
+				</tr>
+			</table></td>
+	</tr>
+	<form name='frm' method='post' action='{:U('edit?id='.$qinfo['id'])}'>
+		
+		<tr>
+			<td class=css_col11>管理员帐号：
+				<div id='husername' style="color:#ccc;letter-spacing: 0px;font-size:13px;">长度为3-20位&nbsp;</div></td>
+			<td class=css_col21><input class='css_input' name="username" type="text" id="username" onfocus="husername.style.color='red';" onblur="husername.style.color='#ccc';" value="{$qinfo.username}" size=40 style='width:300px' > </td>
+		</tr>
+		
+		<tr>
+			<td class=css_col12>管理员密码：
+				<div id='hpassword' style="color:#ccc;letter-spacing: 0px;font-size:13px;">长度3-16位,采用MD5 sha1混合加密 不修改则不要动 默认显示为加密后的密文</div></td>
+			<td class=css_col22><input class='css_input' name="password" type="text" id="password" onfocus="hpassword.style.color='red';" onblur="hpassword.style.color='#ccc';" value="{$qinfo.password}" size=40 style='width:300px'> <input name="password1" type="hidden" id="password1"  value="{$qinfo.password}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td class=css_col11>系统权限：<span id='hlevels' style="color:#ccc;letter-spacing: 0px;font-size:13px;"></span></td>
+			<td class=css_col21> 
+ 
+ 
+				<input <?php if(strpos($qinfo['levels'],'setting')!==false) {echo 'checked="checked"';}?> class='css_input' name="levels[]" type="checkbox" id="levels" value="setting">系统配置 (包含插件管理 钩子管理)<br />
+				<input <?php if(strpos($qinfo['levels'],'channel')!==false) {echo 'checked="checked"';}?> class='css_input' name="levels[]" type="checkbox" id="levels" value="channel">栏目管理<br />
+				<input <?php if(strpos($qinfo['levels'],'sitelink')!==false){echo 'checked="checked"';}?> class='css_input' name="levels[]" type="checkbox" id="levels" value="sitelink">站内链接<br />
+				<input <?php if(strpos($qinfo['levels'],'label')!==false)   {echo 'checked="checked"';}?> class='css_input' name="levels[]" type="checkbox" id="levels" value="label">标签管理<br />
+				<input <?php if(strpos($qinfo['levels'],'upload')!==false)  {echo 'checked="checked"';}?> class='css_input' name="levels[]" type="checkbox" id="levels" value="upload" >上传文件<br />
+				<input <?php if(strpos($qinfo['levels'],'create')!==false)  {echo 'checked="checked"';}?> class='css_input' name="levels[]" type="checkbox" id="levels" value="create" >静态生成<br />
+				<input <?php if(strpos($qinfo['levels'],'diypage')!==false) {echo 'checked="checked"';}?> class='css_input' name="levels[]" type="checkbox" id="levels" value="diypage" >自定义页面<br />
+				<input <?php if(strpos($qinfo['levels'],'admin')!==false)	{echo 'checked="checked"';}?> class='css_input' name="levels[]" type="checkbox" id="levels" value="admin" >管理员管理<br />
+				<input <?php if(strpos($qinfo['levels'],'tags')!==false)    {echo 'checked="checked"';}?> class='css_input' name="levels[]" type="checkbox" id="levels" value="tags" >标签生成器<br />
+				
+				</td>
+		</tr>
+		<tr>
+		  <td class=css_col12>栏目权限：<div id='hmanagechannel' style="color:#ccc;letter-spacing: 0px;font-size:13px;">如果您为子管理员设定了栏目权限，建议您不要给他上方的 栏目管理 和 管理员管理权限 否则他是可以通过操作绕过或恢复权限设定的！</div></td>
+		  <td class=css_col22> 
+<volist name="qtable" id="v"> 
+		  <input class='css_input' name="managechannel[]" <?php if(strpos(','.$qinfo['managechannel'].',',','.$v['id'].',')!==false){echo 'checked="checked"';}?> type="checkbox" id="managechannel" value="{$v.id}">
+<?php  
+                    if($v["deeppath"] == 0){ 
+                    	echo $v["name"]; } 
+                    else {  
+                    	for($i = 1; $i <= $v["deeppath"]; $i++)
+                        { echo '　'; }
+                        echo '├ '.$v["name"]; 
+                    } 
+?>
+          <br /> 
+</volist>
+		  <input name="managechannelall" <?php if($qinfo['managechannel']==0)    {echo 'checked="checked"';}?> type="checkbox" class='css_input' id="managechannelall" value="yes" >
+		  <font color=red>全部栏目权限</font>(勾选我，则上方栏目选择无效)<br />
+		  </td>   
+	  </tr>
+		<tr>
+			<td class=css_col11>插件权限：<div id='hmanageplus' style="color:#ccc;letter-spacing: 0px;font-size:13px;">自动加载可用插件，限定权限。本功能尚未完成 敬请期待！</div></td>
+			<td class=css_col21>
+            
+<input  class='css_input' name="manageplus[]" type="checkbox" id="manageplus" value="comment">文章评论 (文章评论功能(游客模式))<br />	
+
+<input  class='css_input' name="manageplus[]" type="checkbox" id="manageplus" value="count">浏览统计 (统计文章浏览次数)<br />	
+
+<input  class='css_input' name="manageplus[]" type="checkbox" id="manageplus" value="guestbook">表单管理 (投诉/建议/订单)<br />	
+
+<input  class='css_input' name="manageplus[]" type="checkbox" id="manageplus" value="help">网站帮助 (网站帮助)<br />	
+
+<input  class='css_input' name="manageplus[]" type="checkbox" id="manageplus" value="public">网友投稿 (网友投稿插件)<br />	
+
+<input  class='css_input' name="manageplus[]" type="checkbox" id="manageplus" value="qssLog">后台记录 (后台操作记录插件v150310)<br />	
+
+<input  class='css_input' name="manageplus[]" type="checkbox" id="manageplus" value="search">站内搜索 (根据标题/关键字进行站内搜索)<br />	
+
+<input  class='css_input' name="manageplus[]" type="checkbox" id="manageplus" value="webftp">模板管理 (在线编辑模板内容)<br />	
+</td></tr>
+		<tr>
+			<td class=css_col12>上传文件类型：
+				<div id='huploadfileexts' style="color:#ccc;letter-spacing: 0px;font-size:13px;">允许上传的文件类型,多个类型用/分隔</div></td>
+			<td class=css_col22><input class='css_input' name="uploadfileexts" type="text" id="uploadfileexts" onfocus="huploadfileexts.style.color='red';" onblur="huploadfileexts.style.color='#ccc';" value="{$qinfo.uploadfileexts}" size=40 style='width:300px'> </td>
+		</tr>
+		<tr>
+			<td class=css_col11>最大上传文件：
+				<div id='huploadfilesize' style="color:#ccc;letter-spacing: 0px;font-size:13px;">此管理员一次可上传的最大文件量,单位KB,值1024表示1MB</div></td>
+			<td class=css_col21><input class='css_input' name="uploadfilesize" type="text" id="uploadfilesize" onfocus="huploadfilesize.style.color='red';" onblur="huploadfilesize.style.color='#ccc';" value="{$qinfo.uploadfilesize}" size=40 style='width:300px'> </td>
+		</tr>
+		<tr class=css_page_list>
+			<td colspan=2><input type='submit' name='Submit' value='保存'></td>
+		</tr>
+	</form>
+</table>
+<div class="admin_frameset" >
+  <div class="pen_frame" title="全屏" id="pen_frame"></div>
+  <div class="close_frame" title="还原窗口" id="close_frame"></div>
+</div>
+</body>
+</html>

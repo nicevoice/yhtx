@@ -1,0 +1,9 @@
+#xin >div {
+    position:absolute;
+    float: left;
+    width: 100%;
+}
+[class*=am-u-]{
+    padding-left:0px;
+    padding-right:0px;
+}

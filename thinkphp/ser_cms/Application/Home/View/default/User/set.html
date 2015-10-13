@@ -1,0 +1,189 @@
+<extend name="Public/common" />
+<block name="style">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/set.css">
+</block>
+<block name="body">
+    <div class="set">
+        <div class="am-container">
+            <div class="am-u-lg-2">
+                <ul class="am-nav">
+                    <li class="am-active">
+                        <a href="{:U('Home/User/set')}">个人信息</a>
+                    </li>
+                    <li>
+                        <a href="#">密码修改</a>
+                    </li>
+                    <if condition=" !org_user() ">
+                        <li>
+                            <a href="{:U('Home/Org/join')}">升级服务商</a>
+                        </li>
+                    </if>
+                </ul>
+            </div>
+            <div class="am-u-lg-10" id="my-set" style="border-left: inset 1px #FFF">
+                <div class="am-u-lg-8">
+                    <form id="register-form" action="{:U('Home/User/doEdit')}" method="post" class="am-form am-form-horizontal">
+                        <div class="am-form-group">
+                            <div style="height: 50px"></div>
+                        </div>
+                        <div class="am-form-group">
+                            <label class="am-u-lg-2 am-form-label">电子邮件</label>
+                            <div class="am-u-lg-10">
+                                <input type="email" value="{$_user['email']}" disabled>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="doc-ipt-pwd-2" class="am-u-lg-2 am-form-label">昵称</label>
+                            <div class="am-u-lg-10">
+                                <input type="text" name="nickname" value="{$_user['nickname']}" required maxlength="10" id="doc-ipt-pwd-2" placeholder="10个字以内ok">
+                            </div>
+                        </div>
+                        <input id="picture" name="picture" type="hidden">
+                        <div class="am-form-group">
+                            <label for="doc-ipt-pwd-2" class="am-u-lg-2 am-form-label">个人简介</label>
+                            <div class="am-u-lg-10">
+                                <textarea required maxlength="255" name="summary" id="summary" placeholder="255个字以内ok">{$_user['des']}</textarea>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="realname" class="am-u-lg-2 am-form-label">真实姓名</label>
+                            <div class="am-u-lg-10">
+                                <input type="text" name="realname" value="{$_user['realname']}" maxlength="5" id="realname" placeholder="可以不填">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="phone" class="am-u-lg-2 am-form-label">电话</label>
+                            <div class="am-u-lg-10">
+                                <input type="text" name="phone" value="{$_user['phone']}" maxlength="20" id="phone" placeholder="可以不填">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="qq" class="am-u-lg-2 am-form-label">QQ</label>
+                            <div class="am-u-lg-10">
+                                <input type="text" name="qq" value="{$_user['qq']}" maxlength="20" id="qq" placeholder="可以不填">
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <label for="sex" class="am-u-lg-2 am-form-label">性别</label>
+                            <div class="am-u-lg-10">
+                                <select id="sex" name="sex">
+                                    <option>保密</option>
+                                    <option value="1" <if condition=" $_user['sex'] eq 1 ">selected</if> >男</option>
+                                    <option value="2" <if condition=" $_user['sex'] eq 2 ">selected</if> >女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="am-form-group">
+                            <div class="am-u-lg-10 am-u-lg-offset-2">
+                                <button type="submit" class="am-btn am-btn-primary">提交信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="am-u-lg-4">
+                    <div>
+                        <empty name="_user['head_pic_url']">
+                            <img id="head-pic" src="__PUBLIC__/Home/images/default_head.png" width="100%">
+                            <else/>
+                            <img id="head-pic" src="{$_user['head_pic_url']}" width="100%">
+                        </empty>
+
+                    </div>
+                    <div style="text-align: center;padding-top: 10px" id="container">
+                        <button id="pickfiles" type="button" class="am-btn am-btn-danger am-btn-sm">
+                            上传头像
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__PUBLIC__/qiniu/plupload/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/qiniu//plupload/i18n/zh_CN.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/qiniu/qiniu.js"></script>
+    <script>
+        highlight_subnav("{:U('Home/Index/index')}");
+        var url;
+        var loading;
+        $(function() {
+            var ajax_form_options = {
+//                target:        '#comment-form',   // target element(s) to be updated with server response
+                beforeSubmit:  beforeSubmit,  // pre-submit callback
+                success:       showResponse  // post-submit callback
+            };
+            $('#register-form').ajaxForm(ajax_form_options);
+            function beforeSubmit(){
+                loading = layer.load();
+            }
+            function showResponse(responseText,statusText){
+                layer.close(loading);
+                if(responseText.status == 1){
+                    layer.msg(responseText.info,{icon: 1});
+                    url = responseText.url;
+                    setTimeout("window.location.href=url",1500);
+                }else{
+                    layer.msg(responseText.info);
+                }
+            }
+
+            var domain = "<php> $qc = C('qiniu_config');echo $qc['url'] </php>";
+            var uploader = Qiniu.uploader({
+                runtimes: 'html5,flash,html4',    //上传模式,依次退化
+                browse_button: 'pickfiles',       //上传选择的点选按钮，**必需**
+                uptoken_url: "{:U('Home/User/get_qiniu_token')}",
+                //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+                // uptoken : '<Your upload token>',
+                //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+//                unique_names: true,
+                // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
+                save_key: true,
+                // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
+                domain: domain,
+                //bucket 域名，下载资源时用到，**必需**
+                container: 'container',           //上传区域DOM ID，默认是browser_button的父元素，
+                max_file_size: '100mb',           //最大文件体积限制
+                flash_swf_url: '__PUBLIC__/qiniu/plupload/Moxie.swf',  //引入flash,相对路径
+                max_retries: 3,                   //上传失败最大重试次数
+                dragdrop: true,                   //开启可拖曳上传
+                drop_element: 'container',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                chunk_size: '4mb',                //分块上传时，每片的体积
+                auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                init: {
+                    'FilesAdded': function(up, files) {
+                        plupload.each(files, function(file) {
+                            // 文件添加进队列后,处理相关的事情
+                        });
+                    },
+                    'BeforeUpload': function(up, file) {
+                        // 每个文件上传前,处理相关的事情
+                        loading = layer.load();
+                    },
+                    'UploadProgress': function(up, file) {
+
+                    },
+                    'FileUploaded': function(up, file, info) {
+                        var obj = JSON.parse(info);
+                        $('#picture').val(obj.key);
+                        $('#head-pic').attr('src',domain + obj.key);
+                        layer.close(loading);
+                    },
+                    'Error': function(up, err, errTip) {
+                        //上传出错时,处理相关的事情
+                    },
+                    'UploadComplete': function() {
+                        //队列文件处理完毕后,处理相关的事情
+                    },
+                    'Key': function(up, file) {
+                        // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                        // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                        var key = "";
+                        // do something with key here
+                        return key
+                    }
+                }
+            });
+        });
+    </script>
+</block>

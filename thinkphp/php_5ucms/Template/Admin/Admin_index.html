@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>管理员管理</title> 
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1' id="www_5ucms_org">
+	<tr class=css_menu>
+		<td colspan=3 class=css_main><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+				<form name=frmSearch method=get action={:U('index')}>
+					<tr>
+						<td class=css_main><a href={:U('index')}>管理员管理</a> <a href={:U('edit')}>添加管理员</a></td>
+						<td class=css_search><select name=dfieldkey id=dfieldkey>
+								<option <?php if($dfieldkey == 'id'){ echo 'selected="selected"'; } ?> value="id" >编号</option>
+								<option <?php if($dfieldkey == 'username'){ echo 'selected="selected"'; } ?> value="username" >管理员帐号</option>
+								<option <?php if($dfieldkey == 'levels'){ echo 'selected="selected"'; } ?> value="levels" >管理员权限</option>
+							</select>
+							<input name=key type=text id=Key size=10 value="{$key}"> <input type=submit name=Submit value=搜> </td>
+					</tr>
+				</form>
+			</table></td>
+	</tr>
+	<tr>
+		<td class='css_top'>编号</td>
+		<td class='css_top'>帐号</td>
+		<td class='css_top'>管理</td>
+	</tr>
+        <tbody id="QQ3876307"> 
+    <volist name="qtable" id="v">
+	<tr>
+		<td class=css_list>{$v.id}</td>
+		<td class=css_list>{$v.username}</td>
+		<td class=css_list><input name=modify type=button onclick="location.href='{:U('edit?id='.$v['id'])}';" value=修改>  <input name=delete type=button onclick="if(confirm('您确定要删除这条记录吗?')){location.href='{:U('del?id='.$v['id'])}';}" value=删除>  </td>
+	</tr>
+	</volist>
+      </tbody>
+	<tr class=css_page_list>
+		<td colspan=3><div style="clear:both;"></div>
+ <div class="i5upage">  {$page}
+ <div style="clear:both;"></div>
+ </div> </td>
+	</tr>
+</table>
+<script language="JavaScript" type="text/javascript" src="images/q3876307.js"></script>
+<div class="admin_frameset" >
+  <div class="open_frame" title="全屏" id="open_frame"></div>
+  <div class="close_frame" title="还原窗口" id="close_frame"></div>
+</div>
+</body>
+</html>

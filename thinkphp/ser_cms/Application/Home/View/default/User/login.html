@@ -1,0 +1,76 @@
+<extend name="Public/common" />
+<block name="style">
+
+</block>
+<block name="body">
+    <div style="padding-top: 20px">
+        <div class="am-g am-container">
+            <div class="am-u-lg-5" style="padding: 25px 0px">
+                <img src="__PUBLIC__/Home/images/map_shenyang.jpg" style="width:100%;height: 100%" alt="" data-am-scrollspy="{animation:'slide-left', repeat: true}">
+            </div>
+            <div class="am-u-lg-6 am-u-lg-offset-1 am-u-sm-12" style="padding: 25px 0px">
+                <div style="padding-top: 30px;border:2px solid #CCC;background-color: #EEE;box-shadow: 10px 10px 5px #888888;">
+                    <form id="login-form" class="am-form am-form-horizontal" action="{:U('Home/User/doLogin')}" method="post">
+                        <div class="am-form-group">
+                            <label for="email" class="am-u-lg-2 am-form-label">账号</label>
+                            <div class="am-input-group am-u-lg-10">
+                                <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+                                <input type="email" name="email" id="email" class="am-form-field" placeholder="登陆账号，通常是邮箱">
+                            </div>
+                        </div>
+                        <div class="am-form-group" >
+                            <label for="password" class="am-u-lg-2 am-form-label">密码</label>
+                            <div class="am-input-group am-u-lg-10">
+                                <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+                                <input type="password" name="password" id="password" class="am-form-field" placeholder="登陆密码">
+                            </div>
+                        </div>
+                        <!--<div class="am-form-group">-->
+                        <!--<div class="am-u-lg-offset-2 am-u-lg-10">-->
+                        <!--<div class="checkbox">-->
+                        <!--<label>-->
+                        <!--<input type="checkbox"> 记住十万年-->
+                        <!--</label>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="am-form-group" style="padding-top: 50px">
+                            <div class="am-u-lg-10 am-u-lg-offset-2">
+                                <button type="submit" class="am-btn am-btn-success">进去看看~</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 150px"></div>
+</block>
+<block name="script">
+    <script>
+        var url;
+        var loading;
+        $(function() {
+            var ajax_form_options = {
+//                target:        '#comment-form',   // target element(s) to be updated with server response
+                beforeSubmit:  beforeSubmit,  // pre-submit callback
+                success:       showResponse  // post-submit callback
+            };
+            $('#login-form').ajaxForm(ajax_form_options);
+            function beforeSubmit(){
+                loading = layer.load();
+            }
+            function showResponse(responseText,statusText){
+                console.log(responseText)
+                layer.close(loading);
+                if(responseText.status == 1){
+                    layer.msg(responseText.info,{icon: 1});
+                    url = responseText.url;
+                    setTimeout("window.location.href=url",1500);
+                }else{
+                    layer.msg(responseText.info);
+                }
+            }
+        });
+    </script>
+</block>

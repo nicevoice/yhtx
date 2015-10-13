@@ -1,0 +1,7 @@
+common 函数库
+conf 配置
+lang 语言
+library 功能类库
+mode
+tpl 模板
+thinkphp.php 入口文件

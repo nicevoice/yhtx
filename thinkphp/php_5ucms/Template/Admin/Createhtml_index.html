@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>静态发布</title>
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.intclass {cursor: hand;color: #000000;background-color:#e1e1e1;width:20%;font-weight: bold;text-align: center;font-size: 14px;padding: 3px;border-top-width: 1px;border-left-width: 1px;border-top-style: solid;border-left-style: solid;border-top-color: #FFFFFF;border-left-color: #FFFFFF;}
+.unintclass{cursor: hand;color: #CCCCCC;background-color: #f1f1f1;width:20%;font-weight: bold;text-align: center;font-size: 14px;padding: 3px;border-top-width: 1px;border-left-width: 1px;border-top-style: solid;border-left-style: solid;border-top-color: #FFFFFF;border-left-color: #FFFFFF;}
+
+.c_1{width: 240px; white-space:nowrap; text-overflow:ellipsis; overflow: hidden;}
+-->
+</style>
+</head>
+<body>
+
+<script>
+function IntIndex(){frm.Act.value='Null';frm.submit();frm.Act.value='Index';iIndex.classname='intclass';ichannel.classname='unintclass';icontent.classname='unintclass';isitemaps.classname='unintclass';iall.classname='unintclass';oall.style.display='none';oIndex.style.display='';ochannel.style.display='none';ocontent.style.display='none';ositemaps.style.display='none';}
+function Intchannel(){frm.Act.value='Null';frm.submit();frm.Act.value='channel';iIndex.classname='unintclass';ichannel.classname='intclass';icontent.classname='unintclass';isitemaps.classname='unintclass';iall.classname='unintclass';oall.style.display='none';oIndex.style.display='none';ochannel.style.display='';ocontent.style.display='none';ositemaps.style.display='none';}
+function Intcontent(){frm.Act.value='Null';frm.submit();frm.Act.value='content';iIndex.classname='unintclass';ichannel.classname='unintclass';icontent.classname='intclass';isitemaps.classname='unintclass';iall.classname='unintclass';oall.style.display='none';oIndex.style.display='none';ochannel.style.display='none';ocontent.style.display='';ositemaps.style.display='none';}
+function Intsitemaps(){frm.Act.value='Null';frm.submit();frm.Act.value='sitemaps';iIndex.classname='unintclass';ichannel.classname='unintclass';icontent.classname='unintclass';isitemaps.classname='intclass';iall.classname='unintclass';oall.style.display='none';oIndex.style.display='none';ochannel.style.display='none';ocontent.style.display='none';ositemaps.style.display='';}
+function IntAll(){frm.Act.value='Null';frm.submit();frm.Act.value='all';iIndex.classname='unintclass';ichannel.classname='unintclass';icontent.classname='unintclass';isitemaps.classname='unintclass';iall.classname='intclass';oIndex.style.display='none';ochannel.style.display='none';ocontent.style.display='none';ositemaps.style.display='none';oall.style.display='';}
+</script>
+<table width="100%" border="0" cellpadding="6" cellspacing="1" class="css_table" bgcolor='#E1E1E1'>
+  <form action="Admin_Createhtml.Asp?Int=Yes" method="post" name="frm" target="stafrm" id="frm">
+    <tr class="css_menu">
+      <td colspan="5"  class=css_main>
+        <table width="100%" border="0" cellpadding="4" cellspacing="0" class="css_main_table">
+          <tr>
+            <td class="css_main"><a href="#">静态发布</a>
+              <input name="Act" type="hidden" value="" />
+            </td>
+            <td class="css_search">&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="30" class="unintclass" id="iIndex" onclick="IntIndex();">生成首页</td>
+      <td height="30" class="unintclass" id="ichannel" onclick="Intchannel();">生成栏目页</td>
+      <td height="30" class="unintclass" id="icontent" onclick="Intcontent();">生成内容页</td>
+      <td height="30" class="unintclass" id="isitemaps" onclick="Intsitemaps();">生成 sitemaps</td>
+	  <td height="30" class="unintclass" id="iall" onclick="IntAll();">生成整站</td>
+
+    </tr>
+    <tr id="oIndex" style="display:none;">
+      <td colspan="5" class='css_list'>
+        <table width="100%" border="0" cellspacing="0" cellpadding="6">
+          <tr>
+            <td height="10" colspan="2" align="right"></td>
+          </tr>
+          <tr>
+            <td width="28%" height="25" align="right">首页模板路径：</td>
+            <td align="left">
+              <input name="Input" value="/template/index_qss.htm" size="40" readonly="true" />
+            </td>
+          </tr>
+          <tr>
+            <td height="25" align="right">首页存放路径：</td>
+            <td align="left">
+              <input name="Input2" type="text" value="/" readonly="true" />
+              <a href="http://127.0.0.1/" target="_blank" class="css_comment_list">查看首页</a></td>
+          </tr>
+          <tr>
+            <td height="25" align="right">&nbsp;</td>
+            <td align="left">
+              <input name="Submit" type="button" value="不需要生成" />
+            </td>
+          </tr>
+          <tr>
+            <td height="10" colspan="2" align="right"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+	<tr id="oall" style="display:none;">
+      <td colspan="5" class='css_list' style="height:50px;">
+        <input name="Submit" type="button" onclick="frm.submit()" value="一键生成整站"  />
+      </td>
+    </tr>
+    <tr id="ochannel" style="display:none;">
+      <td colspan="5" class='css_list'>
+        <table width="100%" border="0" cellspacing="0" cellpadding="6">
+          <tr>
+            <td height="10" colspan="2" align="right"></td>
+          </tr>
+          <tr>
+            <td width="28%" height="25" align="right">请选择栏目：</td>
+            <td align="left">
+              <select name="cids">
+                <option value=0>不指定栏目(生成所有栏目页)</option>
+                <option value="38">公司动态★</option>
+<option value="3">产品中心★</option>
+<option value="46">&nbsp; |-栏目C ★</option>
+<option value="45">&nbsp; |-栏目B★</option>
+<option value="43">&nbsp; |-栏目B★</option>
+<option value="42">&nbsp; |-栏目A★</option>
+<option value="23">&nbsp; |-小类一★</option>
+<option value="2">新闻动态★</option>
+<option value="1">关于我们★</option>
+<option value="4">顶部幻灯</option>
+
+              </select> <span class="css_comment_list">打 ★ 号表示需要更新</span>
+            </td>
+          </tr>
+          <tr>
+            <td height="25" align="right">每次生成数量：</td>
+            <td align="left">
+              <input name="pages" type="text" id="n" value="10" />
+              <span class="css_comment_list">每次生成页数</span></td>
+          </tr>
+          <tr>
+            <td height="25" align="right">&nbsp;</td>
+            <td align="left">
+              <input name="Submit2" type="button" value="不需要生成" />
+            </td>
+          </tr>
+          <tr>
+            <td height="10" colspan="2" align="right"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr id="ocontent" style="display:none;">
+      <td colspan="5" class='css_list'>
+        <table width="100%" border="0" cellspacing="0" cellpadding="6">
+          <tr>
+            <td height="10" colspan="2" align="right"></td>
+          </tr>
+          <tr>
+            <td width="28%" height="25" align="right">文章开始id：</td>
+            <td align="left">
+              <input name="id1" type="text" id="id1" />
+              <span class="css_comment_list">需要更新的文章开始id编号，这表示从第一篇文章开始更新</span></td>
+          </tr>
+          <tr>
+            <td height="25" align="right">文章结束id：</td>
+            <td align="left">
+              <input name="id2" type="text" id="id2" />
+              <span class="css_comment_list">需要更新的文章结束id编号，空表示更新到最后一篇文章</span></td>
+          </tr>
+          <tr>
+            <td height="25" align="right">每次生成数量：</td>
+            <td align="left">
+              <input name="n" type="text" id="n" value="10" />
+              <span class="css_comment_list">每次更新的文章数量</span></td>
+
+          </tr>
+          <tr>
+            <td height="25" align="right">&nbsp;</td>
+            <td align="left">
+              <input name="Submit22" type="button" value="不需要生成" />
+            </td>
+          </tr>
+          <tr>
+            <td height="10" colspan="2" align="right"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr id="ositemaps" style="display:none;">
+      <td colspan="5" class='css_list'>
+        <table width="100%" border="0" cellspacing="0" cellpadding="6">
+          <tr>
+            <td height="10" colspan="2" align="right"></td>
+          </tr>
+          <tr>
+            <td width="28%" height="25" align="right">每页链接：</td>
+            <td align="left">
+              <input name="pagelinks" type="text" id="pagelinks" value="200" />
+              <span class="css_comment_list">每页连接数,GOOGLE规范要求不得大于5000</span> </td>
+          </tr>
+          <tr>
+            <td height="25" align="right">时区偏移
+              ：</td>
+            <td align="left">
+              <input name="timex" type="text" id="timex" value="8" />
+              <span class="css_comment_list">默认中国大陆为8</span> </td>
+          </tr>
+          <tr>
+            <td height="25" align="right">权重：</td>
+            <td align="left">
+              <input name="pr" type="text" id="pr" value="0.5" />
+              <span class="css_comment_list">0-1.0之间,推荐使用默认值 </span></td>
+          </tr>
+          <tr>
+            <td height="25" align="right">&nbsp;</td>
+            <td align="left">
+              <input name="Submit23" type="button" onclick="frm.submit()" value="生成 sitemaps" /> <a href="http://www.5ucms.org/5ucms-chajian/238.html" target="_blank">太费事？点我购买定时地图插件，4种地图格式哟！让您的SEO优化更上一层楼！</a>
+            </td>
+          </tr>
+          <tr>
+            <td height="10" colspan="2" align="right"></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </form>
+</table>
+<iframe src="Admin_Createhtml.Asp?Act=Null" name="stafrm" width="100%" marginwidth="0" height="250" marginheight="0" scrolling="auto" frameborder="0" id="stafrm" style="border:1px solid #333"></iframe>
+<table width="100%" border="0" cellpadding="6" cellspacing="1" class="css_table" bgcolor='#E1E1E1'>
+  <tr class="css_menu">
+    <td>
+      <table width="100%" border="0" cellpadding="4" cellspacing="0" class="css_main_table">
+        <tr>
+          <td class="css_main"><a href="#">发布状态</a></td>
+          <td class="css_search">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td class='css_top'>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>
+      <div style="text-align:left; line-height:30px;">
+       <a href="http://www.5ucms.org/help/?1026" target="_blank" style="color:#00F">操作有困难？请点我查看帮助：如何配置生成静态？</a>  
+      </div>
+    </td>
+  </tr>  
+</table>
+<script>
+
+Intsitemaps();
+
+</script>
+
+ 
+</body>
+</html>

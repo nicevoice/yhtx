@@ -1,0 +1,36 @@
+<case value="picture">
+    <div id="[type]{$group_k}_upload_{$[type]k}" {$form.extra_attr}></div>
+    <input id="oindexpic" class="form-control input text" type="text" name="{$[type]form.name}" value="{$[type]form.value}"> 
+    <div id="[type]{$group_k}_preview_{$[type]k}"> 
+   	 
+        <notempty name="[type]form.value">
+            <span class="img-box">
+                <img class="img" src="{$[type]form.value}" id="oindexpic2" data-id="{$[type]form.value}">
+                <i style="display:none;" class="fa fa-times-circle remove-picture"></i>
+            </span>
+        </notempty>
+    </div>
+    <link rel="stylesheet" href="{$installdir}inc/uploadify/uploadify.css">
+    <script src='{$installdir}inc/uploadify/jquery.uploadify.min.js'></script>
+    <script> 
+		var oneimg = ''; 
+		$('#[type]{$group_k}_upload_{$[type]k}').uploadify({ 
+	        	'swf'      : '{$installdir}inc/uploadify/uploadify.swf',
+	        	'uploader' : '{:U("content/upload")}?url={$Plus_uploadpicpath}',   //上传的方法
+	        	'buttonText' : '图片上传',
+	        	'onUploadSuccess' : function(file, data, response) {
+	        	 //把所有上传的图片都放入DIV中
+				 if(data.indexOf('error:')>=0){
+					 alert(data.replace("error:","")); //提示错误
+				 }else{ 
+				    picurl = "{$Plus_uploadpicpath}"+data;
+				 	if(data.indexOf('.jpg')>=0 || data.indexOf('.png')>=0 || data.indexOf('.gif')>=0 || data.indexOf('.bmp')>=0 || data.indexOf('.jpeg')>=0){
+					 //如果是图片
+					 $('#oindexpic').val(picurl);//填入路径框
+					 $('#oindexpic2').attr("src",picurl);//显示目前图片
+					}
+				 }
+        	}
+    	});
+    </script>
+</case>

@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>栏目管理</title>
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1'>
+	<tr class=css_menu>
+		<td colspan=2><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+				<tr>
+					<td class=css_main><a href={:U('index')}>栏目管理</a> <a href=http://www.5ucms.org/5ucms-jiaocheng/1138.html target="_blank" style="color:red;">不清楚如何选择模板？点我学习</a></td>
+				</tr>
+			</table></td>
+	</tr>
+	<form name='frm' method='post' action='{:U('edit?id='.$qinfo['id'])}'>
+		
+		<tr>
+			<td class=css_col11>上级栏目：<span id='hfatherid' style="color:#ccc;letter-spacing: 0px;font-size:13px;"></span></td>
+			<td class=css_col21>
+				<select class='css_select' name="fatherid" type="text" id="ofatherid" onfocus="hfatherid.style.color='red';" onblur="hfatherid.style.color='#ccc';"  >
+					<option value="0" >无(作为一级分类)</option>
+<volist name="qtable" id="v">
+					<option 
+<?php  
+
+                    if($v['id'] == $qinfo["fatherid"]){ 
+                    	echo 'selected="selected"';
+                    } 
+                    
+                    echo ' value = "'.$v['id'].'" >';
+                    
+                    if($v["deeppath"] == 0){ 
+                    	echo $v["name"]; } 
+                    else {  
+                    	for($i = 1; $i <= $v["deeppath"]; $i++)
+                        { echo '　'; }
+                        echo '├ '.$v["name"]; 
+                    } 
+?>
+                    </option>
+</volist>
+
+				</select>		</td>
+		</tr>
+		
+		<tr style='display:none;'>
+			<td class=css_col12>下属id：<span id='hchildid' style="color:#ccc;letter-spacing: 0px;font-size:13px;"></span></td>
+			<td class=css_col22><input class='css_input' name="childid" type="text" id="ochildid" onfocus="hchildid.style.color='red';" onblur="hchildid.style.color='#ccc';" value="{$qinfo.childid}"  >			</td>
+		</tr>
+		
+		<tr style='display:none;'>
+			<td class=css_col11>栏目深度：
+				<div id='hdeeppath' style="color:#ccc;letter-spacing: 0px;font-size:13px;">禁用此栏目后,将无法再添加内容&nbsp;</div></td>
+			<td class=css_col21><input class='css_input' name="deeppath" type="text" id="odeeppath" onfocus="hdeeppath.style.color='red';" onblur="hdeeppath.style.color='#ccc';" value="{$qinfo.deeppath}"  >			</td>
+		</tr>
+		
+		<tr>
+			<td class=css_col12>栏目名称：
+				<div id='hname' style="color:#ccc;letter-spacing: 0px;font-size:13px;">支持HTML语法,不要超过250个字符&nbsp;</div></td>
+			<td class=css_col22><input class='css_input' name="name" type="text" id="oname" onfocus="hname.style.color='red';" onblur="hname.style.color='#ccc';" value="{$qinfo.name}" size=40 > 
+				<input type='submit' name='Submit2' value='保存' />	<br />
+如需批量添加 请以 $|$ 分割多个栏目的名称 如：栏目A$|$栏目B$|$栏目C		</td>
+		</tr>
+		
+		<tr>
+			<td class=css_col11>排列顺序：<span id='horder' style="color:#ccc;letter-spacing: 0px;font-size:13px;"></span></td>
+			<td class=css_col21><input class='css_input' name="order" type="text" id="oorder" onfocus="horder.style.color='red';" onblur="horder.style.color='#ccc';" value="{$qinfo.order}"  >批量添加模式下 此项为上方栏目排序乘以10			</td>
+		</tr>
+		
+		<tr style="display:none;">
+			<td class=css_col12>内容表：
+				<div id='htable' style="color:#ccc;letter-spacing: 0px;font-size:13px;">数据量大时请选择不同的表进行存放&nbsp;</div></td>
+			<td class=css_col22>
+				<select class='css_select' name="table" type="text" id="otable" onfocus="htable.style.color='red';" onblur="htable.style.color='#ccc';"  >
+					<option value="{pre}content_01" >数据表一</option>
+					<option value="{pre}content_02" >数据表二</option>
+					<option value="{pre}content_03" >数据表三</option>
+					<option value="{pre}content_04" >数据表四</option>
+					<option value="{pre}content_05" >数据表五</option>
+					<option value="{pre}content_06" >数据表六</option>
+					<option value="{pre}content_07" >数据表七</option>
+					<option value="{pre}content_08" >数据表八</option>
+					<option value="{pre}content_09" >数据表九</option>
+					<option value="{pre}content_10" >数据表十</option>
+				</select> 
+				批量添加模式下，此项随机			</td>
+		</tr>
+		
+		<tr>
+			<td class=css_col11>绑定域名：
+				<div id='hdomain' style="color:#ccc;letter-spacing: 0px;font-size:13px;">填写后即可通过绑定域名访问,如果是外部链接这里可以设置成外部链接地址&nbsp;</div></td>
+			<td class=css_col21><input class='css_input' name="domain" type="text" id="odomain" onfocus="hdomain.style.color='red';" onblur="hdomain.style.color='#ccc';" value="{$qinfo.domain}" size=40 >
+				<input name="outsidelink" type="checkbox" id="ooutsidelink" value="1"  />
+				<span style="color:#888;letter-spacing: 0px;font-size:13px;">作为外部链接</span> </td>
+		</tr>
+		<tr style="">
+			<td class=css_col12>大类模板：
+				<div id='htemplatechannel' style="color:#ccc;letter-spacing: 0px;font-size:13px;">如果该栏目存在子栏目,则调用此目录下的模板,可使用  {cid} 标签,此模板应在 templatedir 指定目录下面</div></td>
+			<td class=css_col22><input class='css_input' name="templatechannel" type="text" id="otemplatechannel" onfocus="htemplatechannel.style.color='red';" onblur="htemplatechannel.style.color='#ccc';" value="{$qinfo.templatechannel}" size=40 >		<select name="tc" id="oc" class='css_select' onchange="frm.otemplatechannel.value=this.value;">
+					<?php echo gettemplatedir('Channel') ?>
+
+
+				</select>	 此处默认以c开头的模板文件会被识别可供选择</td>
+		</tr>
+ 
+		<tr style="">
+			<td class=css_col11>小类模板：
+				<div id='htemplateclass' style="color:#ccc;letter-spacing: 0px;font-size:13px;">如果该栏目不存在子栏目,则调用此模板,可使用  {cid} 标签,此模板应在 templatedir 指定目录下面</div></td>
+			<td class=css_col21><input class='css_input' name="templateclass" type="text" id="otemplateclass" onfocus="htemplateclass.style.color='red';" onblur="htemplateclass.style.color='#ccc';" value="{$qinfo.templateclass}" size=40 >			<select name="tl" id="ol" class='css_select' onchange="frm.otemplateclass.value=this.value;">
+					<?php echo gettemplatedir('Channel') ?>
+
+				</select>  此处默认以l开头的模板文件会被识别可供选择</td>
+		</tr>
+		<tr style="">
+			<td class=css_col12>内容页模板：
+				<div id='htemplateview' style="color:#ccc;letter-spacing: 0px;font-size:13px;">文章内容浏览页面模板,可使用  {cid} 标签,此模板应在 templatedir 指定目录下面</div></td>
+			<td class=css_col22><input class='css_input' name="templateview" type="text" id="otemplateview" onfocus="htemplateview.style.color='red';" onblur="htemplateview.style.color='#ccc';" value="{$qinfo.templateview}" size=40 >		<select name="ta" id="oa" class='css_select' onchange="frm.otemplateview.value=this.value;">
+					<?php echo gettemplatedir('Content') ?>
+
+				</select> 此处默认以a开头的模板文件会被识别可供选择</td>
+		</tr>
+		
+		<tr>
+			<td class=css_col11>栏目存放目录：
+				<div id='hruleindex' style="color:#ccc;letter-spacing: 0px;font-size:13px;">栏目存放目录址,可使用 {installdir} {cid} 标签, {py} 标签将栏目名转换成对应拼音&nbsp;</div></td>
+			<td class=css_col21><input class='css_input' name="ruleindex" type="text" id="oruleindex" onfocus="hruleindex.style.color='red';" onblur="hruleindex.style.color='#ccc';" value="{$qinfo.ruleindex}" size=40 >			</td>
+		</tr>
+		
+		<tr>
+			<td class=css_col12>栏目分页规则：
+				<div id='hrulechannel' style="color:#ccc;letter-spacing: 0px;font-size:13px;">栏目分页列表存放规则,可使用 {cid} {page} 标签,其中 {page} 为必填标签&nbsp;</div></td>
+			<td class=css_col22><input class='css_input' name="rulechannel" type="text" id="orulechannel" onfocus="hrulechannel.style.color='red';" onblur="hrulechannel.style.color='#ccc';" value="{$qinfo.rulechannel}" size=40 >			</td>
+		</tr>
+		
+		<tr>
+			<td class=css_col11>预览页规则：
+				<div id='hruleview' style="color:#ccc;letter-spacing: 0px;font-size:13px;">文章浏览页存放规则,可使用 {cid} {aid} {d} {m} {y} {date} 标签, {aid} 一定要存在&nbsp;</div></td>
+			<td class=css_col21><input class='css_input' name="ruleview" type="text" id="oruleview" onfocus="hruleview.style.color='red';" onblur="hruleview.style.color='#ccc';" value="{$qinfo.ruleview}" size=40 >			</td>
+		</tr>
+		
+		<tr>
+			<td class=css_col12>形象图：
+				<div id='hpicture' style="color:#ccc;letter-spacing: 0px;font-size:13px;">该栏目的形象图&nbsp;</div></td>
+			<td class=css_col22><input class='css_input' name="picture" type="text" id="opicture" onfocus="hpicture.style.color='red';" onblur="hpicture.style.color='#ccc';" value="{$qinfo.picture}" size=40 >			</td>
+		</tr>
+		
+		<tr>
+			<td class=css_col11>栏目关键字：
+				<div id='hkeywords' style="color:#ccc;letter-spacing: 0px;font-size:13px;">多个用,做分隔&nbsp;</div></td>
+			<td class=css_col21><textarea class='css_textarea' name="keywords" type="text" id="okeywords" onfocus="hkeywords.style.color='red';" onblur="hkeywords.style.color='#ccc';" cols="50" rows="2" >{$qinfo.keywords}</textarea>			</td>
+		</tr>
+		
+		<tr>
+			<td class=css_col12>栏目描述：
+				<div id='hdescription' style="color:#ccc;letter-spacing: 0px;font-size:13px;">栏目简要说明,不过超过250个字符&nbsp;</div></td>
+			<td class=css_col22><textarea class='css_textarea' name="description" type="text" id="odescription" onfocus="hdescription.style.color='red';" onblur="hdescription.style.color='#ccc';"  cols="50" rows="5" >{$qinfo.description}</textarea>			</td>
+		</tr>
+		
+		<tr style='display:none;'>
+			<td class=css_col11>是否需要更新：<span id='hneedcreate' style="color:#ccc;letter-spacing: 0px;font-size:13px;"></span></td>
+			<td class=css_col21><input class='css_input' name="needcreate" type="text" id="oneedcreate" onfocus="hneedcreate.style.color='red';" onblur="hneedcreate.style.color='#ccc';" value="1"  >			</td>
+		</tr>
+		
+		<tr style='display:;'>
+			<td class="css_col12">扩展属性：
+				<div id='hdescription2' style="color:#ccc;letter-spacing: 0px;font-size:13px;">一行一个,格式 <font color=red>产品价格:price</font> 中文描述:字段<br/>字段改动将导致数据丢失<br />前台引用时为 {field:extprice}</div></td>
+			<td class="css_col22"><textarea class='css_textarea' name="modeext" type="text" id="oModeext" cols="50" rows="5" >{$qinfo.Modeext}</textarea>
+			</td>
+		</tr>
+		<tr class=css_page_list>
+			<td colspan=2><input type='submit' name='Submit' value='保存'></td>
+		</tr>
+	</form>
+</table>
+
+</body>
+</html>

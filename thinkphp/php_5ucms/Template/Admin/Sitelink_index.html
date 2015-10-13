@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>站内链接管理</title> 
+<script language="JavaScript" type="text/javascript" src="images/ajax.js"></script> 
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+	<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1' id="www_5ucms_org">
+	  <tr class=css_menu>
+	    <td colspan=8 class=css_main><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+	        <form name=frmSearch method=get action={:U('index')}>
+	          <tr>
+	            <td class=css_main><a href={:U('index')}>站内链接管理</a> <a href={:U('edit')}>添加站内链接</a></td>
+	            <td class=css_search><select name=dfieldkey id=dfieldkey>
+	              <option <?php if($dfieldkey == 'id'){ echo 'selected="selected"'; } ?> value="id" >编号</option>
+                  <option <?php if($dfieldkey == 'text'){ echo 'selected="selected"'; } ?> value="text" >链接文字</option>
+                  <option <?php if($dfieldkey == 'link'){ echo 'selected="selected"'; } ?> value="link" >链接地址</option>
+                  <option <?php if($dfieldkey == 'order'){ echo 'selected="selected"'; } ?> value="order">优先级别</option>
+                  <option <?php if($dfieldkey == 'replace'){ echo 'selected="selected"'; } ?> value="replace" >替换次数</option>
+                  <option <?php if($dfieldkey == 'target'){ echo 'selected="selected"'; } ?> value="target" >打开方式</option>
+                  <option <?php if($dfieldkey == 'state'){ echo 'selected="selected"'; } ?> value="state" >状态</option>
+	              </select>
+	              <input name=key type=text id=Key size=10 value="{$key}">
+	              <input type=submit name=Submit value=搜>
+	            </td>
+	          </tr>
+	        </form>
+	      </table></td>
+	  </tr>
+	  <tr>
+	    <td class='css_top'>编号</td>
+	    <td class='css_top'>链接文字</td>
+	    <td class='css_top'>链接地址</td>
+        <?php
+        	$order1 = $order2 = $order3 = $order4 = 'desc';
+			switch($dfieldorders){ 
+			   case "order":   
+						$order1 = $orders=='desc' ? 'asc' : 'desc'; 
+                        break;
+			   case "replace":
+						$order2 = $orders=='desc' ? 'asc' : 'desc'; 
+						break;
+			   case "target": 
+						$order3 = $orders=='desc' ? 'asc' : 'desc'; 
+						break;
+			   case "state": 
+						$order4 = $orders=='desc' ? 'asc' : 'desc'; 
+						break;
+			} 
+        ?> 
+	    <td class='css_top'><a href='{:U('index')}?Page={$p}&dfieldorders=order&orders={$order1}'>优先级别</a></td>
+	    <td class='css_top'><a href='{:U('index')}?Page={$p}&dfieldorders=replace&orders={$order2}'>替换次数</a></td>
+	    <td class='css_top'><a href='{:U('index')}?Page={$p}&dfieldorders=target&orders={$order3}'>打开方式</a></td>
+	    <td class='css_top'><a href='{:U('index')}?Page={$p}&dfieldorders=state&orders={$order4}'>状态</a></td>
+        
+        
+	    <td class='css_top'>管理</td>
+	  </tr>
+            <tbody id="QQ3876307">
+<volist name="qtable" id="v">
+	  <tr>
+	    <td width=40 class=css_list>{$v.id}</td>
+	    <td width=100 class=css_list><a href="{$v.link}" target="_blank">{$v.text}</a></td>
+	    <td>{$v.link}</td>
+	    <td width=70 class=css_list>{$v.order}</td>
+	    <td width=70 class=css_list>{$v.replace}</td>
+	    <td width=70 class=css_list><span id="sitelinktarget{$v.id}" style="cursor:hand;" onclick="sitelinktarget({$v.id});"><?php if($v['target']==1){ echo '新窗口'; } else { echo '原窗口'; } ?></span></td>
+	    <td width=45 class=css_list>
+        <span id="sitelinkstate{$v.id}" style="cursor:hand;" onclick="sitelinkstate({$v.id});"> 
+             <?php if($v['state']==1){ echo '启用'; } else { echo '禁用'; } ?></span></td>
+	    <td width=100 class=css_list>
+	    <input name=modify type=button onclick="location.href='{:U('edit?id='.$v['id'])}';" value=修改>  <input name=delete type=button onclick="if(confirm('您确定要删除这条记录吗?')){location.href='{:U('del?id='.$v['id'])}';}" value=删除> 
+	    </td>
+	  </tr>
+</volist>
+	  
+      </tbody>
+	  <tr class=css_page_list>
+	    <td colspan=8><div style="clear:both;"></div>
+ <div class="i5upage">  {$page}
+ <div style="clear:both;"></div>
+ </div></td>
+	  </tr>
+	</table>
+<script language="JavaScript" type="text/javascript" src="images/q3876307.js"></script>
+	
+</body>
+</html>

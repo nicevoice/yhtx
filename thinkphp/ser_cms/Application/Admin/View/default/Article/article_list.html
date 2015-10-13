@@ -1,0 +1,152 @@
+<extend name="Public/common" />
+<block name="style">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+</block>
+<block name="body">
+    <div class="am-g admin">
+        <div class="am-u-lg-2 admin-nav">
+            <ul class="am-nav">
+                <li <if condition=" I('category_id') eq null " > class="am-active" </if> >
+                    <a href="{:U('Admin/Article/articleList')}">全部分类</a>
+                </li>
+                <volist name="_categoryList" id="cavo">
+                    <li <if condition=" I('category_id') eq $cavo['category_id'] " > class="am-active" </if> >
+                        <a href="{:U('Admin/Article/articleList',array('category_id'=>$cavo['category_id']))}">{$cavo['title']}</a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+        <div class="am-u-lg-10">
+            <div class="am-g">
+                <ol class="am-breadcrumb">
+                    <li><a href="{:U('Admin/Index/index')}" class="am-icon-home">首页</a></li>
+                    <li><a href="{:U('Admin/Article/articleList')}">分类</a></li>
+                    <li class="am-active">{$_categoryName}</li>
+                </ol>
+            </div>
+            <div class="am-g">
+                <div class="am-u-lg-10">
+                    <div style="float: left">
+
+                    </div>
+                    <div style="float: right">
+                        <form action="" method="get" class="am-form-inline" role="form">
+                            <div class="am-form-group">
+                                <input name="status" type="checkbox" <if condition=" I('status') != '' ">checked="checked"</if> >
+                                仅待审核
+                            </div>
+                            &nbsp;
+                            <div class="am-form-group">
+                                <input name="key_word" value="{:I('key_word')}" type="text" class="am-form-field" placeholder="标题">
+                            </div>
+                            <button type="submit" class="am-btn am-btn-primary">查询</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="am-g">
+                <div class="am-u-lg-10">
+                    <table class="am-table am-table-bordered am-table-striped am-table-hover">
+                        <thead>
+                            <tr>
+                                <th>标题</th>
+                                <th>分类</th>
+                                <th>创建时间</th>
+                                <th>发布者</th>
+                                <th>状态</th>
+                                <th>阅读数</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="_articleList" id="avo">
+                                <tr <neq name="avo['status']" value="1">class="am-active"</neq> >
+                                    <td>
+                                        <a target="_blank" href="{:U('Home/Article/detail',array('article_id'=>$avo['article_id']))}">
+                                            {$avo['title']}
+                                        </a>
+                                    </td>
+                                    <td>{$avo['category_id']|get_category_title}</td>
+                                    <td>{:date('Y-m-d H:i',$avo['create_time'])}</td>
+                                    <td>{$avo['user_id']|get_nickname}</td>
+                                    <td>
+                                        <eq name="avo['status']" value="1">
+                                            审核通过
+                                            <else/>
+                                            待审核
+                                        </eq>
+                                    </td>
+                                    <td>{$avo['read_count']}</td>
+                                    <td>
+                                        <neq name="avo['status']" value="1">
+                                            <button data-id="{$avo['article_id']}" class="am-btn am-btn-xs am-btn-warning btn-status">通过审核</button>
+                                        </neq>
+                                        &nbsp;
+                                        <button data-id="{$avo['article_id']}" class="am-btn am-btn-xs am-btn-danger btn-delete">删除</button>
+                                    </td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-u-lg-10 my-page">
+                    {$_html}
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(function(){
+            var loading;
+            $('.btn-status').click(function(){
+                var b = $(this);
+                layer.confirm('确定要通过审核吗？', {
+                    btn: ['是的','再看看'], //按钮
+                    shade: 0.6 //遮罩
+                }, function(){
+                    loading = layer.load();
+                    var post_url = "{:U('Admin/Article/setStatus')}";
+                    var article_id = b.attr('data-id');
+                    $.post(post_url,{article_id:article_id},function(res){
+                        layer.close(loading);
+                        if(res == '1'){
+                            layer.msg('审核完成',{icon: 1});
+                            setTimeout("window.location.href=''",1500);
+                        }else{
+                            layer.msg('审核失败');
+                        }
+                    });
+                }, function(){
+
+                });
+            });
+            $('.btn-delete').click(function(){
+                var b = $(this);
+                layer.confirm('确定要删除吗？', {
+                    btn: ['是的','稍等一下'], //按钮
+                    shade: 0.6 //遮罩
+                }, function(){
+                    loading = layer.load();
+                    var post_url = "{:U('Admin/Article/deleteArticle')}";
+                    var article_id = b.attr('data-id');
+                    $.post(post_url,{article_id:article_id},function(res){
+                        layer.close(loading);
+                        if(res == '1'){
+                            layer.msg('删除完成',{icon: 1});
+                            setTimeout("window.location.href=''",1500);
+                        }else{
+                            layer.msg('删除失败');
+                        }
+                    });
+                }, function(){
+
+                });
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,15 @@
+<div class="adfloat">
+    <script type="text/javascript" src="__PLUSROOT__/AdFloat.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("body").AdFloat({
+                imgSrc : "{{$config.image}}", //漂浮图片路径 |get_cover='path'
+                url : "{{$config.url}}", //图片点击跳转页
+                openStyle : {{$config.target|default='1'}}, //跳转页打开方式 1为新页面打开  0为当前页打开
+                speed : {{$config.speed|default='10'}}, //漂浮速度 单位毫秒
+                width: "{{$config.width}}", //图片宽度 单位像素
+                height: "{{$config.height}}" //图片高度速度 单位像素
+            });
+        });
+    </script>
+</div>

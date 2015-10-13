@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>栏目管理</title>
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table id="www_5ucms_org">
+	<tr class=css_menu>
+		<td colspan=6 class=css_main><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+				<form name=frmSearch method=get action={:U('index')}>
+					<tr>
+						<td class=css_main><a href={:U('index')}>栏目管理</a> <a href={:U('edit')}>添加栏目</a></td>
+						<td class=css_search><select name=dfieldkey id=dfieldkey>
+								<option <?php if($dfieldkey == 'id'){ echo 'selected="selected"'; } ?> value="id" >编号</option>
+								<option <?php if($dfieldkey == 'fatherid'){ echo 'selected="selected"'; } ?> value="fatherid" >上级栏目</option>
+								<option <?php if($dfieldkey == 'name'){ echo 'selected="selected"'; } ?> value="name" >栏目名称</option>
+								<option <?php if($dfieldkey == 'order'){ echo 'selected="selected"'; } ?> value="order" >排列顺序</option>
+								<option <?php if($dfieldkey == 'domain'){ echo 'selected="selected"'; } ?> value="domain" >绑定域名</option>
+							</select>
+							<input name=key type=text id=Key size=10 value="{$key}">
+							<input type=submit name=Submit value=搜>
+						</td>
+					</tr>
+				</form>
+			</table></td>
+	</tr>
+	<tr>
+		<td class='css_top'>编号</td>
+		<td class='css_top'>栏目</td>
+		<td class='css_top'>顺序</td>
+		<td class='css_top'>域名</td>
+		<td class='css_top'>栏目深度</td>
+		<td class='css_top'>管理</td>
+	</tr>
+	  
+	 <tbody id="QQ3876307">
+<volist name="qtable" id="v">
+<tr>
+  <td width=35 class=css_list>{$v.id}</td>
+  <td class=css_list><div align="left">
+<?php  
+                    if($v["deeppath"] == 0){ 
+                    	echo $v["name"]; } 
+                    else {  
+                    	for($i = 1; $i <= $v["deeppath"]; $i++)
+                        { echo '　'; }
+                        echo '├ '.$v["name"]; 
+                    } 
+?> <a href="/index.php/Index/redirectchannel/id/{$v.id}" target="_blank"><font color=#999999>预</font></a>
+  </div></td>
+  <td width=35 class=css_list>{$v.order}</td>
+  <td width=250 class=css_list>{$v.domain}</td>
+  <td width=100 class=css_list>{$v.deeppath}</td>
+  <td width=150 class=css_list><input name="modify" type="button" onclick="location.href='{:U('edit?topid='.$v['id'])}';" value="添加"  />
+<input name=modify type=button onclick="location.href='{:U('edit?id='.$v['id'])}';" value=修改>  <input name=delete type=button onclick="if(confirm('您确定要删除这条记录吗?')){location.href='{:U('del?id='.$v['id'])}';}" value=删除> 
+    </td>
+</tr>
+</volist>
+
+	 </tbody>
+	
+	<tr class=css_page_list>
+		<td colspan=6 style="color:#F00">默认设定好的栏目，如果有需要请尽量去修改。删除将导致网站首页很多链接失效，很多文章被自动删除的严重后果，且此后果不可逆转<br />
+想恢复就只能重新上传旧程序了。您还可能为此后果额外付费才可以修复现状(不属于一般性默认售后)。有问题请咨询客服再行删除操作！</td>
+	</tr>
+</table>
+<script language="JavaScript" type="text/javascript" src="images/q3876307.js"></script>
+
+</body>
+</html>

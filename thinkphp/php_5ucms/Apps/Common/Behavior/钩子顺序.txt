@@ -1,0 +1,13 @@
+'url_dispatch'     // URL调度结束标签
+'app_init'         // 应用初始化标签
+'app_begin'        // 应用开始标签
+'app_end'          // 应用结束标签
+'action_begin'     // 动作执行前操作
+'action_end'       // 动作执行后操作   
+'ajax_return'      // 用于扩展其他返回格式数据
+'path_info'        // 检测路由规则 如果没有则按默认规则调度URL
+'template_filter'  // 模版编译过滤标签
+'view_begin'       // 视图开始标签
+'view_end'         // 视图结束标签
+'view_parse'       // 视图解析标签
+'view_filter'      // 内容过滤标签

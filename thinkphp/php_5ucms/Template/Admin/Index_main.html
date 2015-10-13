@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>{$meta_title}</title>
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+<div style="padding:10px;">
+<block name="main"> 
+<script language="JavaScript" type="text/javascript" src="images/ajax.js"></script>
+<script type="text/javascript" src="images/jquery-1.3.2.min.js"></script>
+
+
+<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1'>
+	<tr class=css_menu>
+		<td colspan=3><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+				<tr>
+					<td class=css_main><a href=#>系统信息</a><span style="color:Red" id="announce"></span></td>
+					<td class=css_main><div align="right">感谢您选择和使用5ucms!</div></td>
+				</tr>
+			</table></td>
+	</tr>
+	<tr>
+		<td class="css_col12" width="33%">文章总数：{$cnum}</td>
+		<td class="css_col12">当前版本：PHP {$version}</td>
+		<td class="css_col12" width="33%">官方公告：<span id="getVersionhelp">正在查询，请稍等...</span></td>
+	</tr>
+	<tr>
+		<td class="css_col11">浏览模式：{$createhtml}</td>
+		<td class="css_col11">标题拼音：{$autopinyin}</td>
+		<td class="css_col11">远程抓图：{$remotepic}</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellpadding="3" cellspacing="1" class="css_table" bgcolor='#E1E1E1'>
+	<tr class="css_menu">
+		<td colspan="3"><table width="100%" border="0" cellpadding="4" cellspacing="0" class="css_main_table">
+				<tr>
+					<td class="css_main"><a href="#">蜘蛛统计</a> <a style="font-size:12px; color:blue;" href="http://www.5ucms.org/5ucms-jiaocheng/250.html" target="_blank">为什么这里不更新？</a></td>
+				</tr>
+			</table></td>
+	</tr>
+	
+	<tr> 
+<volist name="qtable" id="v"> 
+		<td class="css_col12"><strong><font color=#50691B>{$v.botname}</font></strong>&nbsp;&nbsp;<?php echo date('Y-m-d H:i:s',$v['lastdate']); if( date('Y-m-d',$v['lastdate'])==date('Y-m-d') ) { echo '<font color="red"> New!</font>'; }    
+?></td>
+        <?php if( $i % 3 ==0 ) { echo '</tr><tr>'; } ?>
+</volist>
+		
+	</tr>
+	
+</table>
+<table width="100%" border="0" cellpadding="3" cellspacing="1" class="css_table" bgcolor='#E1E1E1'>
+	<tr class="css_menu">
+		<td colspan="3"><table width="100%" border="0" cellpadding="4" cellspacing="0" class="css_main_table">
+				<tr>
+					<td class="css_main"><a href="#">环境信息</a> </td>
+				</tr>
+			</table></td>
+	</tr>
+	<tr>
+		<td class='css_col12'><div align='left' width="33%">服务器IP地址：{$getip}</div></td>
+		<td class='css_col12'><div align='left'>TP内核：{$Think.VERSION}</div></td>
+		<td class='css_col12'><div align='left' width="33%">服务器系统:{$Think.const.PHP_OS}</div></td>
+	</tr>
+	<tr>
+		<td class='css_col11'><div align='left'>服务器当前时间:<?php echo date('y-m-d h:i:s',time()); ?></div></td>
+		<td class='css_col11'><div align='left'>站点物理路径：<?php echo $_SERVER['DOCUMENT_ROOT']; ?></div></td>
+		<td class='css_col11'><div align='left'>运行环境：<?php $server_software = explode(' ', $_SERVER['SERVER_SOFTWARE']); echo $server_software[0]; ?></div></td>
+	</tr>
+	  <tr>
+    <td class='css_col12'><div align='left'>PHP版本： <?php echo PHP_VERSION; ?></div></td>
+    <td class='css_col12'><div align='left'>MYSQL版本：<php>$system_info_mysql = M()->query("select version() as v;");</php>{$system_info_mysql.0.v}</div></td>
+    <td class='css_col12'><div align='left'>作者：邱嵩松 QQ3876307</div></td>
+  </tr>
+ 
+
+</table>
+<table width="400" height="40" border="0" align="center">
+	<tr>
+		<td></td>
+	</tr>
+</table>
+
+<script>function Get_Notice(){var remoteUrl="http://www.5ucms.org/jiyan/index.asp?char=utf-8";jQuery.getScript(remoteUrl, function(){var boxInfoWrapper=jQuery('#announce');boxInfoWrapper.html(www_5ucms_org.title)});}Get_Notice();if(document.getElementById("announce").innerHTML.length==0){document.getElementById("announce").innerHTML='欢迎您使用5ucms后台！祝您心情愉快！';}
+</script>
+<script>function getVersionhelp(){var remoteUrl="http://oa.b8bx.com/svc/version.asp?char=utf-8&ver=php{$version}mysql&ip={$getip}";jQuery.getScript(remoteUrl, function(){var boxInfoWrapper=jQuery('#getVersionhelp');boxInfoWrapper.html(www_5ucms_org.title)});}getVersionhelp();if(document.getElementById("getVersionhelp").innerHTML.length==0){document.getElementById("getVersionhelp").innerHTML='祝君商祺！';}</script>
+
+
+</block> 
+</div>
+</body>
+</html>
+ 

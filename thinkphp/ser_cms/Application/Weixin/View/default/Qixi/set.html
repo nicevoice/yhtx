@@ -1,0 +1,59 @@
+<extend name="Qixi/common" />
+<block name="style">
+    <link rel="stylesheet" href="__PUBLIC__/Qixi/style/default.css">
+
+</block>
+<block name="body">
+    <div class="am-g" style="padding-top: 35px">
+        <div class="am-u-sm-12">
+            <div class="am-g">
+                <div class="am-u-sm-12" style="color:#ff0046;font-size: 24px;text-align: center">
+                    敢爱?水滴帮你喊出来
+                </div>
+            </div>
+            <div class="am-g" style="padding-top: 10px">
+                <div class="am-u-sm-10 am-u-sm-offset-1">
+                    <form id="qixi-form" action="{:U('Weixin/Qixi/doAdd')}" method="post">
+                        <p><input type="text" name="boy" required="true" class="am-form-field am-radius" placeholder="男孩名" /></p>
+                        <p><input type="text" name="girl" required="true" class="am-form-field am-radius" placeholder="女孩名" /></p>
+                        <p>
+                            <textarea class="am-form-field am-radius" name="content" required="true" rows="5" placeholder="把爱说出来~（255字以内）"></textarea>
+                        </p>
+                        <p style="text-align: center">
+                            <button type="submit" class="am-btn am-btn-danger am-btn-sm">填完了</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</block>
+<block name="script">
+<script>
+    var url;
+    var loading;
+    $(function() {
+        var ajax_form_options = {
+//                target:        '#comment-form',   // target element(s) to be updated with server response
+            beforeSubmit:  beforeSubmit,  // pre-submit callback
+            success:       showResponse  // post-submit callback
+        };
+        $('#qixi-form').ajaxForm(ajax_form_options);
+        function beforeSubmit(){
+            loading = layer.load();
+        }
+        function showResponse(responseText,statusText){
+            console.log(responseText)
+            layer.close(loading);
+            if(responseText.status == 1){
+                layer.msg(responseText.info,{icon: 1});
+                url = responseText.url;
+                setTimeout("window.location.href=url",1500);
+            }else{
+                layer.msg(responseText.info);
+            }
+        }
+    });
+</script>
+</block>

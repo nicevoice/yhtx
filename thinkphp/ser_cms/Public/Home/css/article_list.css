@@ -1,0 +1,10 @@
+.am-thumbnail-caption >h5{
+    font-size: 15px;
+    color: #555;
+}
+.am-thumbnail-caption >p{
+    font-size: 14px;
+    color: #888;
+    word-wrap: break-word;
+    word-break: normal;
+}

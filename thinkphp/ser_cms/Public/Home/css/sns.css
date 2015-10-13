@@ -1,0 +1,19 @@
+.sns{
+    padding-top: 15px;
+}
+.am-comment-bd >p{
+    word-wrap: break-word;
+    word-break: normal;
+}
+.sns-list{
+    padding: 5px 0px;
+}
+.sns-channel{
+    padding: 10px 0px;
+}
+.sns-push-content{
+    padding: 10px 0px;
+}
+.sns-content{
+    padding: 5px 0px;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>内容管理</title>
+<script language="JavaScript" type="text/javascript" src="images/ajax.js"></script> 
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1' id="www_5ucms_org">
+	<tr>
+		<td colspan=8 class=css_menu><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+				
+					<tr>
+						<td class=css_main width="160" height="20"><a href={:U('index')}>内容管理</a> <a href={:U('edit')}>添加内容</a></td> <form name=frmSearch2 method=get action={:U('index')}>
+						<td class=css_search>
+
+ 
+    选择每页内容数量为：<select name="qpage" onchange="submit();"> 
+    <option <?php if($qpage == '15'){ echo 'selected="selected"'; } ?> value="15" >15</option>
+    <option <?php if($qpage == '30'){ echo 'selected="selected"'; } ?> value="30" >30</option>
+    <option <?php if($qpage == '50'){ echo 'selected="selected"'; } ?> value="50" >50</option>
+    <option <?php if($qpage == '100'){ echo 'selected="selected"'; } ?> value="100" >100</option>
+    </select>条 
+              
+                        
+</td></form>     <form name=frmSearch method=get action={:U('index')}>
+						<td class=css_search width="200">                     
+                        <select name=dfieldkey id=dfieldkey>
+								<option <?php if($dfieldkey == 'id'){ echo 'selected="selected"'; } ?> value="id" >编号</option>
+								<option <?php if($dfieldkey == 'cid'){ echo 'selected="selected"'; } ?> value="cid" >栏目</option>
+								<option <?php if($dfieldkey == 'title'){ echo 'selected="selected"'; } ?> value="title">标题</option>
+								<option <?php if($dfieldkey == 'author'){ echo 'selected="selected"'; } ?> value="author">作者</option>
+								<option <?php if($dfieldkey == 'Source'){ echo 'selected="selected"'; } ?> value="Source">来源</option>
+								<option <?php if($dfieldkey == 'order'){ echo 'selected="selected"'; } ?> value="order">权重排序</option>
+								<option <?php if($dfieldkey == 'display'){ echo 'selected="selected"'; } ?> value="display" >前台显示</option>
+							</select>
+							<input name=key type=text id=Key size=10 value="{$key}">
+							<input type=submit name=Submit value=搜></td></form>
+					</tr>
+				
+			</table></td>
+	</tr>
+	<form name=frm method=get action={:U('index')}>
+		<tr>
+			<td width="30" class='css_top'><input type="checkbox" name="chkall" id="chkall" onclick="CheckAll()" class="checkbox"></td>
+			<td width="38" class='css_top'>编号</td>
+			<td class='css_top'>标题</td>
+            
+        <?php
+        	$order1 = $order2 = $order3 = $order4 = 'desc';
+			switch($dfieldorders){ 
+			   case "views":   
+               			$order1 = $orders=='desc' ? 'asc' : 'desc'; 
+                        break;
+			   case "order":
+						$order2 = $orders=='desc' ? 'asc' : 'desc'; 
+						break;
+			   case "commend": 
+						$order3 = $orders=='desc' ? 'asc' : 'desc'; 
+						break;
+			   case "display": 
+						$order4 = $orders=='desc' ? 'asc' : 'desc'; 
+						break;
+			} 
+        ?> 
+            
+			<td width="38" class='css_top'><a href='{:U('index')}?Page={$p}&&dfieldorders=views&orders={$order1}'>浏览</a></td>
+			<td width="38" class='css_top'><a href='{:U('index')}?Page={$p}&&dfieldorders=order&orders={$order2}'>权重</a></td>
+			<td width="38" class='css_top'><a href='{:U('index')}?Page={$p}&dfieldorders=commend&orders={$order3}'>推荐</a></td>
+			<td width="38" class='css_top'><a href='{:U('index')}?Page={$p}&dfieldorders=display&orders={$order4}'>状态</a></td>
+			<td width="90" class='css_top'>管理</td>
+		</tr>
+        <tbody id="QQ3876307"> 
+<volist name="qtable" id="v">
+		<tr>
+			<td width="30" class=css_list> 
+            <input type="checkbox" name="ids[]" value="{$v.id}" class="checkbox">
+            </td>
+			<td width="38" class=css_list>{$v.id}</td>
+			<td class=css_list><div align="left"> [<a href={:U('index')}/qcid/{$v.cid}>{$v.name}</a>] &nbsp;<a href="{:U('edit?id='.$v['id'])}">{$v.title}</a> <a href="/index.php/Index/redirectcontent/id/{$v.id}" target="_blank"><font color=#999999>预</font></a><?php if($v["indexpic"]){ echo '<font color=#FFB9B9>图</font>'; } ?> </div></td>
+			<td width="38" class=css_list>{$v.views}</td>
+			<td width="38" class=css_list>{$v.order}</td>
+			<td width="38" class=css_list><span id="ContentCommend{$v.id}" style="cursor:hand;" onclick="ContentCommend({$v.id});">
+            <?php if($v["commend"] == 1){ echo '<font color="red">推荐</font>'; } else { echo '普通'; } ?> 
+            </span></td>
+			<td width="38" class=css_list><span id="ContentState{$v.id}" style="cursor:hand;" onclick="ContentState({$v.id});"> 
+             <?php if($v["display"] == 1){ echo '显示'; } else { echo '<font color="blue">隐藏</font>'; } ?>
+            </span></td>
+			<td width="90" class=css_list><input name=modify type=button onclick="location.href='{:U('edit?id='.$v['id'])}';" value=修改>  <input name=delete type=button onclick="if(confirm('您确定要删除这条记录吗?')){location.href='{:U('del?id='.$v['id'])}';}" value=删除> 
+            
+		  </td>
+		</tr>
+</volist>
+		
+        </tbody>
+		<tr class=css_page_list>
+			<td colspan=8>
+				<input name="" type="button" class="inputs" onclick="contentdo('del');" value="批量删除" />
+                
+              <select name='qcid' onchange="location.href='{:U('index')}/qcid/'+this.options[this.selectedIndex].value"  style='font-size:12px;' >
+<option value=0>跳转到栏目</option>
+<volist name="ctable" id="v">
+					<option value="{$v.id}"   
+<?php 
+                    if($v['id'] == $qcid){ 
+                    	echo 'selected="selected"';
+                    }  
+                    echo '>'; 
+                    if($v["deeppath"] == 0){ 
+                    	echo $v["name"]; } 
+                    else {  
+                    	for($i = 1; $i <= $v["deeppath"]; $i++)
+                        { echo '　'; }
+                        echo '├ '.$v["name"]; 
+                    } 
+?> 
+                    </option>
+</volist>
+			</select>
+                
+                
+				<input name="" type="button" class="inputs" onclick="contentdo('move');" value="批量移动到" /> -> <select name='newcid' style='font-size:12px;' >
+<option value=0>移动前 先选择目标栏目</option>
+<volist name="ctable" id="v">
+					<option value="{$v.id}" >  
+<?php  
+                    if($v["deeppath"] == 0){ 
+                    	echo $v["name"]; } 
+                    else {  
+                    	for($i = 1; $i <= $v["deeppath"]; $i++)
+                        { echo '　'; }
+                        echo '├ '.$v["name"]; 
+                    } 
+?> 
+                    </option>
+</volist>
+			</select>
+<div style="clear:both;"></div>
+ <div class="i5upage">  {$page}
+ <div style="clear:both;"></div>
+ </div></td>
+		</tr>
+	</form>
+</table>
+
+<script language="JavaScript" type="text/javascript" src="images/q3876307.js"></script>
+
+</body>
+</html>

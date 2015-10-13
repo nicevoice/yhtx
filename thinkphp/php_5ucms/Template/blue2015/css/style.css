@@ -1,0 +1,42 @@
+@charset "gb2312";
+body{background:#fcfcfc;}
+.toper{padding:28px 0;background:url(img/bg.jpg) repeat-x;}
+.nav .drop-menu:empty{display:none}
+.nav .drop-menu{border-radius:0 0 4px 4px;min-width:118px;}
+@media (min-width:760px){
+.nav .drop-menu li a{text-align:center;padding:7px 20px;}
+#naver{margin-top:10px;}
+}
+@media (min-width:760px){
+.naver{font-size:16px;}
+.naver ul{font-size:14px;}
+}
+.naver .active a{color:#f00;}
+.naver .active ul a{color:#333;}
+.naver .active ul a:hover{color:#09c;}
+
+form .form-group:last-child{padding-bottom:0;}
+
+.footer{background:#f5f5f5;border-top:solid 5px #eee;padding:20px 0;text-align:center;}
+
+.bdshare_dialog_box{box-sizing:content-box;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;}
+
+@media (min-width:760px){
+.lefter{padding-right:50px;}
+}
+.submenu{border:none;background:#f5f5f5;padding:0;}
+.submenu .nav-head{font-size:16px;height:45px;line-height:43px;margin-bottom:0;background:url(img/list-top.jpg) right;color:#fff;border:none;}
+.submenu a{border-width:1px;padding:8px 20px;border-radius:0;margin-bottom:0;}
+.submenu a:hover{background:#fff;}
+
+.detail img{max-width:100%;height:auto;}
+@media (max-width:760px){
+.detail img{display:block;}
+}
+.qq,.skype{padding:0;list-style:none;text-align:center;}
+.qq li,.skype li{text-align:center;display:inline-block;width:80px;font-size:12px;}
+.iqq .qq li{width:100%;text-align:left;}
+.iqq .qq span{display:none;}
+
+.more{float:right;font-size:12px;padding-top:5px;}
+.icontact p{margin:0;}

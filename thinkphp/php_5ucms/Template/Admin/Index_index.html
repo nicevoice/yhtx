@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-Language" content="zh-CN" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" /> 
+<meta name="robots" content="none" />
+<title>{$admintitle} - 5ucms 后台管理系统</title>
+<link href="css/admin2.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript">
+if(self != top){top.location.replace(self.location);}
+</script> 
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/c_admin_js_add.js" type="text/javascript"></script>
+<link rel="stylesheet" href="css/jquery.bettertip.css" type="text/css" media="screen" />
+<script src="js/jquery.bettertip.pack.js" type="text/javascript"></script>
+<script src="js/jquery-ui.custom.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.custom.css"/>
+</head>
+<body>
+<div id="header">
+  <div class="top">
+    <div class="logo"><a href="http://www.5ucms.com/" title="5ucms" target="_blank"><img src="images/logo.png" alt="5UCMS"/></a></div>
+    <div class="user"> <img src="images/avatar.png" width="40" height="40" id="avatar" alt="Avatar" />
+      <div class="username">管理员：<?php $admin = session('admin') ; echo $admin['username']; ?></div>
+      <div class="userbtn"><a class="profile" href="http://www.5ucms.org/help/" title="" target="_blank">操作帮助</a>&nbsp;&nbsp;<a class="logout" href="{:U('login/loginout')}" title="">退出登录</a></div>
+    </div>
+    <div class="menu">
+      <ul id="topmenu">
+<li id="topmenu1"><a target="main" title="打开后台默认首页 管理插件 查看统计信息" href="{:U('index/main/')}" target="_self">后台首页</a></li>
+<li id="topmenu2"><a href="{:U('index/refresh/act/clscache')}" target="refresh" title="后台操作完成后需要点击此处使更新生效">更新缓存</a></li>  
+ 
+<li id="topmenu5"><a title="打开首页" href="/" target="_blank">前台首页</a></li> 
+      </ul>
+    </div>
+  </div>
+</div>
+<div id="main">
+<div class="main_left">
+  <ul id="leftmenu">
+  
+
+<li id="nav_new"><a target="main" id="aArticleEdt" href="{:U('content/edit/')}"><span>新建文章</span></a></li> 
+<li id="nav_article"><a target="main" id="aArticleMng" href="{:U('content/index')}"><span>文章管理</span></a></li> 
+
+<?php if(checklevel("diypage")){ $qdisplay='';} else { $qdisplay='none'; } ?> 
+<li style="display={$qdisplay}"  id="nav_page"><a target="main" id="aPageMng" href="{:U('diypage/index')}"><span>自定义页</span></a></li>
+
+<?php if(checklevel("channel")){ $qdisplay='';} else { $qdisplay='none'; } ?> 
+<li style="display={$qdisplay}" id="nav_category"><a target="main" id="aCategoryMng" href="{:U('channel/index')}"><span>栏目管理</span></a></li>
+
+<?php if(checklevel("label")){ $qdisplay='';} else { $qdisplay='none'; } ?> 
+<li style="display={$qdisplay}" id="nav_tags"><a target="main" id="aTagMng" href="{:U('label/index')}"><span>标签管理</span></a></li>
+
+<?php if(checklevel("upload")){ $qdisplay='';} else { $qdisplay='none'; } ?> 
+<li style="display={$qdisplay}" id="nav_accessories"><a target="main" id="aCommentMng" href="{:U('upload/index')}"><span>上传文件</span></a></li>
+
+<?php if(checklevel("sitelink")){ $qdisplay='';} else { $qdisplay='none'; } ?> 			
+<li style="display={$qdisplay}" id="nav_comments"><a target="main" id="aFileMng" href="{:U('sitelink/index')}"><span>内链管理</span></a></li>
+
+<?php if(checklevel("admin")){ $qdisplay='';} else { $qdisplay='none'; } ?> 
+<li style="display={$qdisplay}" id="nav_user"><a target="main" id="auserMng" href="{:U('admin/index')}"><span>管理员管理</span></a></li>
+
+<?php if(checklevel("tags")){ $qdisplay='';} else { $qdisplay='none'; } ?> 
+<li style="display={$qdisplay}" id="nav_themes"><a target="main" id="aThemeMng" href="{:U('tags/index')}"><span>标签生成器</span></a></li>
+
+<?php if(checklevel("setting")){ $qdisplay='';} else { $qdisplay='none'; } ?> 
+<li style="display={$qdisplay}" id="nav_quoted"><a target="main" id="aPlushookMng" href="{:U('plushook/index')}"><span>钩子管理</span></a></li>
+<li style="display={$qdisplay}" id="nav_function"><a target="main" id="aPlusMng" href="{:U('plus/index')}"><span>插件管理</span></a></li>
+<li style="display={$qdisplay}" id="nav_cube"><a target="main" id="aDatebaseMng" href="{:U('datebase/index')}"><span>数据库管理</span></a></li>
+
+<!--
+<li id="nav_file"><a id="aAppcentre" href=""><span style="background-image:url('images/cube1.png')">应用中心</span></a></li>
+
+<li id="newQQConnect"><a id="anewQQConnect" href=""><span style="background-image:url('images/connect_logo_1.png')">QQ互联</span></a></li>
+-->
+
+<php>if(checklevel("createhtml")){ $qdisplay='';} else { $qdisplay='none'; }</php>
+<li style="display={$qdisplay}" id="nav_window"><a target="main" id="aCreatehtmlMng" href="{:U('createhtml/index')}"><span>静态发布</span></a></li>
+
+<?php if(checklevel("setting")){ $qdisplay='';} else { $qdisplay='none'; } ?> 
+<li style="display={$qdisplay}" id="nav_plugin"><a target="main" id="aPlugInMng" href="{:U('setting/index')}"><span>系统配置</span></a></li>
+
+
+  </ul>
+  
+<iframe src="{:U('index/refresh/')}" width="140" name="refresh" height="50" id="refresh" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+
+</div>
+
+
+<div class="main_right">
+ 
+
+ <iframe src="{:U('index/main/')}" width="100%" name="main" height="800" id="main"  scrolling="auto" frameborder="0" allowtransparency="true"></iframe>
+	
+
+</div>
+
+<script language="javascript">window.setInterval("reinitIframe('main')",300);</script> 
+ 
+
+</body>
+</html> 

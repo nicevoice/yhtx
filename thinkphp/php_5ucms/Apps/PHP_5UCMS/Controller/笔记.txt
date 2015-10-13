@@ -1,0 +1,4 @@
+命名以 XxxController.class.php 
+网址上 index.php/Xxx/index 即可访问
+
+by qss Q3876307

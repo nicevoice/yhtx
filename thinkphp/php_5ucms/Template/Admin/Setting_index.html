@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>系统配置</title>
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1'>
+	<tr class=css_menu>
+		<td colspan=2>
+			<table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+				<tr>
+					<td class=css_main><a href=Admin_Setting.Asp>系统配置</a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<form name='frm' method='post' action='{:U('edit')}'>
+<volist name="qtable" id="v" >
+		<tr>
+			<td class=css_col1{$i%2+1}>{$v.title}：{$v.name}
+				<div id='h{$v.name}' style="color:#ccc;letter-spacing: 0px;font-size:13px;">{$v.description}</div>
+			</td>
+			<td class=css_col2{$i%2+1}>
+            	<switch name="v.form">
+				<case value="input">
+				<input class='css_input' name="{$v.name}" type="text" id="o{$v.name}" onfocus="h{$v.name}.style.color='red';" onblur="h{$v.name}.style.color='#ccc';" value="{$v.value}" style="width:300px;" >
+                </case>
+
+				<case value="textarea">
+				<textarea class='css_textarea' name="{$v.name}" type="text" id="o{$v.name}" onfocus="h{$v.name}.style.color='red';" onblur="h{$v.name}.style.color='#ccc';" cols="50" rows="5" >{$v.value}</textarea>
+                </case>  
+                
+				<case value="select">
+				<select class='css_select' name="{$v.name}" type="text" id="o{$v.name}" onfocus="h{$v.name}.style.color='red';" onblur="h{$v.name}.style.color='#ccc';" style="width:150px;">
+                <?php
+                    $ops = explode('|||',$v['values']);
+                    for($i=0;$i<count($ops);$i++){
+                    	$ops2 = explode('=>',$ops[$i]);
+                        if($ops2[0] == $v['value']){
+                       		$selected = " selected ";
+                        }else{
+                        	$selected="";
+                        }
+                        echo '<option value="'.$ops2[0].'" '.$selected.'>'.$ops2[1].'</option>';
+                    }
+                 ?>
+                </select> 
+                </case>
+                
+				<default />
+				 
+                <input class='css_input' name="{$v.name}" type="text" id="o{$v.name}" onfocus="h{$v.name}.style.color='red';" onblur="h{$v.name}.style.color='#ccc';" value="{$v.value}" style="width:300px;" >
+                
+                <select name="tl" id="ol" class='css_select' onchange="frm.o{$v.name}.value=this.value;">
+					<?php echo gettemplatedir('index') ?> 
+				</select> 这里下拉识别默认首页模板用
+                
+				</switch>
+			</td>
+		</tr>
+</volist>
+		<tr class=css_page_list>
+			<td colspan=2>
+				<input type='submit' name='Submit' value='保存'>
+			</td>
+		</tr>
+	</form>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+.footer{
+    background: #2d3e50;
+}
+.footer p {
+    color: #7f8c8d;
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+}
+.footer a{
+    color: #828690;
+}
+.footer .am-g{
+    padding-top: 20px;
+}
+.footer .tc-footer-columns {
+    font-size: 0;
+    margin: 0 auto;
+    max-width: 1200px;
+    text-align: center;
+}
+.footer .columns {
+    display: inline-block;
+    margin-bottom: 45px;
+    min-width: 124px;
+    text-align: left;
+    vertical-align: top;
+}
+.footer .columns h3 {
+    color: #fff;
+    font-size: 15px;
+    font-weight: normal;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.footer .columns ul {
+    padding-left: 10px;
+}
+.footer .columns ul li, .tc-footer .columns ul li a {
+    color: #828690;
+    display: block;
+    font-size: 12px;
+}
+.footer .columns ul li {
+    line-height: 26px;
+}
+.footer .columns ul li a:hover {
+    color: #c6c6c6;
+}
+#my-dropdown-content >li >a{
+    color: #757575;
+    font-size: 14px;
+}
+#my-header{
+    background-color: #2D3E50;
+}
+#my-header a{
+    color: #DDD;
+}
+.am-topbar-nav >li>a:hover{
+    background-color: #3e5266;
+}
+.am-topbar-nav > li > a:after {
+    border: none;
+    background-color: #3e5266;
+}
+.am-topbar-nav > li > a:focus {
+    border: none;
+    background-color: #3e5266;
+}
+.am-active{
+    background-color: #3e5266;
+    color: #FFF;
+}
+.am-container{
+    max-width: 1220px;
+}
+.am-panel-laoke {
+    border-color: #dddddd;
+}
+.am-panel-shegong{
+    border-color: #dddddd;
+}
+.am-panel-shegong .am-panel-hd{
+    color: #FFF;
+    background-color: #e7c100;
+}
+.am-panel-xinqing .am-panel-hd{
+    color: #FFF;
+    background-color: #ff818f;
+}

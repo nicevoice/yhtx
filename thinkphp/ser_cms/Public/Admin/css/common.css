@@ -1,0 +1,29 @@
+.admin{
+    padding-top: 1px;
+}
+.admin-nav{
+    padding-left: 0px;
+}
+.admin-category{
+    padding-top: 20px;
+}
+.footer{
+    background: #0E90D2;
+}
+.footer p {
+    color: #FFF;
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+}
+.admin-panel{
+    border: #dddddd 1px solid;
+}
+.admin-panel-head{
+    font-size: 120px;
+    text-align: center;
+}
+.admin-panel-body{
+    width: 100%;
+    text-align: center;
+}

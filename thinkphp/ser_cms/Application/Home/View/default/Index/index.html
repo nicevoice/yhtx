@@ -1,0 +1,192 @@
+<extend name="Public/common" />
+<block name="style">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/index.css">
+</block>
+<block name="body">
+    <div style="padding-top: 20px">
+        <div class="am-container">
+            <div class="am-g">
+                <!--文章列表块-->
+                <div class="am-u-lg-8 am-u-sm-12">
+                    <div class="am-g">
+                        <div class="am-u-lg-12 am-u-sm-12">
+                            <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
+                                <ul class="am-slides">
+                                    <li><img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" /></li>
+                                    <li><img src="http://s.amazeui.org/media/i/demos/bing-2.jpg" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-g">
+                        <volist name="_indexList" id="avo">
+                            <div class="am-u-lg-6 am-u-sm-12 am-u-end">
+                                <div class="am-panel am-panel-default">
+                                    <div class="am-panel-hd" style="float: right">
+                                        <a href="{:U('Home/Article/articleList',array('category_id'=>$avo['category_id']))}">更多>></a>
+                                    </div>
+                                    <div class="am-panel-hd">{$avo['title']}</div>
+                                    <div class="am-panel-bd">
+                                        <ul class="am-list article-list">
+                                            <for start="0" end="5">
+                                                <li><a href="{:U('Home/Article/detail',array('article_id'=>$avo['article_list'][$i]['article_id']))}" class="am-text-truncate">{$avo['article_list'][$i]['title']}</a></li>
+                                            </for>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </volist>
+                        <div class="am-u-lg-6 am-u-sm-12 am-u-end">
+                            <div class="am-slider am-slider-default" data-am-flexslider="{controlNav: false}" id="slider-news">
+                                <ul class="am-slides">
+                                    <volist name="_news" id="new">
+                                        <li>
+                                            <a target="_blank" href="{$new['url']}">
+                                                <img src="{$new['picUrl']}" height="250px" />
+                                            </a>
+                                            <div class="am-slider-desc">
+                                                {$new['description']}
+                                            </div>
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--热门板块&公告-->
+                <div class="am-u-lg-4 am-u-sm-12">
+                    <div class="am-panel am-panel-xinqing">
+                        <div class="am-panel-hd">
+                            <span class="am-icon-heart-o"></span>&nbsp;{$_xinqing['words']}
+                        </div>
+                    </div>
+                    <div class="am-panel am-panel-shegong">
+                        <div class="am-panel-hd"><span class="am-icon-star"></span>&nbsp;社工标兵</div>
+                        <div class="am-panel-bd">
+                            <div class="am-g">
+                                <volist name="_sgList" id="sgvo">
+                                    <div class="am-u-lg-3 am-u-sm-6 am-u-end">
+                                        <img title="{$sgvo['nickname']}" class="am-circle" src="{$sgvo['head_pic_url']}" style="width: 65px;height: 75px;padding:5px 0px"/>
+                                    </div>
+                                </volist>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-panel am-panel-laoke">
+                        <div class="am-panel-hd">“唠嗑”</div>
+                        <div class="am-panel-bd">
+                            <div class="laoke-push">
+                                    <textarea cols="2" id="laoke-content"></textarea>
+                                    <button type="button" id="laoke-add" class="am-btn am-btn-success">发布</button>
+                            </div>
+                            <div class="laoke-list">
+                                <ul class="am-comments-list am-comments-list-flip" id="laoke">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-panel am-panel-primary">
+                        <div class="am-panel-hd"><span class="am-icon-envelope-o"></span>&nbsp;问题反馈</div>
+                        <div class="am-panel-bd">
+                            <div class="fankui-push">
+                                <textarea cols="2" id="fankui-content"></textarea>
+                                <button type="button" id="fankui-add" class="am-btn am-btn-primary">发布</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        highlight_subnav("{:U('Home/Index/index')}");
+        var last_id = 0;
+        var sns_get_url = "{:U('Home/Sns/getList')}";
+        var sns_add_url = "{:U('Home/Sns/add')}";
+        var loading;
+        $(function(){
+            getSnsList();
+            setInterval(getSnsList,30000);
+            $('#laoke-add').click(function(){
+                loading = layer.load();
+                var content = $('#laoke-content').val();
+                if('' == content || null == content){
+                    layer.close(loading);
+                    layer.msg('请先填写内容');
+                    return 0;
+                }
+                $.post(sns_add_url,{content:content},function(res){
+                    layer.close(loading);
+                    res = JSON.parse(res);
+                    if(res.result == '0'){
+                        layer.msg(res.info);
+                    }else{
+                        addSns(res.user_id,res.nickname,res.head_pic_url,res.content,res.time_str);
+                        $('#laoke-content').val('');
+                    }
+                });
+            });
+            function getSnsList(){
+                $.get(sns_get_url,{last_id:last_id},function(res){
+                    if(res == 0){
+                        return 0;
+                    }else{
+                        res = JSON.parse(res);
+                        last_id = res.last_id;
+                        var snsList = res.list.reverse();
+                        $.each(snsList,function(n,value){
+                            addSns(value.user_id,value.nickname,value.head_pic_url,value.content,value.time_str);
+                        });
+                    }
+                });
+            }
+            function addSns(user_id,nickname,head_pic_url,content,time_str){
+                var laokeObj = $('#laoke');
+                var laokeLength = $('#laoke li').length;
+                if(laokeLength >= 6){
+                    laokeObj.children().last().remove();
+                }
+                var html = '<li class="am-comment">'
+                                +'<article class="am-comment">'
+                                    +'<a href="#link-to-user-home">'
+                                        +'<img src="' + head_pic_url + '" alt="" class="am-comment-avatar" width="48" height="48"/>'
+                                    +'</a>'
+                                    +'<div class="am-comment-main">'
+                                        +'<header class="am-comment-hd">'
+                                        +'<div class="am-comment-meta">'
+                                            +'<a href="#link-to-user" class="am-comment-author">'+ nickname +'</a>发布于'
+                                            +'<time>'+ time_str +'</time>'
+                                        +'</div>'
+                                        +'</header>'
+                                        +'<div class="am-comment-bd">' + content +'</div>'
+                                    +'</div>'
+                                +'</article>'
+                            +'</li>';
+                laokeObj.prepend(html);
+            }
+            $('#fankui-add').click(function(){
+                loading = layer.load();
+                var content = $('#fankui-content').val();
+                if('' == content || null == content){
+                    layer.close(loading);
+                    layer.msg('请先填写内容');
+                    return 0;
+                }
+                $.post("{:U('Home/Fankui/add')}",{content:content},function(res){
+                    layer.close(loading);
+                    res = JSON.parse(res);
+                    if(res.result == '0'){
+                        layer.msg(res.info);
+                    }else{
+                        $('#fankui-content').val('');
+                        layer.msg(res.info,{icon: 1});
+                    }
+                });
+            });
+        });
+    </script>
+</block>

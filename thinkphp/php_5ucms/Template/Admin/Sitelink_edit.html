@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>站内链接管理</title>
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+	<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1'>
+	  <tr class=css_menu>
+	    <td colspan=2><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+	        <tr>
+	          <td class=css_main><a href={:U('index')}>站内链接管理</a></td>
+	        </tr>
+	      </table></td>
+	  </tr>
+	  <form name='frm' method='post' action='{:U('edit?id='.$qinfo['id'])}'>
+	    
+	    <tr>
+	      <td class=css_col12>链接文字：<div id='htext' style="color:#ccc;letter-spacing: 0px;font-size:13px;">需要替换的文本,必填&nbsp;</div></td>
+	      <td class=css_col22>
+	      <input class='css_input' name="text" type="text" id="otext" onfocus="htext.style.color='red';" onblur="htext.style.color='#ccc';" value="{$qinfo.text}" size=50 >
+	      </td>
+	    </tr>
+	    
+	    <tr>
+	      <td class=css_col11>链接描述：<div id='hdescription' style="color:#ccc;letter-spacing: 0px;font-size:13px;">链接的描述内容,留空则使用链接文字,随机选择描述请用|分隔不同的描述&nbsp;</div></td>
+	      <td class=css_col21>
+	      <input class='css_input' name="description" type="text" id="odescription" onfocus="hdescription.style.color='red';" onblur="hdescription.style.color='#ccc';" value="{$qinfo.description}" size=50 >
+	      </td>
+	    </tr>
+	    
+	    <tr>
+	      <td class=css_col12>链接地址：<div id='hlink' style="color:#ccc;letter-spacing: 0px;font-size:13px;">该文本对应的链接地址,推荐以http://形式开头&nbsp;</div></td>
+	      <td class=css_col22>
+	      <input class='css_input' name="link" type="text" id="olink" onfocus="hlink.style.color='red';" onblur="hlink.style.color='#ccc';" value="{$qinfo.link}" size=50 >
+	      </td>
+	    </tr>
+	    
+	    <tr>
+	      <td class=css_col11>优先级别：<div id='horder' style="color:#ccc;letter-spacing: 0px;font-size:13px;">数字越大,越优先替换&nbsp;</div></td>
+	      <td class=css_col21>
+	      <input class='css_input' name="order" type="text" id="oorder" onfocus="horder.style.color='red';" onblur="horder.style.color='#ccc';" value="{$qinfo.order}" size=10 >
+	      </td>
+	    </tr>
+	    
+	    <tr>
+	      <td class=css_col12>替换次数：<div id='hreplace' style="color:#ccc;letter-spacing: 0px;font-size:13px;">替换链接的次数，为0时则替换全部&nbsp;</div></td>
+	      <td class=css_col22>
+	      <input name="replace" type="text" class="css_input" id="oreplace" onfocus="hreplace.style.color='red';" onblur="hreplace.style.color='#ccc';" value="{$qinfo.replace}" size="10" >
+	      </td>
+	    </tr>
+	    
+	    <tr>
+	      <td class=css_col11>打开方式：<span id='htarget' style="color:#ccc;letter-spacing: 0px;font-size:13px;"></span></td>
+	      <td class=css_col21>
+	      
+	      <span style="width: 100px;"><input  <eq name="qinfo.target" value="0">checked='checked'</eq>  class='css_input' name="target" type="radio" id="otarget" onfocus="htarget.style.color='red';" onblur="htarget.style.color='#ccc';" value="0"  >原窗口</span>
+	      <span style="width: 100px;"><input <eq name="qinfo.target" value="1">checked='checked'</eq>  class='css_input' name="target" type="radio" id="otarget" onfocus="htarget.style.color='red';" onblur="htarget.style.color='#ccc';" value="1"  >新窗口</span>
+	      </td>
+	    </tr>
+	    
+	    <tr>
+	      <td class=css_col12>状态：<span id='hstate' style="color:#ccc;letter-spacing: 0px;font-size:13px;"></span></td>
+	      <td class=css_col22>
+	      
+	      <span style="width: 100px;"><input <eq name="qinfo.state" value="0">checked='checked'</eq>  class='css_input' name="state" type="radio" id="ostate" onfocus="hstate.style.color='red';" onblur="hstate.style.color='#ccc';" value="0"  >禁用</span>
+	      <span style="width: 100px;"><input <eq name="qinfo.state" value="1">checked='checked'</eq>   class='css_input' name="state" type="radio" id="ostate" onfocus="hstate.style.color='red';" onblur="hstate.style.color='#ccc';" value="1"  >启用</span>
+	      </td>
+	    </tr>
+	    <tr class=css_page_list>
+	      <td colspan=2><input type='submit' name='Submit' value='保存'></td>
+	    </tr>
+	  </form>
+	</table>
+	
+</body>
+</html>

@@ -1,0 +1,143 @@
+.get {
+    background: #0bb59b;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.get-title {
+    font-size: 200%;
+    border: 2px solid #fff;
+    padding: 20px;
+    display: inline-block;
+}
+
+.get-btn {
+    background: #1f8dd6;
+}
+
+.detail {
+    background: #fff;
+}
+
+.detail-h2 {
+    text-align: center;
+    font-size: 150%;
+    margin: 40px 0;
+}
+
+.detail-h3 {
+    color: #1f8dd6;
+}
+
+.detail-p {
+    color: #7f8c8d;
+}
+
+.detail-mb {
+    margin-bottom: 30px;
+}
+
+.hope {
+    background: #0bb59b;
+    padding: 50px 0;
+    font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #FFF;
+}
+
+.hope-img {
+    text-align: center;
+}
+
+.hope-hr {
+    border-color: #149C88;
+}
+
+.hope-title {
+    font-size: 140%;
+}
+
+.about {
+    background: #fff;
+    padding: 40px 0;
+    color: #7f8c8d;
+}
+
+.about-color {
+    color: #34495e;
+}
+
+.about-title {
+    font-size: 180%;
+    padding: 30px 0 50px 0;
+    text-align: center;
+}
+
+.index-pic{
+    padding: 50px 0;
+}
+.index-pic img{
+    max-width:100%;
+    height:auto;
+}
+.get-p a{
+    font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #FFF;
+}
+.get-p a:hover{
+    color: #b8fff8;
+}
+
+.article-list{
+    font-size: 14px;
+}
+
+.article-list >li{
+    border: none;
+}
+
+.article-list >li >a{
+    padding: 2px 0px
+}
+.am-panel-default>.am-panel-hd{
+    background-color: #317ef3;
+    color: #FFF;
+    font-size: 15px;
+    padding: 0.4rem 1.25rem;
+}
+.am-panel-default>.am-panel-hd>a{
+    color: #EEE;
+    font-size: 14px;
+}
+.laoke-push textarea{
+    width: 79%;
+    border: 1px solid #5EB95E;
+}
+.laoke-push button{
+    width: 19%;
+    padding: 1.5em 1em;
+}
+.laoke-list{
+    padding-top: 8px;
+}
+.laoke-list .am-comment-main{
+    margin-right: 1px;
+}
+.laoke-list .am-comment-bd{
+    padding: 8px;
+    font-size: 14px;
+}
+.laoke-list .am-comment-meta{
+    padding: 6px 10px;
+}
+.laoke-list .am-comments-list .am-comment{
+    margin: 0.3rem 0 0;
+}
+.fankui-push textarea{
+    width: 79%;
+    border: 1px solid #0E90D2;
+}
+.fankui-push button{
+    width: 19%;
+    padding: 1.5em 1em;
+}

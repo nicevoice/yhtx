@@ -1,0 +1,81 @@
+<header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+    <div class="am-g">
+        <h1 class="am-topbar-brand">
+            <a href="{:U('Admin/Index/index')}">
+                <img style="height: 40px;width: auto" src="__PUBLIC__/Home/images/logo.png">管理后台
+            </a>
+        </h1>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only" data-am-collapse="{target: '#collapse-head'}">
+            <span class="am-sr-only">导航切换</span>
+            <span class="am-icon-bars"></span>
+        </button>
+        <div class="am-collapse am-topbar-collapse" id="collapse-head">
+            <ul class="am-nav am-nav-pills am-topbar-nav my-nav">
+                <li>
+                    <a href="{:U('Admin/Index/index')}">首页</a>
+                </li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        内容管理<span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li class="am-dropdown-header">内容分类</li>
+                        <volist name="_categoryList" id="cvo">
+                            <li <if condition=" $cvo['category_id'] eq I('category_id') ">class="am-active"</if> >
+                                <a href="{:U('Admin/Article/articleList',array('category_id'=>$cvo['category_id'] ))}">
+                                    {$cvo['title']}
+                                </a>
+                            </li>
+                        </volist>
+                        <li <if condition=" I('category_id') eq null ">class="am-active"</if> >
+                            <a href="{:U('Admin/Article/articleList')}">
+                                更多分类
+                            </a>
+                        </li>
+                        <li class="am-divider"></li>
+                        <li class="am-dropdown-header">待处理</li>
+                        <li><a href="#">待审核</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{:U('Admin/Category/index')}">分类管理</a>
+                </li>
+                <li>
+                    <form action="#" class="am-topbar-form am-topbar-left am-form-inline" role="search">
+                        <div class="am-form-group">
+                            <input type="text" class="am-form-field am-input-sm" placeholder="全站文章搜索">
+                        </div>
+                    </form>
+                </li>
+                <li>
+                    <a href="{:U('Admin/User/index')}">用户管理</a>
+                </li>
+                <li>
+                    <a href="{:U('Admin/Org/index')}">机构管理</a>
+                </li>
+            </ul>
+            <div class="am-topbar-right">
+                <button id="logout" data-url="{:U('Home/User/logout')}" class="am-btn am-btn-danger am-topbar-btn am-btn-sm"><span class="am-icon-user"></span> 退出</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            var url;
+            $('.use-button').click(function(){
+                window.location.href = $(this).attr('data-url');
+            });
+            $('#logout').click(function(){
+                url = $(this).attr('data-url');
+                layer.confirm('你真的要退出吗？', {
+                    btn: ['是的','再等会'], //按钮
+                    shade: 0.6 //不显示遮罩
+                }, function(){
+                    window.location.href = url;
+                }, function(){
+
+                });
+            });
+        });
+    </script>
+</header>

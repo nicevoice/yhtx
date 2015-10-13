@@ -1,0 +1,48 @@
+<extend name="Public/common" />
+<block name="style">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/org.css">
+</block>
+<block name="body">
+    <div class="my-org">
+        <empty name="_orgInfo">
+            <div class="am-container" style="min-height: 600px">
+                <article class="am-article">
+                    <div class="am-article-hd">
+                        <h1 class="am-article-title">加入说明</h1>
+                        <p class="am-article-meta">demoto</p>
+                    </div>
+                    <div class="am-article-bd">
+                        <p class="am-article-lead">
+                            阿斯达傻傻的金卡和寄售点卡很快就是等哈说快点哈卡技术黄金大华会计师和大家卡号数据库的黄金卡和数据库的黄金卡和会计师的会计啊哈数据库的环境开始会计等哈看见手机端
+                        </p>
+                    </div>
+                </article>
+            </div>
+            <div class="am-container">
+                <a class="am-btn am-btn-default">拒绝</a>
+                &nbsp;&nbsp;&nbsp;
+                <a class="am-btn am-btn-warning" href="{:U('Home/Org/add')}">同意</a>
+            </div>
+            <else/>
+            <div class="am-container" style="min-height: 600px">
+                <article class="am-article">
+                    <div class="am-article-hd">
+                        <h1 class="am-article-title">{$_orgInfo['name']}</h1>
+                    </div>
+                    <div class="am-article-bd">
+                        <p class="am-article-lead">
+                            {$_orgInfo['des']}
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </empty>
+
+
+    </div>
+</block>
+<block name="script">
+    <script>
+        highlight_subnav("{:U('Home/Index/index')}");
+    </script>
+</block>

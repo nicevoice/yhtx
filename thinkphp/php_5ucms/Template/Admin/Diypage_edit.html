@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>自定义页面管理</title>
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="images/ajax.js"></script>
+</head>
+<body>
+
+	<form name='frm' method='post' action='{:U('edit?id='.$qinfo['id'])}'>    
+<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1'>
+	<tr class=css_menu>
+		<td colspan=2><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+				<tr>
+					<td class=css_main><a href={:U('index')}>自定义页面管理</a>   <a href="http://b8bx.com/html2js.html" target="_blank">JS/HTML互转</a></td>
+				</tr>
+			</table></td>
+	</tr>
+
+		<tr>
+			<td class=css_col11>完整路径：
+				<div id='hdir' style="color:#ccc;letter-spacing: 0px;font-size:13px;">文件路径及文件名(不要超过200个字符),以/开头,如 /about/contact/</div></td>
+			<td class=css_col21><input name="dir" type="text" class="css_input" id="odir" onfocus="hdir.style.color='red';" onblur="hdir.style.color='#ccc';" value="{$qinfo.dir}" size="40" > 若修改，需要删除旧的生成文件。
+				</td>
+		</tr>
+		<tr id="_tpl">
+			<td class=css_col12>自定义页面模板：
+				<div id='hTpl' style="color:#ccc;letter-spacing: 0px;font-size:13px;">如果选择了模板将会把代码内容嵌入其中</div></td>
+			<td class=css_col22> 
+            <input name="tpl" type="text" class="css_input" id="oTpl" onfocus="hTpl.style.color='red';" onblur="hTpl.style.color='#ccc';" value="{$qinfo.tpl}" size="40" > 
+                
+                <select name="tl" id="ol" class='css_select' onchange="frm.oTpl.value=this.value;">
+					<?php echo gettemplatedir('Common') ?>
+                    <option value="" >不使用模版</option>
+				</select> 
+				
+			</td>
+		</tr>
+		<tr id="_tit">
+			<td class=css_col11>页面标题：
+				<div id='htitle' style="color:#ccc;letter-spacing: 0px;font-size:13px;">页面标题,不要超过200字,不可填写HTML代码</div></td>
+			<td class=css_col21><input name="title" type="text" class="css_input" id="otitle" onfocus="htitle.style.color='red';" onblur="htitle.style.color='#ccc';" value="{$qinfo.title}" size="40" > 标题 关键词 描述 选模板后有效</td>
+		</tr>
+		<tr id="_key">
+			<td class=css_col12>页面关键字：
+				<div id='hkeywords' style="color:#ccc;letter-spacing: 0px;font-size:13px;">多个关键字用英文状态下的逗号分隔,不要超过200字,不可填写HTML代码</div></td>
+			<td class=css_col22><textarea name="keywords" cols="60" rows="3" class="css_input" id="okeywords" onfocus="hkeywords.style.color='red';" onblur="hkeywords.style.color='#ccc';">{$qinfo.keywords}</textarea>
+			</td>
+		</tr>
+		<tr id="_des">
+			<td class=css_col11>页面描述：
+				<div id='hdescription' style="color:#ccc;letter-spacing: 0px;font-size:13px;">不要超过250个字符,不可填写HTML代码</div></td>
+			<td class=css_col21><textarea name="description" cols="60" rows="3" class="css_input" id="odescription" onfocus="hdescription.style.color='red';" onblur="hdescription.style.color='#ccc';">{$qinfo.description}</textarea></td>
+		</tr>
+		<tr>
+			<td class=css_col12>代码内容：
+				<div id='hHtml' style="color:#ccc;letter-spacing: 0px;font-size:13px;">支持HTML,注意代码编码,可以使用标签&nbsp;</div></td>
+			<td class=css_col22>        <style>
+			form {
+				margin: 0;
+			}
+			textarea {
+				display: block;
+			}
+		</style>
+            
+         <script charset="utf-8" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+		<script>
+			$(function() {
+				var editor;
+				$('input[name=load]').click(function() {
+					$.getScript('{$installdir}inc/editor/kindeditor/kindeditor-min.js', function() {
+						KindEditor.basePath = '{$installdir}inc/editor/kindeditor/';
+						editor = KindEditor.create('textarea[name="html"]',{allowImageupload: false,allowFilemanager: false,allowFlashupload: false,allowMediaupload:false,allowFileupload:false,items : ['source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/','formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak','anchor', 'link', 'unlink', '|', 'about']});
+					});
+				});
+				$('input[name=remove]').click(function() {
+					if (editor) {
+						editor.remove();
+						editor = null;
+					}
+				});
+			});
+		</script>
+		<input type="button" name="load" value="加载编辑器" />
+		<input type="button" name="remove" value="删除编辑器" /><textarea name="html" id="oHtml" style="width:98%;height:400px;" onfocus="hHtml.style.color='red';" onblur="hHtml.style.color='#ccc';">{$qinfo.html}</textarea>
+			
+			</td>
+		</tr>
+        
+<tr>
+			<td class=css_col12>备注：
+				<div id='hHtml2' style="color:#ccc;letter-spacing: 0px;font-size:13px;">备注一些信息 防改错<br>当为空时，自动复制上方信息。</div></td> 
+ 
+		 <td class=css_col21>
+			<textarea name="html2" id="oHtml2" style="width:98%;height:200px;" onfocus="hHtml2.style.color='red';" onblur="hHtml2.style.color='#ccc';">{$qinfo.html2}</textarea>
+			</td>
+		</tr>
+        
+		<tr class=css_page_list>
+			<td colspan=2><input type='submit' name='Submit' value='保存'></td>
+		</tr>
+</table>
+</form>
+
+</body>
+</html>

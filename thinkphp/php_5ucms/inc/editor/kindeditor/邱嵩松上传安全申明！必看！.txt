@@ -1,0 +1,15 @@
+第1步，在后台的自定义页处生成一个asp文件
+
+完整路径填 /cacheflag.asp
+选择 不使用模版
+
+代码内容如下
+
+
+<%
+dim Cacheflag
+Cacheflag = "{sys:cacheflag}"
+%>
+
+
+第2步，把压缩包中的全部文件覆盖到你旧的\inc\editor\kindeditor下

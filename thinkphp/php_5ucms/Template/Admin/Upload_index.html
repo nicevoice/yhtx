@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>上传文件管理</title>
+<link href="images/Style.Css" rel="stylesheet" type="text/css" />
+<script src="images/ajax.js"></script>
+</head>
+<body>
+
+	<table width=100% border=0 cellpadding=3 cellspacing=1 class=css_table bgcolor='#E1E1E1' id="www_5ucms_org">
+	  <tr class=css_menu>
+	    <td colspan=6 class=css_main><table width=100% border=0 cellpadding=4 cellspacing=0 class=css_main_table>
+	        <form name=frmSearch method=get action={:U('index')}>
+	          <tr>
+	            <td class=css_main><a href={:U('index')}>上传文件管理</a> <a href={:U('clear')}>清理上传文件</a> <a href={:U('clearsl')}>清理所有缩略图</a></td>
+	            <td class=css_search><select name=dfieldkey id=dfieldkey>
+	              <option <?php if($dfieldkey == 'id'){ echo 'selected="selected"'; } ?> value="id" >编号</option>
+                  <option <?php if($dfieldkey == 'aid'){ echo 'selected="selected"'; } ?> value="aid" >文章id</option>
+                  <option <?php if($dfieldkey == 'cid'){ echo 'selected="selected"'; } ?> value="cid" >栏目id</option>
+                  <option <?php if($dfieldkey == 'dir'){ echo 'selected="selected"'; } ?> value="dir" >路径</option>
+                  <option <?php if($dfieldkey == 'ext'){ echo 'selected="selected"'; } ?> value="ext" >扩展名</option>
+                  <option <?php if($dfieldkey == 'Time'){ echo 'selected="selected"'; } ?> value="Time" >时间</option>
+	              </select>
+	              <input name=key type=text id=Key size=10 value="{$key}">
+	              <input type=submit name=Submit value=搜>	            </td>
+	          </tr>
+	        </form>
+	      </table></td>
+	  </tr>
+	  <tr>
+	    <td class='css_top'>编号</td>
+	    <td class='css_top'>所属文章</td>
+	    <td class='css_top'>路径</td>
+	    <td class='css_top'>扩展名</td>
+	    <td class='css_top'>上传时间</td>
+	    <td class='css_top'>管理</td>
+	    </tr>
+              <tbody id="QQ3876307">
+<volist name="qtable" id="v">
+	  <tr>
+	    <td width=35 class=css_list>{$v.id}</td>
+	    <td class=css_list>
+	      <div align="left"><a href="{:U('content/edit?id='.$v['aid'])}" title="aid:{$v.aid} cid:{$v.cid} 点击可修改文章">{$v.title}</a></div></td>
+	    <td class=css_list>
+		  <div align="left"> 
+          <?php if(strpos('jpg,gif,jpeg,png,bmp',$v['ext'])!==false) { echo '<span id="Zoom'.$v['id'].'"></span><span onclick=window.open("'.$v['id'].'"); onmouseover=zoom("Zoom'.$v['id'].'","'.$v['dir'].'"); style="cursor:hand;" onmouseout=Zoom'.$v['id'].'.innerHTML=""; >'.$v['dir'].'</span> '; } else { echo '<a href='.$v['dir'].' target=_blank>'.$v['dir'].'</a>';  } ?>
+          </div></td>
+	    <td width=50 class=css_list>{$v.ext}</td>
+	    <td width=110 class=css_list><?php echo date('Y-m-d H:i:s',$v['time']); ?></td>
+	    <td width=110 class=css_list><input name=delete type=button onclick="if(confirm('您确定要删除这条记录吗?')){location.href='{:U('del?id='.$v['id'])}';}" value=删除></td>
+	    </tr>
+</volist>
+      </tbody>
+	  <tr class=css_page_list>
+	    <td colspan=6><div style="clear:both;"></div>
+ <div class="i5upage">  {$page}
+ <div style="clear:both;"></div>
+ </div></td>
+	  </tr>
+</table>
+<script language="JavaScript" type="text/javascript" src="images/q3876307.js"></script>
+	
+</body>
+</html>

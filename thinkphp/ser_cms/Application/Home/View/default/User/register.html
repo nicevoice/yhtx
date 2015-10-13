@@ -1,0 +1,231 @@
+<extend name="Public/common" />
+<block name="style">
+
+</block>
+<block name="body">
+    <div style="padding-top: 100px">
+        <div class="am-g am-container">
+            <div class="am-u-lg-8">
+                <form id="register-form" action="{:U('Home/User/doRegister')}" method="post" class="am-form am-form-horizontal">
+                    <div class="am-form-group">
+                        <label for="email" class="am-u-lg-2 am-form-label">电子邮件</label>
+                        <div class="am-u-lg-10">
+                            <input type="email" required id="email" name="email" placeholder="输入你的电子邮件">
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="phone" class="am-u-lg-2 am-form-label">手机</label>
+                        <div class="am-u-lg-6">
+                            <input type="number" name="phone" required maxlength="20" id="phone" placeholder="请填写手机号">
+                        </div>
+                        <div class="am-u-lg-2 am-u-end">
+                            <a class="am-btn am-btn-primary" id="sendSMS">发送验证码</a>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="code" class="am-u-lg-2 am-form-label">手机验证码</label>
+                        <div class="am-u-lg-4 am-u-end">
+                            <input type="number" name="code" id="code" required maxlength="8" placeholder="请填写验证码">
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="password" class="am-u-lg-2 am-form-label">密码</label>
+                        <div class="am-u-lg-10">
+                            <input type="password" required minlength="6" maxlength="20" id="password" name="password" placeholder="设置一个密码吧(6-20位)">
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="re_password" class="am-u-lg-2 am-form-label">确认密码</label>
+                        <div class="am-u-lg-10">
+                            <input type="password" required minlength="6" maxlength="20" id="re_password" name="re_password" placeholder="确认密码">
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="nickname" class="am-u-lg-2 am-form-label">昵称</label>
+                        <div class="am-u-lg-10">
+                            <input type="text" name="nickname" required maxlength="10" id="nickname" placeholder="10个字以内ok">
+                        </div>
+                    </div>
+                    <div class="am-form-group am-form-file">
+                        <label class="am-u-lg-2 am-form-label">头像</label>
+                        <div class="am-u-lg-10">
+                            <div style="width:100%;padding-top: 10px" id="container">
+                                <button id="pickfiles" type="button" class="am-btn am-btn-danger am-btn-sm">
+                                    上传头像
+                                </button>
+                                <input id="picture" name="picture" type="hidden">
+                            </div>
+                            <div id="file-list"></div>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="summary" class="am-u-lg-2 am-form-label">个人简介</label>
+                        <div class="am-u-lg-10">
+                            <textarea required maxlength="255" name="summary" id="summary" placeholder="255个字以内ok"></textarea>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="realname" class="am-u-lg-2 am-form-label">真实姓名</label>
+                        <div class="am-u-lg-10">
+                            <input type="text" name="realname" maxlength="5" id="realname" placeholder="可以不填">
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="qq" class="am-u-lg-2 am-form-label">QQ</label>
+                        <div class="am-u-lg-10">
+                            <input type="text" name="qq" maxlength="20" id="qq" placeholder="可以不填">
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="sex" class="am-u-lg-2 am-form-label">性别</label>
+                        <div class="am-u-lg-10">
+                            <select id="sex" name="sex">
+                                <option>保密</option>
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="am-form-group">
+                        <div class="am-u-lg-10 am-u-lg-offset-2">
+                            <button type="submit" class="am-btn am-btn-primary">提交信息</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="am-u-lg-4">
+                <div>
+                    <img id="head-pic" src="__PUBLIC__/Home/images/default_head.png" width="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript" src="__PUBLIC__/qiniu/plupload/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/qiniu//plupload/i18n/zh_CN.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/qiniu/qiniu.js"></script>
+    <script>
+        var url;
+        var loading;
+        $(function() {
+            var ajax_form_options = {
+//                target:        '#comment-form',   // target element(s) to be updated with server response
+                beforeSubmit:  beforeSubmit,  // pre-submit callback
+                success:       showResponse  // post-submit callback
+            };
+            $('#register-form').ajaxForm(ajax_form_options);
+            function beforeSubmit(){
+                loading = layer.load();
+            }
+            function showResponse(responseText,statusText){
+                layer.close(loading);
+                if(responseText.status == 1){
+                    layer.msg(responseText.info,{icon: 1});
+                    url = responseText.url;
+                    setTimeout("window.location.href=url",1500);
+                }else{
+                    layer.msg(responseText.info);
+                }
+            }
+
+            var domain = "<php> $qc = C('qiniu_config');echo $qc['url'] </php>";
+            var uploader = Qiniu.uploader({
+                runtimes: 'html5,flash,html4',    //上传模式,依次退化
+                browse_button: 'pickfiles',       //上传选择的点选按钮，**必需**
+                uptoken_url: "{:U('Home/User/get_qiniu_token')}",
+                //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+                // uptoken : '<Your upload token>',
+                //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+//                unique_names: true,
+                // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
+                save_key: true,
+                // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
+                domain: domain,
+                //bucket 域名，下载资源时用到，**必需**
+                container: 'container',           //上传区域DOM ID，默认是browser_button的父元素，
+                max_file_size: '100mb',           //最大文件体积限制
+                flash_swf_url: '__PUBLIC__/qiniu/plupload/Moxie.swf',  //引入flash,相对路径
+                max_retries: 3,                   //上传失败最大重试次数
+                dragdrop: true,                   //开启可拖曳上传
+                drop_element: 'container',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                chunk_size: '4mb',                //分块上传时，每片的体积
+                auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                init: {
+                    'FilesAdded': function(up, files) {
+                        plupload.each(files, function(file) {
+                            // 文件添加进队列后,处理相关的事情
+                        });
+                    },
+                    'BeforeUpload': function(up, file) {
+                        // 每个文件上传前,处理相关的事情
+                        loading = layer.load();
+                    },
+                    'UploadProgress': function(up, file) {
+
+                    },
+                    'FileUploaded': function(up, file, info) {
+                        var obj = JSON.parse(info);
+                        $('#picture').val(obj.key);
+                        $('#head-pic').attr('src',domain + obj.key);
+                        layer.close(loading);
+                    },
+                    'Error': function(up, err, errTip) {
+                        //上传出错时,处理相关的事情
+                    },
+                    'UploadComplete': function() {
+                        //队列文件处理完毕后,处理相关的事情
+                    },
+                    'Key': function(up, file) {
+                        // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                        // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                        var key = "";
+                        // do something with key here
+                        return key
+                    }
+                }
+            });
+            var sendSmsObj;
+            var sendLock = 1;
+            var t = 60;
+            var id_of_setInterval;
+            $('#sendSMS').click(function(){
+                var phone = $('#phone').val();
+                if(phone == '' || phone == 'undefined'){
+                    layer.msg('请先填写手机号');
+                    return 0;
+                }
+                sendSmsObj = $(this);
+                sendSmsObj.attr("disabled",true);
+                if(sendLock == 1){
+                    $.post("{:U('Home/User/sendSMS')}",{phone:phone},function(res){
+                        var res = JSON.parse(res);
+                        if(res.status == 1){
+                            sendLock = 0;
+                            id_of_setInterval = setInterval(function(){
+                                if(sendLock == 1){
+                                    clearInterval(id_of_setInterval);
+                                    return 0;
+                                }
+                                sendSmsObj.text(t+'秒');
+                                t--;
+                                if(t <= 0){
+                                    sendSmsObj.attr("disabled",false);
+                                    sendSmsObj.text('发送验证码');
+                                    sendLock = 1;
+                                    t = 60;
+                                }
+                            },1000);
+                        }else{
+//                            layer.msg(res.info);
+                            layer.msg('目前测试阶段，验证码是：123456');
+                        }
+                    });
+                }else{
+                    layer.msg('暂时不能发送，请刷新重试');
+                    return 0;
+                }
+            });
+        });
+    </script>
+</block>

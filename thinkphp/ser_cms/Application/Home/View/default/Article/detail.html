@@ -1,0 +1,119 @@
+<extend name="Public/common" />
+<block name="style">
+    <style>
+        .content-w img{
+            width: 100%;
+        }
+    </style>
+</block>
+<block name="body">
+    <div style="padding-top: 20px">
+        <div class="am-g am-container">
+            <div class="am-u-lg-7">
+                <article class="am-article">
+                    <div class="am-article-hd">
+                        <h1 class="am-article-title">{$_article['title']}</h1>
+                        <p class="am-article-meta">
+                            <if condition=" !empty($_article['src_user_id']) ">
+                                <span style="color: #006faf">原创者</span>：{:get_nickname($_article['src_user_id'])}&nbsp;
+                            </if>
+                            <span style="color: #008855">发布者</span>：{:get_nickname($_article['user_id'])}&nbsp;
+                            发布时间：2015-05-05&nbsp;
+                            <if condition=" !empty($_article['src_link'])">
+                                <a href="{$_article['src_link']}" style="color: #e05c55">查看原文</a>
+                            </if>
+                        </p>
+                    </div>
+                    <div class="am-article-bd">
+                        <p class="am-article-lead" style="word-wrap: break-word; word-break: normal;">{$_article['des']}</p>
+                    </div>
+                </article>
+            </div>
+            <div class="am-u-lg-4">
+                <img width="100%" src="{$_article['picture_url']}">
+            </div>
+        </div>
+        <div class="am-g am-container">
+            <div class="am-u-lg-12 content-w">
+                {$_article['content']}
+            </div>
+        </div>
+        <div class="am-g am-container">
+            <div class="am-u-lg-7">
+                <div>
+                    <form id="comment-form" action="{:U('Home/Article/doAddComment')}" class="am-form" method="post">
+                        <div class="am-form-group">
+                            <textarea name="content" maxlength="255" required class="" rows="3" id="content" placeholder="发布评论（字数范围1-255个字）"></textarea>
+                        </div>
+                        <div class="am-form-group">
+                            <input type="hidden" name="article_id" value="{$_article['article_id']}">
+                            <button class="am-btn am-btn-success">发布</button>
+                        </div>
+                    </form>
+                </div>
+                <ul class="am-comments-list am-comments-list-flip">
+                    <volist name="_commentList" id="cvo">
+                        <li class="am-comment am-comment-highlight">
+                            <a href="javascript:;">
+                                <img src="{:get_head_picture($_cvo['user_id'])}" alt="" class="am-comment-avatar" width="48" height="48"/>
+                            </a>
+                            <div class="am-comment-main">
+                                <header class="am-comment-hd">
+                                    <div class="am-comment-meta">
+                                        <a href="#link-to-user" class="am-comment-author">{:get_nickname($_cvo['user_id'])}</a>
+                                        评论于 <time>{:date('Y-m-d H:i',$cvo['create_time'])}</time>
+                                    </div>
+                                </header>
+                                <div class="am-comment-bd">
+                                    {$cvo['content']}
+                                </div>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="am-u-lg-4 am-u-lg-offset-1">
+                <section class="am-panel am-panel-default">
+                    <header class="am-panel-hd">
+                        <h3 class="am-panel-title">小热门</h3>
+                    </header>
+                    <ul class="am-list am-list-static">
+                        <volist name="_ggList" id="ggvo">
+                            <li>
+                                <a href="{:U('Home/Article/detail',array('article_id'=>$ggvo['article_id']))}" style="padding: 0">{$ggvo['title']}</a>
+                            </li>
+                        </volist>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script>
+        highlight_subnav("{:U('Home/Index/index')}");
+        var url;
+        var loading;
+        $(document).ready(function(){
+            var ajax_form_options = {
+//                target:        '#comment-form',   // target element(s) to be updated with server response
+                beforeSubmit:  beforeSubmit,  // pre-submit callback
+                success:       showResponse  // post-submit callback
+            };
+            $('#comment-form').ajaxForm(ajax_form_options);
+        });
+        function beforeSubmit(){
+            loading = layer.load();
+        }
+        function showResponse(responseText,statusText){
+            layer.close(loading);
+            if(responseText.status == 1){
+                layer.msg(responseText.info);
+                url = responseText.url;
+                setTimeout("window.location.href=url",1500);
+            }else{
+                layer.msg(responseText.info);
+            }
+        }
+    </script>
+</block>
