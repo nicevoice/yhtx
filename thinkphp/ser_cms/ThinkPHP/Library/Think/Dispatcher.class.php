@@ -178,6 +178,7 @@ class Dispatcher {
 
         if(!defined('__APP__')){
 	        $urlMode        =   C('URL_MODEL');
+
 	        if($urlMode == URL_COMPAT ){// 兼容模式判断
 	            define('PHP_FILE',_PHP_FILE_.'?'.$varPath.'=');
 	        }elseif($urlMode == URL_REWRITE ) {

@@ -15,7 +15,7 @@ class AdminController extends Controller{
 
     public function _initialize(){
         if(!is_admin()){
-            $this->error('对不起，您无权访问',U('Home/Index/index'));
+            //$this->error('对不起，您无权访问',U('Home/Index/index'));
         }
         $this->setMenu();
     }

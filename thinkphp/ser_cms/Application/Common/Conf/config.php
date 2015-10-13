@@ -6,7 +6,7 @@ return array(
     'DB_USER'               =>  'zfx',      // 用户名
     'DB_PWD'                =>  '111111',          // 密码
     'DB_PORT'               =>  '3306',        // 端口
-    'URL_MODEL'             =>  2,       // URL访问模式,可选参数0、1、2、3,代表以下四种模式：
+    'URL_MODEL'             =>  3,       // URL访问模式,可选参数0、1、2、3,代表以下四种模式：
     //七牛上传配置
     'qiniu_config' => array(
         'AccessKey' => '2ylH9TSMNhehEkVx4qa0J9d8MUVAbrpL7cpq31Xk',

@@ -101,7 +101,6 @@ class App {
                 E(L('_CONTROLLER_NOT_EXIST_').':'.CONTROLLER_NAME);
             }
         }
-
         // 获取当前操作名 支持动态路由
         if(!isset($action)){
             $action    =   ACTION_NAME.C('ACTION_SUFFIX');  

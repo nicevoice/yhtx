@@ -13,6 +13,7 @@ namespace Think;
 /**
  * ThinkPHP 引导类
  */
+
 class Think {
 
     // 类映射
