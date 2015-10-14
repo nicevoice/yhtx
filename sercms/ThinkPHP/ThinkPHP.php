@@ -8,7 +8,6 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
 //----------------------------------
 // ThinkPHP公共入口文件
 //----------------------------------
@@ -30,6 +29,11 @@ const URL_COMPAT = 3;  // 兼容模式
 
 // 类文件后缀
 const EXT = '.class.php';
+
+defined('URL_COMPAT') or define('URL_COMPAT', 555);
+
+//print_r(get_defined_constants()) ;die;//这个函数可用于打印出所有已定义常量zfx
+
 
 // 系统常量定义
 defined('THINK_PATH') or define('THINK_PATH', __DIR__ . '/');
@@ -73,7 +77,6 @@ if (version_compare(PHP_VERSION, '5.4.0', '<')) {
 define('IS_CGI', (0 === strpos(PHP_SAPI, 'cgi') || false !== strpos(PHP_SAPI, 'fcgi')) ? 1 : 0);
 define('IS_WIN', strstr(PHP_OS, 'WIN') ? 1 : 0);
 define('IS_CLI', PHP_SAPI == 'cli' ? 1 : 0);
-
 if (!IS_CLI) {
     // 当前文件名
     if (!defined('_PHP_FILE_')) {
@@ -90,7 +93,6 @@ if (!IS_CLI) {
         define('__ROOT__', (($_root == '/' || $_root == '\\') ? '' : $_root));
     }
 }
-
 // 加载核心Think类
 require CORE_PATH . 'Think' . EXT;
 // 应用初始化

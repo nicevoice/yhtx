@@ -29,15 +29,14 @@ class Think {
      */
     static public function start() {
       // 注册AUTOLOAD方法
-      spl_autoload_register('Think\Think::autoload');      
+      spl_autoload_register('Think\Think::autoload');
       // 设定错误和异常处理
-      register_shutdown_function('Think\Think::fatalError');
-      set_error_handler('Think\Think::appError');
-      set_exception_handler('Think\Think::appException');
+      //register_shutdown_function('Think\Think::fatalError');//这个是很靠后才执行的，die的时候才执行，所以输出在后面zfx
+      set_error_handler('Think\Think::appError');//这个只是注册，不运行zfx
+      set_exception_handler('Think\Think::appException');//这个只是注册，不运行zfx
 
-      // 初始化文件存储方式
-      Storage::connect(STORAGE_TYPE);
-
+        // 初始化文件存储方式
+        Storage::connect(STORAGE_TYPE);
       $runtimefile  = RUNTIME_PATH.APP_MODE.'~runtime.php';
       if(!APP_DEBUG && Storage::has($runtimefile)){
           Storage::load($runtimefile);
@@ -48,17 +47,17 @@ class Think {
           // 读取应用模式
           $mode   =   include is_file(CONF_PATH.'core.php')?CONF_PATH.'core.php':MODE_PATH.APP_MODE.'.php';
           // 加载核心文件
-          foreach ($mode['core'] as $file){
+          foreach ($mode['core'] as $file){//functions.php还必须放在第一个，且必须有，不然会报错zfx
               if(is_file($file)) {
                 include $file;
                 if(!APP_DEBUG) $content   .= compile($file);
               }
           }
-
           // 加载应用模式配置文件
           foreach ($mode['config'] as $key=>$file){
               is_numeric($key)?C(load_config($file)):C($key,load_config($file));
           }
+
 
           // 读取当前应用模式对应的配置文件
           if('common' != APP_MODE && is_file(CONF_PATH.'config_'.APP_MODE.CONF_EXT))
@@ -97,6 +96,7 @@ class Think {
             if(is_file(CONF_PATH.'debug'.CONF_EXT))
                 C(include CONF_PATH.'debug'.CONF_EXT);           
           }
+          echo 444;die;
       }
 
       // 读取当前应用状态对应的配置文件
