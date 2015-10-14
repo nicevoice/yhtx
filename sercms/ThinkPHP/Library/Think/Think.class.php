@@ -96,7 +96,6 @@ class Think {
             if(is_file(CONF_PATH.'debug'.CONF_EXT))
                 C(include CONF_PATH.'debug'.CONF_EXT);           
           }
-          echo 444;die;
       }
 
       // 读取当前应用状态对应的配置文件
