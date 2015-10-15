@@ -9,13 +9,17 @@
 namespace Admin\Controller;
 
 
+use Article\Model\ArticleModel;
+use User\Model\UserModel;
+use Organization\Model\OrganizationModel;
 
 class IndexController extends AdminController{
 
     public function index(){
-        $articleDao = D('Article/Article');
-        $userDao = D('User/User');
-        $orgDao = D('Org/Org');
+        //$articleDao = D('Article/Article');
+        $articleDao = new ArticleModel();
+        $userDao = new UserModel();
+        $orgDao = new OrganizationModel();
         //文章数
         $this->assign('_articleCount',$articleDao->where('status <> -1')->count());
         //用户数

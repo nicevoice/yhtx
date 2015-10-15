@@ -10,18 +10,20 @@ namespace Admin\Controller;
 
 
 use Think\Controller;
+use Article\Model\CategoryModel;
 
 class AdminController extends Controller{
 
     public function _initialize(){
         if(!is_admin()){
-            //$this->error('对不起，您无权访问',U('Home/Index/index'));
+            $this->error('对不起，您无权访问',U('Home/Index/index'));
         }
         $this->setMenu();
     }
 
     protected function setMenu(){
-        $categoryDao = D('Article/Category');
+        //$categoryDao = D('Article/Category');
+        $categoryDao = new CategoryModel();
         $categoryList = $categoryDao->getCategoryList(5);
         $this->assign('_categoryList',$categoryList);
     }
